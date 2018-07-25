@@ -85,9 +85,14 @@
 					"target": "login"
 				},
 				{
-					"pattern": "aDashboard",
+					"pattern" : "aDashboard",
 					"name": "aDashboard",
-					"target": "aDashboard"
+					"target":"aDashboard"
+				},
+				{
+					"pattern":"uDashboard",
+					"name": "uDashboard",
+					"target": "uDashboard"
 				}
 
 			],
@@ -97,14 +102,18 @@
 					"viewName": "Login",
 					"viewId": "login",
 					"viewLevel": 0
-				},
-				"aDashboard": {
-					"viewName": "aDashboard",
-					"viewId": "aDashboard",
-					"viewLevel": 1
 
-				}
-				
+				},
+					"aDashboard":{
+				"viewName": "aDashboard",
+				"viewId":"aDashboard",
+				"viewLevel": 1
+			},
+			"uDashboard": {
+				"viewName": "uDashboard",
+				"viewId": "uDashboard",
+				"viewLevel": 1
+			}
 			
 		},
 			"resources": {

@@ -1,0 +1,8 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="eventManagementEVA.controller.uDashboard">
+	<Page title="{i18n>uDashTitle}">
+	<content>
+	<Panel headerText="The list for user events"> </Panel>
+	</content>
+	</Page>
+</mvc:View>
