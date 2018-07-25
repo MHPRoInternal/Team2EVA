@@ -93,7 +93,13 @@
 					"pattern":"uDashboard",
 					"name": "uDashboard",
 					"target": "uDashboard"
+				},
+				{
+					"pattern": "uEvent",
+					"name": "uEvent",
+					"target": "uEvent"
 				}
+
 
 			],
 			
@@ -113,7 +119,14 @@
 				"viewName": "uDashboard",
 				"viewId": "uDashboard",
 				"viewLevel": 1
-			}
+			},
+			"uEvent": {
+					"viewName": "uEvent",
+					"viewId": "uEvent",
+					"viewLevel": 1
+
+				}
+
 			
 		},
 			"resources": {

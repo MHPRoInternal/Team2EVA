@@ -10,7 +10,11 @@ sap.ui.define([
 		},
 		userDashboard: function() {
 			this.getRouter().navTo("uDashboard");
+		},
+		onUEventTap  : function(){
+			this.getRouter().navTo("uEvent");
 		}
+
 	});
 
 });

@@ -9,6 +9,7 @@
 						<Button class="loginBtn" width="10rem" text="Login" type="Unstyled" press="onLoginTap"></Button>
 						<Button class="loginBtn" width="10rem" text="Admin Dashboard" type="Unstyled" press="adminDashboard"></Button>
 						<Button class="loginBtn" width="10rem" text="User Dashboard" type="Unstyled" press="userDashboard"></Button>
+						<Button class="loginBtn" width="10rem" text="User Event" type="Unstyled" press="onUEventTap"></Button>
 					</items>
 				</VBox>
 			</content>
