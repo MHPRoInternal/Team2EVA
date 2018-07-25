@@ -1,0 +1,14 @@
+/* Enter your custom styles here */
+
+.loginBtn {
+	border-radius: 20px;
+	background-color: PaleTurquoise;
+	width: 10rem;
+	margin: 10px auto;
+}
+.loginBtn:hover {
+	border-radius: 20px;
+	background-color: lawngreen;
+	width: 10rem;
+	margin: 10px auto;
+}
