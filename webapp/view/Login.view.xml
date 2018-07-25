@@ -4,7 +4,7 @@
 			<content>
 				<VBox fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
 					<items>
-						<Input id="uid" placeholder="User ID"></Input>
+						<Input id="uid" placeholder="User ID" ></Input>
 						<Input id="pasw" placeholder="Password" type="Password"></Input>
 						<Button class="loginBtn" width="10rem" text="Login" type="Unstyled" press="onLoginTap"></Button>
 						<Button class="loginBtn" width="10rem" text="Admin Dashboard" type="Unstyled" press="adminDashboard"></Button>
