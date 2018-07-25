@@ -4,7 +4,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 ], function(Controller, History) {
 	"use strict";
 	
-	return Controller.extend("internshipinternship2018.controller.BaseController", {
+	return Controller.extend("eventManagementEVA.controller.BaseController", {
 		getRouter: function() {
 			return this.getOwnerComponent().getRouter();
 		},

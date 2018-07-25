@@ -83,6 +83,11 @@
 					"pattern": "",
 					"name": "login",
 					"target": "login"
+				},
+				{
+					"pattern": "aDashboard",
+					"name": "aDashboard",
+					"target": "aDashboard"
 				}
 
 			],
@@ -92,8 +97,14 @@
 					"viewName": "Login",
 					"viewId": "login",
 					"viewLevel": 0
+				},
+				"aDashboard": {
+					"viewName": "aDashboard",
+					"viewId": "aDashboard",
+					"viewLevel": 1
 
 				}
+				
 			
 		},
 			"resources": {
