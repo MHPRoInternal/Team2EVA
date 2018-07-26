@@ -43,7 +43,11 @@ sap.ui.define([
 		userDashboard: function() {
 			this.getRouter().navTo("uDashboard");
 		},
+<<<<<<< HEAD
 		onUEventTap: function() {
+=======
+		onUEventTap  : function(){
+>>>>>>> 1b42f701d12dfbda3ea7e41b6ef9f437f3d77770
 			this.getRouter().navTo("uEvent");
 		}
 
