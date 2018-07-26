@@ -1,6 +1,5 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="eventManagementEVA.controller.Login"
 	xmlns:html="http://www.w3.org/1999/xhtml">
-<<<<<<< HEAD
 	<Page title="{i18n>loginTitle}">
 		<content>
 			<VBox fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
@@ -8,29 +7,9 @@
 					<Input id="uid" placeholder="User ID"></Input>
 					<Input id="pasw" placeholder="Password" type="Password"></Input>
 					<Button class="loginBtn" width="10rem" text="Login" type="Unstyled" press="onLoginTap"></Button>
-					<Button class="loginBtn" width="10rem" text="Admin Dashboard" type="Unstyled" press="adminDashboard"></Button>
-					<Button class="loginBtn" width="10rem" text="User Dashboard" type="Unstyled" press="userDashboard"></Button>
-					<Button class="loginBtn" width="10rem" text="User Event" type="Unstyled" press="onUEventTap"></Button>
 				</items>
 			</VBox>
 		</content>
 		<footer ></footer>
 	</Page>
-=======
-		<Page title="{i18n>loginTitle}">
-			<content>
-				<VBox fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
-					<items>
-						<Input id="uid" placeholder="User ID"></Input>
-						<Input id="pasw" placeholder="Password" type="Password"></Input>
-						<Button class="loginBtn" width="10rem" text="Login" type="Unstyled" press="onLoginTap"></Button>
-						<Button class="loginBtn" width="10rem" text="Admin Dashboard" type="Unstyled" press="adminDashboard"></Button>
-						<Button class="loginBtn" width="10rem" text="User Dashboard" type="Unstyled" press="userDashboard"></Button>
-						<Button class="loginBtn" width="10rem" text="User Event" type="Unstyled" press="onUEventTap"></Button>
-					</items>
-				</VBox>
-			</content>
-			<footer ></footer>
-		</Page>
->>>>>>> 1b42f701d12dfbda3ea7e41b6ef9f437f3d77770
 </mvc:View>

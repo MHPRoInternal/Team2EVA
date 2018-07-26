@@ -10,17 +10,25 @@ sap.ui.define([
 			var oModel = oView.getModel();
 			var uid = this.getView().byId("uid").getValue();
 			var pasw = this.getView().byId("pasw").getValue();
+			var route = this.getRouter();
 
 			oModel.read("/UserSet(IdUser='" + uid + "',Password='" + pasw + "')", {
-				success: function(oCompleteEntry) { 
-					console.log("Very nice!"); 
-					
+				success: function(oCompleteEntry) {
+					if (oCompleteEntry.Role === true) {
+						route.navTo("aDashboard");
+					} else if(oCompleteEntry.Role === false) {
+						route.navTo("uDashboard");
+				
+					}
 				},
 				error: function(oError) {
 					console.log("Not very nice!");
-					}
+				}
+				
 			});
-},
+			
+
+		}
 		// 	var oModel = new sap.ui.model.odata.v2.ODataModel({
 		// 		serviceUrl: "http://services.odata.org/Northwind/Northwind.svc",
 		// 		metadataUrlParams: {
@@ -29,28 +37,6 @@ sap.ui.define([
 		// 		}
 		// 	});
 		// 
-
-
-		onListItemPress: function(oEvent) {
-			var oListItem = oEvent.getSource();
-			var oBindingContext = oListItem.getBindingContext();
-			var resumeId = oBindingContext.getObject().Resumeid;
-		},
-
-		adminDashboard: function() {
-			this.getRouter().navTo("aDashboard");
-		},
-		userDashboard: function() {
-			this.getRouter().navTo("uDashboard");
-		},
-<<<<<<< HEAD
-		onUEventTap: function() {
-=======
-		onUEventTap  : function(){
->>>>>>> 1b42f701d12dfbda3ea7e41b6ef9f437f3d77770
-			this.getRouter().navTo("uEvent");
-		}
-
 	});
 
 });
