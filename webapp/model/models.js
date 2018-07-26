@@ -7,10 +7,9 @@ sap.ui.define([
 	return {
 
 		createDeviceModel: function() {
-			var oModel = new JSONModel(Device);
-			oModel.setDefaultBindingMode("OneWay");
+			var oModel = new sap.ui.model.odata.v2.ODataModel("/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV");
+			
 			return oModel;
 		}
-
 	};
 });

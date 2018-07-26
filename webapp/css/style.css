@@ -12,3 +12,30 @@
 	width: 10rem;
 	margin: 10px auto;
 }
+
+.AcceptBtn {
+	border-radius: 20px;
+	background-color:limegreen;
+	width: 10rem;
+	margin: 10px auto;
+}
+.AcceptBtn:hover {
+	border-radius: 20px;
+	background-color:lime;
+	width: 10rem;
+	margin: 10px auto;
+
+}
+.DeclineBtn {
+	border-radius: 20px;
+	background-color:Red;
+	width: 10rem;
+	margin: 10px auto;
+}
+
+.DeclineBtn:hover {
+	border-radius: 20px;
+	background-color:Tomato;
+	width: 10rem;
+	margin: 10px auto;
+}
