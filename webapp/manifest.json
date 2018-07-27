@@ -111,7 +111,7 @@
 					"target":"aDashboard"
 				},
 				{
-					"pattern":"uDashboard",
+					"pattern":"uDashboard/{userID}",
 					"name": "uDashboard",
 					"target": "uDashboard"
 				},

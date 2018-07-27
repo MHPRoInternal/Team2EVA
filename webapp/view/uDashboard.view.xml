@@ -2,7 +2,7 @@
 	controllerName="eventManagementEVA.controller.uDashboard">
 	<Page title="{i18n>uDashTitle}">
 	<content>
-	<Panel headerText="The list for user events"> </Panel>
+	<Panel  headerText="Relevant events:"> </Panel>
 	</content>
 	</Page>
 </mvc:View>
