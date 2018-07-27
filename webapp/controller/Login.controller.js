@@ -1,8 +1,9 @@
 sap.ui.define([
 	"eventManagementEVA/controller/BaseController",
 	'sap/ui/core/Popup',
-	'sap/m/Button'
-], function(BaseController, Popup, Button) {
+	'sap/m/Button',
+	'sap/m/MessageToast'
+], function(BaseController, Popup, Button, MessageToast) {
 	"use strict";
 
 	return BaseController.extend("eventManagementEVA.controller.Login", {
@@ -17,7 +18,7 @@ sap.ui.define([
 				//var oListItem = oEvent.getSource();
 				// var oBindingContext = oListItem.getBindingContext();
 				// var userId = oBindingContext.getObject().IdUser;
-				//var loginSuccess = "Login Successful! Welcome, " + uid + ".";
+				// var loginSuccess = "Login Successful! Welcome, " + uid + ".";
 				
 				// var oPopUp = new Popup({
 				// 			modal: true,
@@ -33,6 +34,7 @@ sap.ui.define([
 						
 				oModel.read("/UserSet(IdUser='" + uid + "',Password='" + pasw + "')", {
 					success: function(oCompleteEntry) {
+				 //MessageToast.show("Login Successful! Welcome.");
 						if (oCompleteEntry.Role === true) {
 						
 							route.navTo("aDashboard");
@@ -51,7 +53,8 @@ sap.ui.define([
 						
 					},
 					error: function(oError) {
-						console.log("Not very nice!");
+						 MessageToast.show("Invalid credentials!");
+						
 					}
 
 				});

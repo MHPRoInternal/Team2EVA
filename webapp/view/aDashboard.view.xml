@@ -5,7 +5,7 @@
 			<Panel headerText="Admin Dashboard">
 				<headerToolbar>
 					<Toolbar>
-						<Button text="Create Event" press="onBtnCreate"></Button>
+						<Button text="Create Event" press="onBtnCreate" visible=""></Button>
 					</Toolbar>
 				</headerToolbar>
 				<List items="{/}">
