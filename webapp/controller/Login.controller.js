@@ -2,10 +2,71 @@ sap.ui.define([
 	"eventManagementEVA/controller/BaseController",
 	'sap/ui/core/Popup',
 	'sap/m/Button',
-	'sap/m/MessageToast'
+	'sap/m/MessageToast',
+
 ], function(BaseController, Popup, Button, MessageToast) {
 	"use strict";
+	
+	var oButton2 = new sap.m.Button('', {
 
+                    text: 'Save',
+
+                   tap: [ this.Save, this ]
+
+             });
+
+             var oButton3 = new sap.m.Button('Cancel', {
+
+                    text: 'Cancel',
+
+                    tap: [ this.Cancel, this ]
+
+             });
+  var oDialog = new sap.m.Dialog('Dialog1',{
+
+                    title:'Details ofNew Entry',
+
+                    modal: true,
+
+                    contentWidth:'1em',
+
+                    buttons: [ oButton2, oButton3 ],
+
+             content:[
+
+                      new sap.m.Label({text:'First name'}),
+
+                      new sap.m.Input({
+
+                    maxLength: 20,
+
+                    id: 'FName'
+
+                      }),
+
+                      new sap.m.Label({text:'LastName'}),
+
+                      new sap.m.Input({
+
+                   maxLength: 20,
+
+                     id: 'LName'
+
+                       }),
+
+                      new sap.m.Label({text:'Age'}),
+
+                      new sap.m.Input({
+
+                   maxLength: 3,
+
+                   id: 'Age' 
+
+                    })
+
+                      ]
+
+             });
 	return BaseController.extend("eventManagementEVA.controller.Login", {
 
 				
@@ -63,7 +124,7 @@ sap.ui.define([
 
 				});
 
-			}
+			},
 			// 	var oModel = new sap.ui.model.odata.v2.ODataModel({
 			// 		serviceUrl: "http://services.odata.org/Northwind/Northwind.svc",
 			// 		metadataUrlParams: {
@@ -72,6 +133,20 @@ sap.ui.define([
 			// 		}
 			// 	});
 			// 
+			
+			NewEntry: function() {
+
+             sap.ui.getCore().byId('Dialog1').open();
+
+       },
+
+
+
+Cancel:function() {
+
+             sap.ui.getCore().byId('Dialog1').close();
+
+       }
 	});
 
 });

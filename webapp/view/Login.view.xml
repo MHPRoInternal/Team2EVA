@@ -12,11 +12,10 @@
 					
 					<Label text = "Welcome, user." class="fontStyle"/>
 					<Label text = "Use your credentials!" class="fontStyle" />
-					<Button icon="sap-icon://user-settings" text = "Settings!"></Button>
 					<Input id="uid" placeholder="User ID"></Input>
 					<Input id="pasw" placeholder="Password" type="Password"></Input>
 					<Button class="loginBtn" width="10rem" text="Login" type="Unstyled" press="onLoginTap"></Button>
-				
+					<Button icon="sap-icon://user-settings" text = "Settings!" press="NewEntry"></Button>
 				</items>
 			</VBox>
 		
