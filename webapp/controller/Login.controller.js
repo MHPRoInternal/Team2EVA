@@ -34,7 +34,11 @@ sap.ui.define([
 						
 				oModel.read("/UserSet(IdUser='" + uid + "',Password='" + pasw + "')", {
 					success: function(oCompleteEntry) {
-				 //MessageToast.show("Login Successful! Welcome.");
+					MessageToast.show("Login Successful! Welcome: " + uid + "." , {
+					
+						animationDuration: 5000
+					
+					});
 						if (oCompleteEntry.Role === true) {
 						
 							route.navTo("aDashboard");

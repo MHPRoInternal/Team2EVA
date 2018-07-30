@@ -23,13 +23,13 @@
 			
 			<f:content>
 				<Label text="Location"/>
-					<Input id="Location" width="20rem" editable="false"></Input>
+					<Input id="Location" width="30%" editable="false"></Input>
 					<Label text="Date " />
-					<Input id="Date" width="20rem" editable="false"></Input>
+					<Input id="Date" width="30%" editable="false"></Input>
 					<Label text="Time" />
-					<Input id="Time" width="20rem" editable="false"></Input>
+					<Input id="Time" width="30%" editable="false"></Input>
 					<Label text="DressCode" />
-					<Input id="DressCode" width="20rem" editable="false"/>
+					<Input id="DressCode" width="30%" editable="false"/>
 			</f:content>
 				
 				
