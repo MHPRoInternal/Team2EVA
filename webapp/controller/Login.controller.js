@@ -15,16 +15,21 @@ sap.ui.define([
 
              });
 
-             var oButton3 = new sap.m.Button('Cancel', {
+             var oButton3 = new sap.m.Button("Cancel", {
 
-                    text: 'Cancel',
+                    text: "Cancel",
 
-                    tap: [ this.Cancel, this ]
+            		 press : function () {
+			
+			             sap.ui.getCore().byId("Dialog1").close();
+			
+			    		}  
+                    
 
              });
-  var oDialog = new sap.m.Dialog('Dialog1',{
+		var oDialog = new sap.m.Dialog("Dialog1",{
 
-                    title:'Details ofNew Entry',
+                    title:'Change Password',
 
                     modal: true,
 
@@ -34,41 +39,54 @@ sap.ui.define([
 
              content:[
 
-                      new sap.m.Label({text:'First name'}),
+                      new sap.m.Label({text:'Username'}),
 
                       new sap.m.Input({
 
                     maxLength: 20,
 
-                    id: 'FName'
+                    id: 'Username'
 
                       }),
 
-                      new sap.m.Label({text:'LastName'}),
+                      new sap.m.Label({text:'Password'}),
 
                       new sap.m.Input({
 
                    maxLength: 20,
 
-                     id: 'LName'
+                     id: 'Password'
 
                        }),
 
-                      new sap.m.Label({text:'Age'}),
+                      new sap.m.Label({text:'New Password'}),
 
                       new sap.m.Input({
 
                    maxLength: 3,
 
-                   id: 'Age' 
+                   id: 'NPassword' 
+
+                    }),
+                        new sap.m.Label({text:'Comfirm Password'}),
+
+                      new sap.m.Input({
+
+                   maxLength: 3,
+
+                   id: 'CPassword' 
 
                     })
+                    
 
                       ]
 
              });
+        
+   
 	return BaseController.extend("eventManagementEVA.controller.Login", {
-
+		
+	
 				
 		onLoginTap: function(oEvent) {
 				var oView = this.getView();
@@ -138,15 +156,10 @@ sap.ui.define([
 
              sap.ui.getCore().byId('Dialog1').open();
 
-       },
-
-
-
-Cancel:function() {
-
-             sap.ui.getCore().byId('Dialog1').close();
-
        }
+
+
+
 	});
 
 });

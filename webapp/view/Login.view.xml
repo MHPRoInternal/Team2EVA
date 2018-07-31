@@ -3,7 +3,9 @@
 
 
 	<Page title="{i18n>loginTitle}" class = "LoginBack"   >
-		
+		<headerContent>
+			<Button icon="sap-icon://edit" tooltip="Change Password"  press="NewEntry" />
+		</headerContent>
 		<content>
 		
 				
@@ -15,7 +17,7 @@
 					<Input id="uid" placeholder="User ID"></Input>
 					<Input id="pasw" placeholder="Password" type="Password"></Input>
 					<Button class="loginBtn" width="10rem" text="Login" type="Unstyled" press="onLoginTap"></Button>
-					<Button icon="sap-icon://user-settings" text = "Settings!" press="NewEntry"></Button>
+				
 				</items>
 			</VBox>
 		
