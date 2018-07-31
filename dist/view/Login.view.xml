@@ -7,7 +7,7 @@
 					<Input id="uid" placeholder="User ID"></Input>
 					<Input id="pasw" placeholder="Password" type="Password"></Input>
 					<Button class="loginBtn" width="10rem" text="Login" type="Unstyled" press="onLoginTap"></Button>
-					<Button icon="sap-icon://user-settings" text="Change password"  press="changePass"></Button>
+					<Button icon="sap-icon://user-settings" text="Settings"  press="NewEntry"></Button>
 				</items>
 			</VBox>
 		</content>

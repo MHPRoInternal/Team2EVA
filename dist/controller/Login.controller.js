@@ -7,67 +7,28 @@ sap.ui.define([
 ], function(BaseController, Popup, Button, MessageToast) {
 	"use strict";
 
-	var uid = "";
-	var pasw = "";
-	var oView = "";
-
 	var oButton2 = new sap.m.Button("", {
 
-		text: "Submit",
-		press: function(oEvent) {
-			console.log("Merge1!");
-			var userName = sap.ui.getCore().byId("userName").getValue();
-			var oldPass = sap.ui.getCore().byId("oldPass").getValue();
-			var newPass = sap.ui.getCore().byId("newPass").getValue();
-			var newPassConfirm = sap.ui.getCore().byId("newPassConfirm").getValue();
-			var oModel = oView.getModel();
-			if (newPass === newPassConfirm) {
-				console.log("Merge2!");
-				var oData = {
-					Username: userName,
-					OldPassword: oldPass,
-					NewPassword: newPass
-				};
+		text: "Save",
 
-				oModel.update("/UserSet(IdUser='" + userName + "',Password='" + oldPass + "')", oData, {
-					method: "PUT",
+		press: [this.Save, this]
 
-					success: function() {
-						MessageToast.show("Password change successful for user" + userName + "!", {
-						
-							animationDuration: 5000
-
-						});
-						console.log("SUCCESS?");
-					},
-					error: function(oError) {
-						MessageToast.show("Changes could not be made! Please try again.");
-						console.log("ERROR?");
-					}
-				});
-
-			} else {
-				MessageToast.show("New Password fields do not match.");
-				console.log("NU MERGE!");
-			}
-
-		}
-		
 	});
 
 	var oButton3 = new sap.m.Button("Cancel", {
 
 		text: 'Cancel',
-		 press: function() {
 
-		sap.ui.getCore().byId('Dialog1').close();
+		press: function() {
+
+			sap.ui.getCore().byId('Dialog1').close();
 
 		}
 
 	});
 	var oDialog = new sap.m.Dialog('Dialog1', {
 
-		title: "User password change",
+		title: "Details of New Entry",
 
 		modal: true,
 
@@ -107,7 +68,7 @@ sap.ui.define([
 
 			new sap.m.Input({
 
-				maxLength: 20,
+				maxLength: 3,
 
 				id: "newPass"
 
@@ -118,25 +79,22 @@ sap.ui.define([
 
 			new sap.m.Input({
 
-				maxLength: 20,
+				maxLength: 3,
 
 				id: "newPassConfirm"
 
 			})
 
 		]
-		
+
 	});
 	return BaseController.extend("eventManagementEVA.controller.Login", {
-		
 
-		
 		onLoginTap: function(oEvent) {
-			
 			var oView = this.getView();
 			var oModel = oView.getModel();
-			uid = this.getView().byId("uid").getValue();
-			pasw = this.getView().byId("pasw").getValue();
+			var uid = this.getView().byId("uid").getValue();
+			var pasw = this.getView().byId("pasw").getValue();
 			var route = this.getRouter();
 			//var oListItem = oEvent.getSource();
 			// var oBindingContext = oListItem.getBindingContext();
@@ -193,20 +151,35 @@ sap.ui.define([
 		// 		}
 		// 	});
 		// 
-	
-		changePass: function() {
-			oView = this.getView();
+
+		NewEntry: function() {
+
 			sap.ui.getCore().byId('Dialog1').open();
 
+		},
+		Save: function() {
+			var userName = this.getView().byId("userName").getValue();
+			var oldPass = this.getView().byId("oldPass").getValue();
+			var newPass = this.getView().byId("newPass").getValue();
+			var newPassConfirm = this.getView().byId("newPassConfirm").getValue();
+			if (newPass === newPassConfirm) {
+				var oData = {
+					Username: userName,
+					OldPassword: oldPass,
+					NewPassword: newPass
+
+				};
+			} else {
+				MessageToast.show("New Password fields do not match.");
+			}
+
+		},
+
+		Cancel: function() {
+
+			sap.ui.getCore().byId('Dialog1').close();
+
 		}
-		
-		
-
-		// Cancel: function() {
-
-		// 	sap.ui.getCore().byId('Dialog1').close();
-
-		// }
 	});
-		
+
 });

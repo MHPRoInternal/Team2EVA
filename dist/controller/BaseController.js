@@ -1,9 +1,8 @@
 sap.ui.define(["sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
-	"sap/ui/model/odata/ODataMetadata",
-	'sap/m/MessageToast'
+	"sap/ui/model/odata/ODataMetadata"
 
-], function(Controller, History, ODataMetadata, MessageToast) {
+], function(Controller, History, ODataMetadata) {
 	"use strict";
 
 	return Controller.extend("eventManagementEVA.controller.BaseController", {
@@ -26,9 +25,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				this.getRouter().navTo("dashBoard", {}, true);
 			}
 
-		},
-		
-		
-		
+		}
 	});
 });

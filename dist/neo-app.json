@@ -1,5 +1,5 @@
 {
-	"welcomeFile": "/webapp/index.html",
+	"welcomeFile": "/index.html",
 	"routes": [{
 		"path": "/resources",
 		"target": {
@@ -8,8 +8,7 @@
 			"entryPath": "/resources"
 		},
 		"description": "SAPUI5 Resources"
-	}, 
-		{
+	}, {
 		"path": "/test-resources",
 		"target": {
 			"type": "service",
@@ -17,15 +16,6 @@
 			"entryPath": "/test-resources"
 		},
 		"description": "SAPUI5 Test Resources"
-	},
-	{
-		"path": "/destinations/M38",
-			"target":  {
-			"type": "destination",
-			"name": "M38"
-		},
-		"description": "M38 - HTTP ABAP ONLY"
-		}
-		],
+	}],
 	"sendWelcomeFileRedirect": true
 }

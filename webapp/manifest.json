@@ -9,11 +9,11 @@
 		},
 		"dataSources": {
 			"mainService": {
-				"uri": "/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV",
+				"uri": "destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/",
 				"type": "OData",
 				"settings": {
-					"oDataVersion": "2.0",
-					"localUri": ""
+					"oDataVersion": "2.0"
+				
 				}
 			}
 		},
@@ -24,7 +24,6 @@
 			"version": "1.40.12"
 		}
 	},
-
 	"sap.ui": {
 		"technology": "UI5",
 		"icons": {
@@ -43,10 +42,8 @@
 		"supportedThemes": [
 			"sap_hcb",
 			"sap_belize"
-
 		]
 	},
-
 	"sap.ui5": {
 		"rootView": {
 			"viewName": "eventManagementEVA.view.App",
@@ -75,7 +72,7 @@
 					"bundleName": "eventManagementEVA.i18n.i18n"
 				}
 			},
-			"":{
+			"": {
 				"dataSource": "mainService",
 				"settings": {
 					"metadataUrlParams": {
@@ -86,7 +83,6 @@
 				},
 				"preload": true
 			}
-
 		},
 		"routing": {
 			"config": {
@@ -100,18 +96,19 @@
 				},
 				"async": true
 			},
-			"routes": [{
+			"routes": [
+				{
 					"pattern": "",
 					"name": "login",
 					"target": "login"
 				},
 				{
-					"pattern" : "aDashboard",
+					"pattern": "aDashboard",
 					"name": "aDashboard",
-					"target":"aDashboard"
+					"target": "aDashboard"
 				},
 				{
-					"pattern":"uDashboard/{userID}",
+					"pattern": "uDashboard/{userID}",
 					"name": "uDashboard",
 					"target": "uDashboard"
 				},
@@ -120,41 +117,40 @@
 					"name": "uEvent",
 					"target": "uEvent"
 				}
-
-
 			],
-			
 			"targets": {
 				"login": {
 					"viewName": "Login",
 					"viewId": "login",
 					"viewLevel": 0
-
 				},
-					"aDashboard":{
-				"viewName": "aDashboard",
-				"viewId":"aDashboard",
-				"viewLevel": 1
-			},
-			"uDashboard": {
-				"viewName": "uDashboard",
-				"viewId": "uDashboard",
-				"viewLevel": 1
-			},
-			"uEvent": {
+				"aDashboard": {
+					"viewName": "aDashboard",
+					"viewId": "aDashboard",
+					"viewLevel": 1
+				},
+				"uDashboard": {
+					"viewName": "uDashboard",
+					"viewId": "uDashboard",
+					"viewLevel": 1
+				},
+				"uEvent": {
 					"viewName": "uEvent",
 					"viewId": "uEvent",
 					"viewLevel": 1
-
 				}
-
-			
-		},
+			},
 			"resources": {
-				"css": [{
-					"uri": "css/style.css"
-				}]
+				"css": [
+					{
+						"uri": "css/style.css"
+					}
+				]
 			}
 		}
+	},
+	"sap.platform.hcp": {
+		"uri": "webapp",
+		"_version": "1.1.0"
 	}
 }
