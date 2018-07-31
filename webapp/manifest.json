@@ -79,7 +79,9 @@
 						"sap-documentation": "heading"
 					},
 					"defaultCountMode": "Inline",
-					"defaultOperationMode": "Client"
+					"defaultOperationMode": "Client",
+					"defaultUpdateMethod" : "PUT"
+					
 				},
 				"preload": true
 			}
