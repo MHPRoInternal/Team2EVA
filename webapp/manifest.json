@@ -9,11 +9,11 @@
 		},
 		"dataSources": {
 			"mainService": {
-				"uri": "destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/",
+				"uri": "/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/",
 				"type": "OData",
 				"settings": {
-					"oDataVersion": "2.0"
-				
+					"oDataVersion": "2.0",
+					"localUri" : "localService/metadata.xml"
 				}
 			}
 		},

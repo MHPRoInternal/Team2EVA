@@ -26,7 +26,6 @@ sap.ui.define([
 							if (newPass === newPassConfirm) {
 								console.log("Merge2!");
 								oModel.update("/UserSet(IdUser='" + userName + "',Password='" + newPass + "')", {
-									method: "PUT",
 
 									success: function() {
 										MessageToast.show("Password change successful for user" + userName + "!", {

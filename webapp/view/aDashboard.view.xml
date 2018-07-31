@@ -1,15 +1,22 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
-	controllerName="eventManagementEVA.controller.aDashboard">
-	<Page title="{i18n>adminDashboardTitle}" showNavButton="false" navButtonPress="onNavBack">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns="sap.m"
+	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="eventManagementEVA.controller.aDashboard">
+	<Page title="{i18n>adminDashboardTitle}">
+		<headerContent>
+			<Button class="loginBtn" width="10rem" text="SuntFoarteEnervatDeColegi" type="Unstyled" press="onCreateTap"></Button>
+		</headerContent>
 		<content>
-			<Panel headerText="Admin Dashboard">
-				<headerToolbar>
-					<Toolbar>
-						<Button text="Create Event" press="onBtnCreate" visible=""></Button>
-					</Toolbar>
-				</headerToolbar>
-				<List items="{/}">
-					<StandardListItem title="{LastName}" description="{FirstName}" type="Navigation" press="onListItemPress"/>
+			<Panel headerText="Relevant events:">
+				<List items="{/EventSet}" headerText="">
+					<items>
+						<CustomListItem>
+							<HBox>
+								<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+									<Link text="{Title}" press="handlePress"/>
+									<Image src="{Picture}" width="9.5em" height="7.5em"></Image>
+								</VBox>
+							</HBox>
+						</CustomListItem>
+					</items>
 				</List>
 			</Panel>
 		</content>
