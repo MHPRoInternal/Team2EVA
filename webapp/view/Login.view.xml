@@ -1,4 +1,4 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="eventManagementEVA.controller.Login"
+<mvc:View class="loginView" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="eventManagementEVA.controller.Login"
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="{i18n>loginTitle}" class="LoginBack">
 		<headerContent>
@@ -7,8 +7,8 @@
 		<content>
 			<VBox fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
 				<items>
-					<Label text="Welcome, user." class="fontStyle"/>
-					<Label text="Use your credentials!" class="fontStyle"/>
+					<Label text="Welcome" class="fontStyle"/>
+					<Label text="Please login: " class="fontStyle"/>
 					<Input id="uid" placeholder="User ID"></Input>
 					<Input id="pasw" placeholder="Password" type="Password"></Input>
 					<Button class="loginBtn" width="10rem" text="Login" type="Unstyled" press="onLoginTap"></Button>

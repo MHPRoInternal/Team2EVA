@@ -21,11 +21,14 @@ sap.ui.define([
 				var newPass = sap.ui.getCore().byId("newPass").getValue();
 				var newPassConfirm = sap.ui.getCore().byId("newPassConfirm").getValue();
 				var oModel = oView.getModel();
+				var oData = {
+					IdUser : userName
+				}
 					oModel.read("/UserSet(IdUser='" + userName + "',Password='" + oldPass + "')", {
 						success: function(oCompleteEntry) {
 							if (newPass === newPassConfirm) {
 								console.log("Merge2!");
-								oModel.update("/UserSet(IdUser='" + userName + "',Password='" + newPass + "')", {
+								oModel.update("/UserSet(IdUser='" + userName + "',Password='" + newPass + "')", oData, {
 
 									success: function() {
 										MessageToast.show("Password change successful for user" + userName + "!", {
@@ -93,6 +96,8 @@ var oDialog = new sap.m.Dialog('Dialog1', {
 		new sap.m.Input({
 
 			maxLength: 20,
+			
+			type: "Password",
 
 			id: "oldPass"
 
@@ -105,6 +110,8 @@ var oDialog = new sap.m.Dialog('Dialog1', {
 		new sap.m.Input({
 
 			maxLength: 20,
+			
+			type : "Password",
 
 			id: "newPass"
 
@@ -116,6 +123,8 @@ var oDialog = new sap.m.Dialog('Dialog1', {
 		new sap.m.Input({
 
 			maxLength: 20,
+			
+			type : 'Password',
 
 			id: "newPassConfirm"
 

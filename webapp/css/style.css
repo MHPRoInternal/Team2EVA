@@ -1,4 +1,9 @@
 /* Enter your custom styles here */
+.sapMIBar.sapMHeader-CTX {
+	background-color : #FFFFFF;
+
+} 
+
 .LoginBack {
 	background : url('http://i65.tinypic.com/2370ar.jpg');
 	background-size: 100% 115%;
@@ -12,15 +17,15 @@
 .loginBtn {
 	border-radius: 35%;
 	background-color: #e7e7e7;
+	border: solid 2px #8c8c8c;
 	width: 10rem;
 	margin: 10px auto;
-	border: none;
 
 }
 .loginBtn:hover {
 	border-radius: 35%;
+	border: solid 2px #949696;
 	background-color: RoyalBlue;
-	width: 10rem;
 	margin: 10px auto;
 }
 
