@@ -2,7 +2,7 @@
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="{i18n>loginTitle}" class="LoginBack">
 		<headerContent>
-			<Button icon="sap-icon://edit" tooltip="Change Password" text="Change password" press="changePass"/>
+			<Button icon="sap-icon://edit" type="Transparent" tooltip="Change Password" text="Change password" press="changePass"/>
 		</headerContent>
 		<content>
 			<VBox fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">

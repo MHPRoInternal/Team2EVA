@@ -24,7 +24,7 @@ sap.ui.define([
 				var oData = {
 					IdUser : userName
 				}
-					oModel.read("/UserSet(IdUser='" + userName + "',Password='" + oldPass + "')", {
+					oModel.read("/UserSet(IdUser='" + userName + "',Password='" + oldPass + "',)", {
 						success: function(oCompleteEntry) {
 							if (newPass === newPassConfirm) {
 								console.log("Merge2!");

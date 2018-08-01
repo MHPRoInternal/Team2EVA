@@ -3,21 +3,15 @@ sap.ui.define([
 ], function(BaseController) {
 	"use strict";
 
-	return BaseController.extend("eventManagementEVA.controller.aDashboard", {
-		
-		
-// 		onListItemPress: function(oEvent){
-// 			var oListItem = oEvent.getSource();
-// 			var oBindingContext = oListItem.getBindingContext();
-// 			var resumeId = oBindingContext.getObject().Resumeid;
-			
-// 			this.getRouter().navTo("resume", {
-// 				resId : resumeId
-// 			});
-// },
-// 		onBtnCreate : function() {
-// 			this.getRouter().navTo("resumeCreate");
-// 			}
-	});
+	return BaseController.extend("eventManagementEVA.controller.uDashboard", {
 
+		onInit: function(oEvent) {
+	//		this.getRouter().getRoute("uDashboard").attachMatched(this.onRouteMatched, this);
+		},
+		
+		onCreatePress : function() {
+			this.getRouter().navTo("createEvent");
+		}
+
+	});
 });

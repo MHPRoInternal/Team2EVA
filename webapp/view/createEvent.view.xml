@@ -1,0 +1,43 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:vbm="sap.ui.vbm" xmlns="sap.m" controllerName="eventManagementEVA.controller.createEvent"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:f="sap.ui.layout.form">
+		<Page title="{i18n>createEventTitle}">
+			<content>
+				
+			<f:SimpleForm id = "SimpleFormDisplay354"
+				layout="ResponsiveGridLayout"
+				labelSpanXL="3"
+				labelSpanL="3"
+				labelSpanM="3"
+				labelSpanS="12"
+				adjustLabelSpan="false"
+				emptySpanXL="4"
+				emptySpanL="4"
+				emptySpanM="4"
+				emptySpanS="0"
+				columnsXL="1"
+				columnsL="1"
+				columnsM="1"
+				singleContainerFullSize="false" >
+			
+			<f:content>
+				<Label text="Location"/>
+					<Input id="Location" width="20rem"></Input>
+					<Label text="Date " />
+					<Input id="Date" width="20rem" ></Input>
+					<Label text="Time" />
+					<Input id="Time" width="20rem" ></Input>
+					<Label text="DressCode" />
+					<Input id="DressCode" width="20rem"/>
+			</f:content>
+				
+				
+			</f:SimpleForm>
+						
+					<vbm:GeoMap id="GeoMap" width="30%" height="30%" />
+				
+					<Button class="AcceptBtn" width="10rem" text="Create" type="Unstyled" press="onCreateTap"></Button>
+		
+			</content>
+		</Page>
+</mvc:View>

@@ -118,6 +118,11 @@
 					"pattern": "uEvent",
 					"name": "uEvent",
 					"target": "uEvent"
+				},
+				{
+					"pattern": "createEvent",
+					"name": "createEvent",
+					"target": "createEvent"
 				}
 			],
 			"targets": {
@@ -139,6 +144,11 @@
 				"uEvent": {
 					"viewName": "uEvent",
 					"viewId": "uEvent",
+					"viewLevel": 1
+				},
+				"createEvent": {
+					"viewName": "createEvent",
+					"viewId": "createEvent",
 					"viewLevel": 1
 				}
 			},
