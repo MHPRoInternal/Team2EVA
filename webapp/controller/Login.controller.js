@@ -13,202 +13,232 @@ sap.ui.define([
 
 	var oButton2 = new sap.m.Button("", {
 
-			text: "Submit",
-			press: function(oEvent) {
-				console.log("Merge1!");
-				var userName = sap.ui.getCore().byId("userName").getValue();
-				var oldPass = sap.ui.getCore().byId("oldPass").getValue();
-				var newPass = sap.ui.getCore().byId("newPass").getValue();
-				var newPassConfirm = sap.ui.getCore().byId("newPassConfirm").getValue();
-				var oModel = oView.getModel();
-				var oData = {
-					IdUser : userName
-				}
-					oModel.read("/UserSet(IdUser='" + userName + "',Password='" + oldPass + "',)", {
-						success: function(oCompleteEntry) {
-							if (newPass === newPassConfirm) {
-								console.log("Merge2!");
-								oModel.update("/UserSet(IdUser='" + userName + "',Password='" + newPass + "')", oData, {
+		text: "Submit",
+		press: function(oEvent) {
+			console.log("Merge1!");
+			var userName = sap.ui.getCore().byId("userName").getValue();
+			var oldPass = sap.ui.getCore().byId("oldPass").getValue();
+			var newPass = sap.ui.getCore().byId("newPass").getValue();
+			var newPassConfirm = sap.ui.getCore().byId("newPassConfirm").getValue();
+			var oModel = oView.getModel();
+			var oData = {
+				IdUser: userName,
+				Password: newPass
+			};
+			oModel.read("/UserSet(IdUser='" + userName + "')", {
+				success: function(oCompleteEntry) {
+					if (oCompleteEntry.Password === oldPass) {
+						if (newPass === newPassConfirm) {
+							console.log("Merge2!");
+							oModel.update("/UserSet(IdUser='" + userName + "')", oData, {
 
-									success: function() {
-										MessageToast.show("Password change successful for user" + userName + "!", {
+								success: function() {
+									sap.ui.getCore().byId('Dialog1').close();
+									sap.ui.getCore().byId("userName").setValue();
+									sap.ui.getCore().byId("oldPass").setValue();
+									sap.ui.getCore().byId("newPass").setValue();
+									sap.ui.getCore().byId("newPassConfirm").setValue();
 
-											animationDuration: 5000
+									MessageToast.show("Password change successful for user" + userName + "!", {
 
-										});
-										console.log("SUCCESS?");
-									},
-									error: function(oError) {
-										MessageToast.show("Changes could not be made! Please try again.");
-										console.log("ERROR?");
-									}
+										animationDuration: 5000
 
-								});
-							}
-						},
-						error: function(oError) {
-							MessageToast.show("Changes could not be made! Please try again.");
-							console.log("ERROR?");
+									});
+									console.log("SUCCESS?");
+								},
+								error: function(oError) {
+									MessageToast.show("Changes could not be made! Please try again.");
+									console.log("ERROR?");
+								}
+
+							});
 						}
-					});
+					} else {
+						MessageToast.show("Invalid username or password! Please try again.");
+					}
+
+				},
+				error: function(oError) {
+					MessageToast.show("Invalid username or password! Please try again.");
+					console.log("ERROR?");
 				}
+			});
+		}
 
 	});
 
-var oButton3 = new sap.m.Button("Cancel", {
+	var oButton3 = new sap.m.Button("Cancel", {
 
-	text: 'Cancel',
-	press: function() {
+		text: 'Cancel',
+		press: function() {
 
-		sap.ui.getCore().byId('Dialog1').close();
+			sap.ui.getCore().byId('Dialog1').close();
+			sap.ui.getCore().byId("userName").setValue();
+			sap.ui.getCore().byId("oldPass").setValue();
+			sap.ui.getCore().byId("newPass").setValue();
+			sap.ui.getCore().byId("newPassConfirm").setValue();
+		}
 
-	}
+	});
+	var oDialog = new sap.m.Dialog('Dialog1', {
 
-});
-var oDialog = new sap.m.Dialog('Dialog1', {
+		title: "User password change",
 
-	title: "User password change",
+		modal: true,
 
-	modal: true,
+		contentWidth: "5em",
 
-	contentWidth: "5em",
+		buttons: [oButton2, oButton3],
 
-	buttons: [oButton2, oButton3],
+		content: [
 
-	content: [
+			new sap.m.Label({
+				text: "Username"
+			}),
 
-		new sap.m.Label({
-			text: "Username"
-		}),
+			new sap.m.Input({
 
-		new sap.m.Input({
+				maxLength: 20,
 
-			maxLength: 20,
+				id: "userName"
 
-			id: "userName"
+			}),
 
-		}),
+			new sap.m.Label({
+				text: "Password"
+			}),
 
-		new sap.m.Label({
-			text: "Password"
-		}),
+			new sap.m.Input({
 
-		new sap.m.Input({
+				maxLength: 20,
 
-			maxLength: 20,
-			
-			type: "Password",
+				type: "Password",
 
-			id: "oldPass"
+				id: "oldPass"
 
-		}),
+			}),
 
-		new sap.m.Label({
-			text: "New Password"
-		}),
+			new sap.m.Label({
+				text: "New Password"
+			}),
 
-		new sap.m.Input({
+			new sap.m.Input({
 
-			maxLength: 20,
-			
-			type : "Password",
+				maxLength: 20,
 
-			id: "newPass"
+				type: "Password",
 
-		}),
-		new sap.m.Label({
-			text: "Confirm new Password"
-		}),
+				id: "newPass"
 
-		new sap.m.Input({
+			}),
+			new sap.m.Label({
+				text: "Confirm new Password"
+			}),
 
-			maxLength: 20,
-			
-			type : 'Password',
+			new sap.m.Input({
 
-			id: "newPassConfirm"
+				maxLength: 20,
 
-		})
+				type: 'Password',
 
-	]
+				id: "newPassConfirm"
 
-});
-return BaseController.extend("eventManagementEVA.controller.Login", {
+			})
 
-	onLoginTap: function(oEvent) {
+		]
 
-		var oView = this.getView();
-		var oModel = oView.getModel();
-		uid = this.getView().byId("uid").getValue();
-		pasw = this.getView().byId("pasw").getValue();
-		var route = this.getRouter();
-		//var oListItem = oEvent.getSource();
-		// var oBindingContext = oListItem.getBindingContext();
-		// var userId = oBindingContext.getObject().IdUser;
-		// var loginSuccess = "Login Successful! Welcome, " + uid + ".";
+	});
+	return BaseController.extend("eventManagementEVA.controller.Login", {
 
-		// var oPopUp = new Popup({
-		// 			modal: true,
+		onLoginTap: function(oEvent) {
+			var oThis = this;
+			var oView = this.getView();
+			var oModel = oView.getModel();
+			uid = this.getView().byId("uid").getValue();
+			pasw = this.getView().byId("pasw").getValue();
+			var route = this.getRouter();
+			//var oListItem = oEvent.getSource();
+			// var oBindingContext = oListItem.getBindingContext();
+			// var userId = oBindingContext.getObject().IdUser;
+			// var loginSuccess = "Login Successful! Welcome, " + uid + ".";
 
-		// 			content: new Text({
-		// 				text: loginSuccess
-		// 			}),
+			// var oPopUp = new Popup({
+			// 			modal: true,
 
-		// 			autoclose: true
+			// 			content: new Text({
+			// 				text: loginSuccess
+			// 			}),
 
-		// 		});
-		// oPopUp.open();
+			// 			autoclose: true
 
-		oModel.read("/UserSet(IdUser='" + uid + "',Password='" + pasw + "')", {
-			success: function(oCompleteEntry) {
-				MessageToast.show("Login Successful! Welcome: " + uid + ".", {
+			// 		});
+			// oPopUp.open();
 
-					animationDuration: 5000
+			oModel.read("/UserSet(IdUser='" + uid + "')", {
+				success: function(oCompleteEntry) {
 
-				});
-				if (oCompleteEntry.Role === true) {
+					if (oCompleteEntry.Password === pasw) {
+						MessageToast.show("Login Successful! Welcome: " + uid + ".", {
 
-					route.navTo("aDashboard");
+							animationDuration: 5000
 
-				} else if (oCompleteEntry.Role === false) {
+						});
 
-					route.navTo("uDashboard", {
+						var oUserModel = oThis.getOwnerComponent().getModel("userModel");
+						oUserModel.setProperty("/IdUser", oCompleteEntry.IdUser);
+						oUserModel.setProperty("/Password", oCompleteEntry.Password);
 
-						userID: uid
+						if (oCompleteEntry.Role === true) {
 
-					});
+							route.navTo("aDashboard" , {
+
+								userID: uid
+
+							});
+							
+							
+
+						} else if (oCompleteEntry.Role === false) {
+
+							route.navTo("uDashboard", {
+
+								userID: uid
+
+							});
+
+						}
+					} else {
+						MessageToast.show("Invalid user or password! Please try again.");
+					}
+				},
+				error: function(oError) {
+					MessageToast.show("Invalid credentials!");
 
 				}
 
-			},
-			error: function(oError) {
-				MessageToast.show("Invalid credentials!");
+			});
 
-			}
+		},
+		// 	var oModel = new sap.ui.model.odata.v2.ODataModel({
+		// 		serviceUrl: "http://services.odata.org/Northwind/Northwind.svc",
+		// 		metadataUrlParams: {
+		// 			ID_USER: "{uid}",
+		// 			PASSWORD: "{pasw}"
+		// 		}
+		// 	});
+		// 
 
-		});
+		changePass: function() {
+			oView = this.getView();
+			sap.ui.getCore().byId('Dialog1').open();
 
-	},
-	// 	var oModel = new sap.ui.model.odata.v2.ODataModel({
-	// 		serviceUrl: "http://services.odata.org/Northwind/Northwind.svc",
-	// 		metadataUrlParams: {
-	// 			ID_USER: "{uid}",
-	// 			PASSWORD: "{pasw}"
-	// 		}
-	// 	});
-	// 
+		}
 
-	changePass: function() {
-		oView = this.getView();
-		sap.ui.getCore().byId('Dialog1').open();
+		// Cancel: function() {
 
-	}
+		// 	sap.ui.getCore().byId('Dialog1').close();
 
-	// Cancel: function() {
-
-	// 	sap.ui.getCore().byId('Dialog1').close();
-
-	// }
-});
+		// }
+	});
 
 });

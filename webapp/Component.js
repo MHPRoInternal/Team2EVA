@@ -16,7 +16,16 @@ sap.ui.define([
 		 * @public
 		 * @override
 		 */
+		 
 		init: function() {
+			this.oUserModel = new sap.ui.model.json.JSONModel({
+				IdUser: "",
+				Password: ""
+
+			});
+
+			this.setModel(this.oUserModel, "userModel");
+			
 			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);
 			this.getRouter().initialize();
