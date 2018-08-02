@@ -3,17 +3,15 @@
 	<Page title="{i18n>uDashTitle}">
 		<content>
 			<Panel headerText="Relevant events:">
-				<HBox id="eventList" items="{toUserEvent}">
-
+				<HBox items="{toUserEvent}">
 						<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{Title}"
 							press="handlePress">
-							<TileContent >
+							<TileContent>
 								<ImageContent src="{Picture}"/>
 							</TileContent>
 						</GenericTile>
 						<!--<Link text="{Title}" press="handlePress"/>-->
 						<!--<Image src="{Picture}" width="9.5em" height="7.5em"></Image>-->
-
 				</HBox>
 			</Panel>
 		</content>

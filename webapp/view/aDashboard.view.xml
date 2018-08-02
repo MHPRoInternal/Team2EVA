@@ -2,22 +2,20 @@
 	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="eventManagementEVA.controller.aDashboard">
 	<Page title="{i18n>adminDashboardTitle}">
 		<headerContent>
-			<Button width="10rem" text="Create Event" type="Unstyled" press="handlePress"></Button>
+			<Button width="10rem" text="Create Event" type="Unstyled" press="onCreatePress"></Button>
 		</headerContent>
 		<content>
 			<Panel headerText="Relevant events:">
-				<List items="{toUserEvent}" headerText="">
-					<items>
-						<CustomListItem>
-							<HBox>
-								<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
-									<Link text="{Title}" press="handlePress"/>
-									<Image src="{Picture}" width="9.5em" height="7.5em"></Image>
-								</VBox>
-							</HBox>
-						</CustomListItem>
-					</items>
-				</List>
+					<HBox items="{toUserEvent}">
+						<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{Title}"
+							press="handlePress">
+							<TileContent >
+								<ImageContent src="{Picture}"/>
+							</TileContent>
+						</GenericTile>
+						<!--<Link text="{Title}" press="handlePress"/>-->
+						<!--<Image src="{Picture}" width="9.5em" height="7.5em"></Image>-->
+				</HBox>
 			</Panel>
 		</content>
 	</Page>

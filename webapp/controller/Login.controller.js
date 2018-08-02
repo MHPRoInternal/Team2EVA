@@ -39,7 +39,7 @@ sap.ui.define([
 									sap.ui.getCore().byId("newPass").setValue();
 									sap.ui.getCore().byId("newPassConfirm").setValue();
 
-									MessageToast.show("Password change successful for user" + userName + "!", {
+									MessageToast.show("Password change successful for user " + userName + "!", {
 
 										animationDuration: 5000
 

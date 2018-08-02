@@ -19,19 +19,22 @@ sap.ui.define([
 
 		onRouteMatched: function(oEvent) {
 			uID = oEvent.getParameter("arguments").userID;
+			//id_event sau IdEvent
 			console.log(uID);
-			var oUserModel = this.getOwnerComponent().getModel("userModel");
-			console.log(oUserModel.getProperty("/IdUser") + "S-a transmit si getproperty!");
+			//	var oUserModel = this.getOwnerComponent().getModel("userModel");
+			//console.log(oUserModel.getProperty("/IdUser") + "S-a transmit si getproperty!");
 			this.getView().bindElement("/UserSet('" + uID + "')");
 
 		},
 
-		handlePress: function() {
+		handlePress: function(oEvent) {
+			var eID = oEvent.getSource().getBindingContext().getObject().IdEvent;
+			console.log("Event ID-ul este : " + eID);
 			this.getRouter().navTo("uEvent"
 
 				, {
 
-					userID: uID
+					eventID: eID
 
 				});
 		}

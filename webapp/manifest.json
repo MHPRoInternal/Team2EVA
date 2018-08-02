@@ -12,8 +12,8 @@
 				"uri": "/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/",
 				"type": "OData",
 				"settings": {
-					"oDataVersion": "2.0",
-					"localUri" : "localService/metadata.xml"
+					"oDataVersion": "2.0"
+					
 				}
 			}
 		},
@@ -115,9 +115,14 @@
 					"target": "uDashboard"
 				},
 				{
-					"pattern": "uEvent",
+					"pattern": "uEvent/{eventID}",
 					"name": "uEvent",
 					"target": "uEvent"
+				},
+				{
+					"pattern": "aEvent/{eventID}",
+					"name": "aEvent",
+					"target": "aEvent"
 				},
 				{
 					"pattern": "createEvent",
@@ -144,7 +149,12 @@
 				"uEvent": {
 					"viewName": "uEvent",
 					"viewId": "uEvent",
-					"viewLevel": 1
+					"viewLevel": 2
+				},
+				"aEvent": {
+					"viewName": "aEvent",
+					"viewId": "aEvent",
+					"viewLevel": 2
 				},
 				"createEvent": {
 					"viewName": "createEvent",

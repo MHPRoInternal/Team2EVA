@@ -1,0 +1,40 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="eventManagementEVA.controller.aEvent"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form">
+	<Page title="{i18n>aEventTitle}">
+		<!--<gmaps:Map height="250px" zoom="12" lat="-33.895" lng="151.275">-->
+		<!--	<gmaps:markers>-->
+		<!--		<gmaps:Marker lat="-33.895" lng="151.275" info="Bondi Beach"/>-->
+		<!--	</gmaps:markers>-->
+		<!--</gmaps:Map>-->
+		<f:SimpleForm id="SimpleFormDisplay354" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+			labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+			singleContainerFullSize="false">
+			<f:content>
+				<Label text="Title"/>
+				<Input id="eTitleInput" width="35rem" editable="false" value="{Title}"></Input>
+				<Label text="Location"/>
+				<Input id="eLocationInput" width="35rem" editable="false" value="{Location}"></Input>
+				<Label text="Date "/>
+				<DateTimePicker id="eDataInput" editable="false" value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', strictParsing: true}}"/>
+				<!--<Input id="eDataInput" width="35rem" editable="false"-->
+				<!--	value="{ path: 'Data', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"></Input>-->
+				<Label text="Time"/>
+				<TimePicker editable="false" value="{Time}" valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange" placeholder="Enter meeting start time"/>
+				<Label text="DressCode"/>
+				<Input id="eDresscodeInput" width="35rem" editable="false" value="{Dresscode}"/>
+				<Label text="Picture"/>
+				<Input id="ePictureInput" width="35rem" editable="false" value="{Picture}"/>
+			</f:content>
+		</f:SimpleForm>
+		<Button class="AcceptBtn" width="10rem" text="ACCEPT" type="Unstyled" press="onAcceptTap"></Button>
+		<Button class="DeclineBtn" width="10rem" text="DECLINE" type="Unstyled" press="onDeclineTap"></Button>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Switch customTextOn="Edit" customTextOff="View" state="false" change="onSwitchEditMode"/>
+				<Button text="Save" press="onSavePress"></Button>
+				<Button text="Delete" press="onDeletepress"></Button>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

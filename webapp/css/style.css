@@ -2,7 +2,9 @@
 .sapMIBar.sapMHeader-CTX {
 	background-color : #FFFFFF;
 } 
-
+.sapMInputBaseInner {
+	text-align: center !important;
+}
 .LoginBack {
 	background : url('http://i65.tinypic.com/2370ar.jpg');
 	background-repeat: no-repeat;
