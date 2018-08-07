@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<CustomListItem>
+		<Label text="Question"/>
+		<Select forceSelection="false" selectedKey="{/Question/id_question}"
+			items="{ path: '/Question', sorter: { path: 'question_text' } }">
+			<core:Item key="{id_question}" text="Please choose the desired menu"/>
+		</Select>
+	</CustomListItem>
+</core:FragmentDefinition>

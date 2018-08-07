@@ -6,7 +6,7 @@
 		<!--		<gmaps:Marker lat="-33.895" lng="151.275" info="Bondi Beach"/>-->
 		<!--	</gmaps:markers>-->
 		<!--</gmaps:Map>-->
-		<f:SimpleForm id="SimpleFormDisplay354" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+		<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
 			labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
 			singleContainerFullSize="false">
 			<f:content>
@@ -26,6 +26,8 @@
 				<Input id="ePictureInput" width="35rem" editable="false" value="{Picture}"/>
 			</f:content>
 		</f:SimpleForm>
+		<HBox>
+		</HBox>
 		<Button class="AcceptBtn" width="10rem" text="ACCEPT" type="Unstyled" press="onAcceptTap"></Button>
 		<Button class="DeclineBtn" width="10rem" text="DECLINE" type="Unstyled" press="onDeclineTap"></Button>
 		<footer>
