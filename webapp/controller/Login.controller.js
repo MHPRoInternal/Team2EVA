@@ -31,7 +31,7 @@ sap.ui.define([
 						if (newPass === newPassConfirm) {
 							console.log("Merge2!");
 							oModel.update("/UserSet(IdUser='" + userName + "')", oData, {
-
+								
 								success: function() {
 									sap.ui.getCore().byId('Dialog1').close();
 									sap.ui.getCore().byId("userName").setValue();
@@ -184,9 +184,9 @@ sap.ui.define([
 
 						});
 
-						var oUserModel = oThis.getOwnerComponent().getModel("userModel");
-						oUserModel.setProperty("/IdUser", oCompleteEntry.IdUser);
-						oUserModel.setProperty("/Password", oCompleteEntry.Password);
+						// var oUserModel = oThis.getOwnerComponent().getModel("userModel");
+						// oUserModel.setProperty("/IdUser", oCompleteEntry.IdUser);
+						// oUserModel.setProperty("/Password", oCompleteEntry.Password);
 
 						if (oCompleteEntry.Role === true) {
 

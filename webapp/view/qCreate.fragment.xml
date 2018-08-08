@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+	<Panel id="idPnl" width="150em">
+		<FlexBox id="idFB" alignItems="Center" justifyContent="Start" >
+			<items>
+				<l:VerticalLayout >
+				<HBox>
+				<Input />
+				<Button id="addInput" icon="sap-icon://sys-add" type="Transparent" press="addInput" />
+				</HBox>
+				
+				<Input/>
+				<Input/>
+				<Input/>
+				
+				</l:VerticalLayout>
+			</items>
+		</FlexBox>
+	</Panel>
+</core:FragmentDefinition>

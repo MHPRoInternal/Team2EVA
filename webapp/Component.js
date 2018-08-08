@@ -18,13 +18,21 @@ sap.ui.define([
 		 */
 		 
 		init: function() {
-			this.oUserModel = new sap.ui.model.json.JSONModel({
+			this.oUserModel1 = new sap.ui.model.json.JSONModel({
 				IdUser: "",
 				Password: ""
 
 			});
+			
+			this.oUserModel2 = new sap.ui.model.json.JSONModel({
+				IdUser: "",
+				Password: ""
 
-			this.setModel(this.oUserModel, "userModel");
+			});
+			
+
+			this.setModel(this.oUserModel1, "qModel");
+			this.setModel(this.oUserModel2, "aModel");
 			
 			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);

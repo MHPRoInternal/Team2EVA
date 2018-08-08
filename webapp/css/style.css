@@ -1,4 +1,8 @@
 /* Enter your custom styles here */
+.sapUiIcon #addInput {
+	height: 10px !important;
+	width: 10px !important;
+}
 .sapMIBar.sapMHeader-CTX {
 	background-color : #FFFFFF;
 } 

@@ -6,6 +6,7 @@
 		</headerContent>
 		<content>
 			<Panel headerText="Relevant events:">
+				
 					<HBox items="{toUserEvent}">
 						<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{Title}"
 							press="handlePress">
@@ -16,6 +17,7 @@
 						<!--<Link text="{Title}" press="handlePress"/>-->
 						<!--<Image src="{Picture}" width="9.5em" height="7.5em"></Image>-->
 				</HBox>
+				
 			</Panel>
 		</content>
 	</Page>

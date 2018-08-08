@@ -13,9 +13,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			//this.getModel().getServiceMetadata();
 			//this.getModel().metadataLoaded();
 		},
+		
 		getRouter: function() {
 			return this.getOwnerComponent().getRouter();
 		},
+		
 		onNavBack: function() {
 			var sPreviousHash = History.getInstance().getPreviousHash();
 
@@ -26,7 +28,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				this.getRouter().navTo("dashBoard", {}, true);
 			}
 
-		},
+		}
 		
 		
 		

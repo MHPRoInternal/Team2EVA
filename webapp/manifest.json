@@ -125,6 +125,11 @@
 					"target": "aEvent"
 				},
 				{
+					"pattern": "firstCreateEvent",
+					"name": "firstCreateEvent",
+					"target": "firstCreateEvent"
+				},
+				{
 					"pattern": "createEvent",
 					"name": "createEvent",
 					"target": "createEvent"
@@ -154,6 +159,11 @@
 				"aEvent": {
 					"viewName": "aEvent",
 					"viewId": "aEvent",
+					"viewLevel": 2
+				},
+				"firstCreateEvent": {
+					"viewName": "firstCreateEvent",
+					"viewId": "firstCreateEvent",
 					"viewLevel": 2
 				},
 				"createEvent": {
