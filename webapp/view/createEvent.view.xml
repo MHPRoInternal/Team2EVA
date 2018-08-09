@@ -6,42 +6,37 @@
 				emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
 				<f:content>
 					<Label text="Title"/>
-					<Input id="Title" width="35rem" required="true" editable="false"/>
+					<Input id="Title" width="35rem" required="true"/>
 					<Label text="Location"/>
-					<Input id="Location" width="35rem" required="true" editable="false" />
+					<Input id="Location" width="35rem" required="true"/>
 					<Label text="Latitude"/>
-					<Input id="Latitude" width="35rem" required="true" editable="false" />
+					<Input id="Latitude" width="35rem" required="true"/>
 					<Label text="Longitude"/>
-					<Input id="Longitude" width="35rem" required="true" editable="false" />
-					<Label text="Date "/>
-					<DateTimePicker id="Date" required="true" editable="false"
-						value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', strictParsing: true}}"/>
+					<Input id="Longitude" width="35rem" required="true"/>
+					<Label text="Date"/>
+					<DatePicker id="Date" required="true" valueFormat="yyyy-MM-ddThh:mm:ss" displayFormat="dd.MM.yyyy"/>
+					<!--value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'short'}}"/>-->
 					<!--<Input id="eDataInput" width="35rem" editable="false"-->
 					<!--	value="{ path: 'Data', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"></Input>-->
 					<Label text="Time"/>
-					<Input id="Time" width="35rem" required="true" editable="false" />
+					<Input id="Time" width="35rem" required="true" placeholder="HH:mm - HH:mm"/>
 					<Label text="DressCode"/>
-					<Input id="Dresscode" width="35rem" required="true" editable="false" />
+					<Input id="Dresscode" width="35rem" required="true"/>
 					<Label text="Picture"/>
-					<Input id="Picture" width="35rem" required="true" editable="false" />
+					<Input id="Picture" width="35rem" required="true"/>
 				</f:content>
 			</f:SimpleForm>
 			<core:Fragment fragmentName="eventManagementEVA.view.qList" type="XML"/>
 			<core:Fragment fragmentName="eventManagementEVA.view.qCreate" type="XML"/>
-			
 			<Button text="Add question" press="addQuestionPress"/>
 			<vbm:GeoMap id="GeoMap" width="30%" height="30%"/>
 			<!--<Button class="AcceptBtn" width="10rem" text="Send invites" type="Unstyled" press="onCreateTap"></Button>-->
 		</content>
-		
 		<footer>
 			<Toolbar>
 				<ToolbarSpacer/>
-				<Switch customTextOn="Edit" customTextOff="View" state="false" change="onSwitchEditMode"/>
-				<Button text="Update" press="onUpdatePress"></Button>
-				<Button text="Delete" press="onDeletepress"></Button>
+				<Button id="createEvent" text="Create Event" press="onCreate"></Button>
 			</Toolbar>
 		</footer>
-		
 	</Page>
 </mvc:View>

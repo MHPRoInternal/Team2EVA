@@ -1,7 +1,7 @@
 sap.ui.define([
 	"eventManagementEVA/controller/BaseController",
 	'sap/m/MessageToast'
-	
+
 ], function(BaseController, MessageToast) {
 	"use strict";
 
@@ -122,6 +122,12 @@ sap.ui.define([
 			oInput = this.getView().byId("ePictureInput");
 			oInput.setEditable(false);
 
+			// var updateBtn = this.getView().byId("eventUpdate");
+			// var deleteBtn = this.getView().byId("eventDelete");
+			// var switchBtn = this.getView().byId("switchBtn");
+			// switchBtn.setState(false);
+			// updateBtn.setVisible(false);
+			// deleteBtn.setVisible(false);
 			// oModel.setUseBatch("true");
 			// oModel.submitChanges({
 			// 	success: jQuery.proxy(function() {

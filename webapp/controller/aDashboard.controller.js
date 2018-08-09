@@ -33,7 +33,6 @@ sap.ui.define([
 				});
 		},
 		 onCreatePress : function(oEvent) {
-		 	uID = oEvent.getSource().getBindingContext().getObject().IdUser;
 		// 	//var oView = this.getView();
 		// 	//var oModel = oView.getModel();
 		// 	//var title = "****PSD";
@@ -48,11 +47,7 @@ sap.ui.define([
 		// 	// 	},
 		// 	// 	error: function(oError){}
 		// 	// } );
-		 	this.getRouter().navTo("firstCreateEvent", {
-
-					userID : uID
-
-				});
+		 	this.getRouter().navTo("createEvent");
 		// 	// 		{
 		// 	// 			eventID : oCreateEntry.IdEvent
 		// 	// 		}

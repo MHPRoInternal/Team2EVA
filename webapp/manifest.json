@@ -125,11 +125,6 @@
 					"target": "aEvent"
 				},
 				{
-					"pattern": "firstCreateEvent",
-					"name": "firstCreateEvent",
-					"target": "firstCreateEvent"
-				},
-				{
 					"pattern": "createEvent",
 					"name": "createEvent",
 					"target": "createEvent"
@@ -161,15 +156,10 @@
 					"viewId": "aEvent",
 					"viewLevel": 2
 				},
-				"firstCreateEvent": {
-					"viewName": "firstCreateEvent",
-					"viewId": "firstCreateEvent",
-					"viewLevel": 2
-				},
 				"createEvent": {
 					"viewName": "createEvent",
 					"viewId": "createEvent",
-					"viewLevel": 1
+					"viewLevel": 2
 				}
 			},
 			"resources": {

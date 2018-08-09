@@ -9,27 +9,26 @@
 						<Label text="Title"/>
 						<Input id="Title" width="35rem" required="true"/>
 						<Label text="Location"/>
-						<Input id="Location" width="35rem" required="true" />
+						<Input id="Location" width="35rem" required="true"/>
 						<Label text="Latitude"/>
-						<Input id="Latitude" width="35rem" required="true" />
+						<Input id="Latitude" width="35rem" required="true"/>
 						<Label text="Longitude"/>
-						<Input id="Longitude" width="35rem" required="true" />
-						<Label text="Date "/>
-						<DateTimePicker id="Date" required="true"
-							value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', strictParsing: true}}"/>
+						<Input id="Longitude" width="35rem" required="true"/>
+						<Label text="Date"/>
+						<DatePicker id="Date" required="true" valueFormat="yyyy-MM-ddThh:mm:ss" displayFormat="dd.MM.yyyy"/>
+						<!--value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'short'}}"/>-->
 						<!--<Input id="eDataInput" width="35rem" editable="false"-->
 						<!--	value="{ path: 'Data', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"></Input>-->
 						<Label text="Time"/>
-						<Input id="Time" width="35rem" required="true" />
+						<Input id="Time" width="35rem" required="true" placeholder="HH:mm - HH:mm"/>
 						<Label text="DressCode"/>
-						<Input id="Dresscode" width="35rem" required="true" />
+						<Input id="Dresscode" width="35rem" required="true"/>
 						<Label text="Picture"/>
-						<Input id="Picture" width="35rem" required="true" />
+						<Input id="Picture" width="35rem" required="true"/>
 					</f:content>
 				</f:SimpleForm>
 				<Button class="AcceptBtn" text="Create Event" press="onCreate"/>
 				<Button class="AcceptBtn" text="Cancel" press="onCancel"/>
-				
 			</content>
 		</Page>
 	</App>
