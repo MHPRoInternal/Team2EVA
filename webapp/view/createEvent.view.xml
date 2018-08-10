@@ -2,6 +2,7 @@
 	controllerName="eventManagementEVA.controller.createEvent" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form">
 	<Page title="{i18n>createEventTitle}">
 		<content>
+			
 			<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false"
 				emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
 				<f:content>
@@ -26,10 +27,10 @@
 					<Input id="Picture" width="35rem" required="true"/>
 				</f:content>
 			</f:SimpleForm>
+
 			<core:Fragment fragmentName="eventManagementEVA.view.qList" type="XML"/>
 			<core:Fragment fragmentName="eventManagementEVA.view.qCreate" type="XML"/>
 			<Button text="Add question" press="addQuestionPress"/>
-			<vbm:GeoMap id="GeoMap" width="30%" height="30%"/>
 			<!--<Button class="AcceptBtn" width="10rem" text="Send invites" type="Unstyled" press="onCreateTap"></Button>-->
 		</content>
 		<footer>

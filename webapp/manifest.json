@@ -78,6 +78,7 @@
 					"metadataUrlParams": {
 						"sap-documentation": "heading"
 					},
+					"useBatch" : false,
 					"defaultCountMode": "Inline",
 					"defaultOperationMode": "Client",
 					"defaultUpdateMethod" : "PUT"

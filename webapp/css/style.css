@@ -1,65 +1,74 @@
 /* Enter your custom styles here */
+
+.myMap {
+		margin-top: 40px;
+		
+}
+
 .sapUiIcon #addInput {
-	height: 10px !important;
-	width: 10px !important;
+    height: 10px !important;
+    width: 10px !important;
 }
+
 .sapMIBar.sapMHeader-CTX {
-	background-color : #FFFFFF;
-} 
-.sapMInputBaseInner {
-	text-align: center !important;
+    background-color: #FFFFFF;
 }
+
+.sapMInputBaseInner {
+    text-align: center !important;
+}
+
 .LoginBack {
-	background : url('http://i65.tinypic.com/2370ar.jpg');
-	background-repeat: no-repeat;
+    background: url('http://i65.tinypic.com/2370ar.jpg');
+    background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-	
 }
-.fontStyle{
-	 font-style: Italic;
-	 font-weight: bold;
+
+.fontStyle {
+    font-style: Italic;
+    font-weight: bold;
 }
 
 .loginBtn {
-	border-radius: 35%;
-	background-color: #e7e7e7;
-	border: solid 2px #8c8c8c;
-	width: 10rem;
-	margin: 10px auto;
-
+    border-radius: 35%;
+    background-color: #e7e7e7;
+    border: solid 2px #8c8c8c;
+    width: 10rem;
+    margin: 10px auto;
 }
+
 .loginBtn:hover {
-	border-radius: 35%;
-	border: solid 2px #949696;
-	background-color: RoyalBlue;
-	margin: 10px auto;
+    border-radius: 35%;
+    border: solid 2px #949696;
+    background-color: RoyalBlue;
+    margin: 10px auto;
 }
-
 
 .AcceptBtn {
-	border-radius: 20px;
-	background-color:limegreen;
-	width: 10rem;
-	margin: 10px auto;
+    border-radius: 20px;
+    background-color: limegreen;
+    width: 10rem;
+    margin: 10px auto;
 }
-.AcceptBtn:hover {
-	border-radius: 20px;
-	background-color:lime;
-	width: 10rem;
-	margin: 10px auto;
 
+.AcceptBtn:hover {
+    border-radius: 20px;
+    background-color: lime;
+    width: 10rem;
+    margin: 10px auto;
 }
+
 .DeclineBtn {
-	border-radius: 20px;
-	background-color:Red;
-	width: 10rem;
-	margin: 10px auto;
+    border-radius: 20px;
+    background-color: Red;
+    width: 10rem;
+    margin: 10px auto;
 }
 
 .DeclineBtn:hover {
-	border-radius: 20px;
-	background-color:Tomato;
-	width: 10rem;
-	margin: 10px auto;
+    border-radius: 20px;
+    background-color: Tomato;
+    width: 10rem;
+    margin: 10px auto;
 }

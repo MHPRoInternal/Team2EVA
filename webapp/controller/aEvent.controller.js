@@ -15,7 +15,30 @@ sap.ui.define([
 			var deleteBtn = this.getView().byId("eventDelete");
 			updateBtn.setVisible(false);
 			deleteBtn.setVisible(false);
-			//sap.ui.getCore().loadLibrary("sapui5.googlemaps", "../sapui5/googlemaps/");
+			this.getView().byId("map_canvas").addStyleClass("myMap");
+		},
+
+		onAfterRendering: function() {
+			if (!this.initialized) {
+
+				var latitude = this.getView().byId("Latitude").getValue();
+				var longitude = this.getView().byId("Longitude").getValue();
+
+				var myLatlng = new google.maps.LatLng(latitude, longitude);
+				var mapOptions = {
+					zoom: 13,
+					center: myLatlng
+				};
+				var map = new google.maps.Map(this.getView().byId("map_canvas").getDomRef(), mapOptions);
+
+				var marker = new google.maps.Marker({
+					position: myLatlng,
+					title: "Hello World!"
+				});
+
+				// To add the marker to the map, call setMap();
+				marker.setMap(map);
+			}
 		},
 
 		onSwitchEditMode: function(oEvent) {
@@ -27,19 +50,21 @@ sap.ui.define([
 			updateBtn.setVisible(state);
 			deleteBtn.setVisible(state);
 
-			var oInput = this.getView().byId("eTitleInput");
+			var oInput = this.getView().byId("Title");
 			oInput.setEditable(bState);
-			oInput = this.getView().byId("eLocationInput");
+			oInput = this.getView().byId("Location");
 			oInput.setEditable(bState);
-			oInput = this.getView().byId("eLatitudeInput");
+			oInput = this.getView().byId("Latitude");
 			oInput.setEditable(bState);
-			oInput = this.getView().byId("eLongitudeInput");
+			oInput = this.getView().byId("Longitude");
 			oInput.setEditable(bState);
-			oInput = this.getView().byId("eDataInput");
+			oInput = this.getView().byId("Date");
 			oInput.setEditable(bState);
-			oInput = this.getView().byId("eDresscodeInput");
+			oInput = this.getView().byId("Time");
 			oInput.setEditable(bState);
-			oInput = this.getView().byId("ePictureInput");
+			oInput = this.getView().byId("Dresscode");
+			oInput.setEditable(bState);
+			oInput = this.getView().byId("Picture");
 			oInput.setEditable(bState);
 
 		},
@@ -69,7 +94,10 @@ sap.ui.define([
 			// 	}); 
 
 			this.getView().bindElement("/EventSet('" + eID + "')");
-
+			var latitude = this.getView().byId("Latitude").getValue();
+			var longitude = this.getView().byId("Longitude").getValue();
+			console.log("Latitude is: " + latitude);
+			console.log("Longitude is: " + longitude);
 		},
 
 		onUpdatePress: function(oEvent) {
@@ -79,47 +107,54 @@ sap.ui.define([
 			var location = this.getView().byId("Location").getValue();
 			var latitude = this.getView().byId("Latitude").getValue();
 			var longitude = this.getView().byId("Longitude").getValue();
-			//var date = this.getView().byId("Date").getValue();
-			//	time = this.getView().byId("Time").getValue();
+			var date = this.getView().byId("Date").getValue();
+			var time = this.getView().byId("Time").getValue();
 			var dressCode = this.getView().byId("Dresscode").getValue();
 			var picture = this.getView().byId("Picture").getValue();
+			console.log(latitude);
+			console.log(longitude);
 			var oData = {
 				Title: title,
 				Location: location,
 				Latitude: latitude,
+				Data: date,
+				Time: time,
 				Longitude: longitude,
 				Dresscode: dressCode,
 				Picture: picture
 			};
-			oModel.update("/EventSet(IdEvent='" + eID + "'", oData, {
-				success: function() {
 
-					MessageToast.show("Update successful for the event with ID: " + eID + "!", {
+			// oModel.update("/EventSet(IdEvent='" + eID + "'", oData, {
+			// 	success: function(oCompletedEntry) {
 
-						animationDuration: 5000
+			// 		MessageToast.show("Update successful for the event with ID: " + eID + "!", {
 
-					});
-					console.log("SUCCESS?");
-				},
-				error: function(oError) {
-					MessageToast.show("Changes could not be made! Please try again.");
-					console.log("ERROR?");
-				}
-			});
+			// 			animationDuration: 5000
+
+			// 		});
+			// 		console.log("SUCCESS?");
+			// 	},
+			// 	error: function(oError) {
+			// 		MessageToast.show("Changes could not be made! Please try again.");
+			// 		console.log("ERROR?");
+			// 	}
+			// });
 			//var bState = oEvent.getSource().getState();
-			var oInput = this.getView().byId("eTitleInput");
+			var oInput = this.getView().byId("Title");
 			oInput.setEditable(false);
-			oInput = this.getView().byId("eLocationInput");
+			oInput = this.getView().byId("Location");
 			oInput.setEditable(false);
-			oInput = this.getView().byId("eLatitudeInput");
+			oInput = this.getView().byId("Latitude");
 			oInput.setEditable(false);
-			oInput = this.getView().byId("eLongitudeInput");
+			oInput = this.getView().byId("Longitude");
 			oInput.setEditable(false);
-			oInput = this.getView().byId("eDataInput");
+			oInput = this.getView().byId("Date");
 			oInput.setEditable(false);
-			oInput = this.getView().byId("eDresscodeInput");
+			oInput = this.getView().byId("Time");
 			oInput.setEditable(false);
-			oInput = this.getView().byId("ePictureInput");
+			oInput = this.getView().byId("Dresscode");
+			oInput.setEditable(false);
+			oInput = this.getView().byId("Picture");
 			oInput.setEditable(false);
 
 			// var updateBtn = this.getView().byId("eventUpdate");

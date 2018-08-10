@@ -1,13 +1,13 @@
 sap.ui.define([
-"eventManagementEVA/controller/BaseController",
-"sap/m/MessageToast",
-"sap/m/TimePicker"
+	"eventManagementEVA/controller/BaseController",
+	"sap/m/MessageToast",
+	"sap/m/TimePicker"
 ], function(BaseController, MessageToast, TimePicker) {
-"use strict";
+	"use strict";
 
-var uID = null;
+	var uID = null;
 
-return BaseController.extend("eventManagementEVA.controller.firstCreateEvent", {
+	return BaseController.extend("eventManagementEVA.controller.firstCreateEvent", {
 
 		// onInit: function(oEvent) {
 		// this.getRouter().getRoute("firstCreateEvent").attachMatched(this.onRouteMatched, this);
@@ -37,7 +37,7 @@ return BaseController.extend("eventManagementEVA.controller.firstCreateEvent", {
 		// 		});
 		// },
 		onCreate: function(oEvent) {
-			
+
 			var oView = this.getView();
 			var oModel = oView.getModel();
 
@@ -50,41 +50,39 @@ return BaseController.extend("eventManagementEVA.controller.firstCreateEvent", {
 			console.log(time);
 			var dressCode = this.getView().byId("Dresscode").getValue();
 			var picture = this.getView().byId("Picture").getValue();
-			
-		
 
-					//add seconds to the picker
+			//add seconds to the picker
 
-					//to be converted to PT13H31M00S
+			//to be converted to PT13H31M00S
 
+			var oData = {
+				Title: title,
+				Location: location,
+				Latitude: latitude,
+				Longitude: longitude,
+				Data: date,
+				Time: time,
+				Dresscode: dressCode,
+				Picture: picture
+			};
 
-	var oData = {
-		Title: title,
-		Location: location,
-		Latitude: latitude,
-		Longitude: longitude,
-		Data: date,
-		Time: time,
-		Dresscode: dressCode,
-		Picture: picture
-	};
-var route = this.getRouter();
-	oModel.create("/EventSet", oData, {
-		success: function(oCompletedEntry) {
-			console.log("Event ID-ul este: " + oCompletedEntry.IdEvent);
-			route.navTo("createEvent", {
-					eventID: oCompletedEntry.IdEvent
+			var route = this.getRouter();
+			oModel.create("/EventSet", oData, {
+				success: function(oCompletedEntry) {
+					console.log("Event ID-ul este: " + oCompletedEntry.IdEvent);
+					route.navTo("createEvent", {
+							eventID: oCompletedEntry.IdEvent
+						}
+
+					);
+
+				},
+				error: function(oError) {
+					console.log("There has been an error creating the event! Please try again.")
 				}
-
-			);
-
-		},
-		error: function(oError) {
-			console.log("There has been an error creating the event! Please try again.")
+			});
 		}
-	});
-}
 
-});
+	});
 
 });

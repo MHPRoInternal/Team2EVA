@@ -1,44 +1,45 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="eventManagementEVA.controller.aEvent"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form">
 	<Page title="{i18n>aEventTitle}">
-		<!--<gmaps:Map height="250px" zoom="12" lat="-33.895" lng="151.275">-->
-		<!--	<gmaps:markers>-->
-		<!--		<gmaps:Marker lat="-33.895" lng="151.275" info="Bondi Beach"/>-->
-		<!--	</gmaps:markers>-->
-		<!--</gmaps:Map>-->
-		<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
-			labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
-			singleContainerFullSize="false">
-			<f:content>
-				<Label text="Title"/>
-				<Input id="eTitleInput" width="35rem" editable="false" value="{Title}"></Input>
-				<Label text="Location"/>
-				<Input id="eLocationInput" width="35rem" editable="false" value="{Location}"></Input>
-				<Label text="Latitude"/>
-				<Input id="eLatitudeInput" width="35rem" editable="false" value="{Location}"></Input>
-				<Label text="Longitude"/>
-				<Input id="eLongitudeInput" width="35rem" editable="false" value="{Location}"></Input>
-				<Label text="Date "/>
-				<DateTimePicker id="eDataInput" editable="false" value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'medium', strictParsing: true}}"/>
-				<!--<Input id="eDataInput" width="35rem" editable="false"-->
-				<!--	value="{ path: 'Data', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"></Input>-->
-				<Label text="Time"/>
-				<TimePicker editable="false" value="{Time}" valueFormat="HH:mm" displayFormat="HH:mm" change="handleChange" placeholder="Enter meeting start time"/>
-				<Label text="DressCode"/>
-				<Input id="eDresscodeInput" width="35rem" editable="false" value="{Dresscode}"/>
-				<Label text="Picture"/>
-				<Input id="ePictureInput" width="35rem" editable="false" value="{Picture}"/>
-			</f:content>
-		</f:SimpleForm>
+		<HBox>
+			<Panel>
+				<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+					adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+					singleContainerFullSize="false">
+					<f:content>
+						<Label text="Title"/>
+						<Input id="Title"  editable="false" value="{Title}"></Input>
+						<Label text="Location"/>
+						<Input id="Location"  editable="false" value="{Location}"></Input>
+						<Label text="Latitude"/>
+						<Input id="Latitude"  editable="false" value="{Latitude}"></Input>
+						<Label text="Longitude"/>
+						<Input id="Longitude"  editable="false" value="{Longitude}"></Input>
+						<Label text="Date"/>
+						<DatePicker id="Date" required="true" valueFormat="yyyy-MM-ddThh:mm:ss" displayFormat="dd.MM.yyyy" value="{Data}"/>
+						<!--value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'short'}}"/>-->
+						<!--<Input id="eDataInput" width="35rem" editable="false"-->
+						<!--	value="{ path: 'Data', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"></Input>-->
+						<Label text="Time"/>
+						<Input id="Time"  required="true" placeholder="HH:mm - HH:mm" value="{Time}"/>
+						<Label text="DressCode"/>
+						<Input id="Dresscode"  editable="false" value="{Dresscode}"/>
+						<Label text="Picture"/>
+						<Input id="Picture"  editable="false" value="{Picture}"/>
+					</f:content>
+				</f:SimpleForm>
+			</Panel>
+			<Panel>
+				<FlexBox id="map_canvas" width="15em" height="10em" fitContainer="true" justifyContent="Center" alignItems="Center"/>
+			</Panel>
+		</HBox>
 		<!--<core:Fragment fragmentName="eventManagementEVA.view.qList" type="XML"/>-->
-		<Button class="AcceptBtn" width="10rem" text="ACCEPT" type="Unstyled" press="onAcceptTap"></Button>
-		<Button class="DeclineBtn" width="10rem" text="DECLINE" type="Unstyled" press="onDeclineTap"></Button>
 		<footer>
 			<Toolbar>
 				<ToolbarSpacer/>
 				<Switch id="switchBtn" customTextOn="Edit" customTextOff="View" state="false" change="onSwitchEditMode"/>
-				<Button id="eventUpdate" text="Update" press="onUpdatePress" ></Button>
-				<Button id="eventDelete" text="Delete" press="onDeletepress" ></Button>
+				<Button id="eventUpdate" text="Update" press="onUpdatePress"></Button>
+				<Button id="eventDelete" text="Delete" press="onDeletepress"></Button>
 			</Toolbar>
 		</footer>
 	</Page>
