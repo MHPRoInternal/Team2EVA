@@ -1,8 +1,13 @@
 /* Enter your custom styles here */
 
+.sapMInputBase.sapMTextArea {
+    padding: 0.625rem 0.75rem;
+    padding: 0px 200px 57px 0px;
+    margin: 0px 0px 0px 300px;
+}
+
 .myMap {
-		margin-top: 40px;
-		
+    margin-top: 40px;
 }
 
 .sapUiIcon #addInput {
@@ -11,7 +16,7 @@
 }
 
 .sapMIBar.sapMHeader-CTX {
-    background-color: #FFFFFF;
+    background-color: #eb7a7a;
 }
 
 .sapMInputBaseInner {

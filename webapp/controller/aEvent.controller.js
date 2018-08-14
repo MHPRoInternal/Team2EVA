@@ -1,11 +1,12 @@
 sap.ui.define([
 	"eventManagementEVA/controller/BaseController",
-	'sap/m/MessageToast'
+	'sap/m/MessageToast',
 
 ], function(BaseController, MessageToast) {
 	"use strict";
 
 	var eID = null;
+	var uID = "";
 
 	return BaseController.extend("eventManagementEVA.controller.aEvent", {
 
@@ -16,29 +17,6 @@ sap.ui.define([
 			updateBtn.setVisible(false);
 			deleteBtn.setVisible(false);
 			this.getView().byId("map_canvas").addStyleClass("myMap");
-		},
-
-		onAfterRendering: function() {
-			if (!this.initialized) {
-
-				var latitude = this.getView().byId("Latitude").getValue();
-				var longitude = this.getView().byId("Longitude").getValue();
-
-				var myLatlng = new google.maps.LatLng(latitude, longitude);
-				var mapOptions = {
-					zoom: 13,
-					center: myLatlng
-				};
-				var map = new google.maps.Map(this.getView().byId("map_canvas").getDomRef(), mapOptions);
-
-				var marker = new google.maps.Marker({
-					position: myLatlng,
-					title: "Hello World!"
-				});
-
-				// To add the marker to the map, call setMap();
-				marker.setMap(map);
-			}
 		},
 
 		onSwitchEditMode: function(oEvent) {
@@ -56,7 +34,9 @@ sap.ui.define([
 			oInput.setEditable(bState);
 			oInput = this.getView().byId("Latitude");
 			oInput.setEditable(bState);
+			oInput.setVisible(bState);
 			oInput = this.getView().byId("Longitude");
+			oInput.setVisible(bState);
 			oInput.setEditable(bState);
 			oInput = this.getView().byId("Date");
 			oInput.setEditable(bState);
@@ -66,11 +46,13 @@ sap.ui.define([
 			oInput.setEditable(bState);
 			oInput = this.getView().byId("Picture");
 			oInput.setEditable(bState);
+			oInput.setVisible(bState);
 
 		},
 
 		onRouteMatched: function(oEvent) {
 			eID = oEvent.getParameter("arguments").eventID;
+			var uID = oEvent.getParameter("arguments").userID;
 			//id_event sau IdEvent
 			console.log("1 " + eID);
 			//	var oUserModel = this.getOwnerComponent().getModel("userModel");
@@ -93,24 +75,65 @@ sap.ui.define([
 			// 		console.log("3 " + eID);
 			// 	}); 
 
-			this.getView().bindElement("/EventSet('" + eID + "')");
-			var latitude = this.getView().byId("Latitude").getValue();
-			var longitude = this.getView().byId("Longitude").getValue();
-			console.log("Latitude is: " + latitude);
-			console.log("Longitude is: " + longitude);
+			oView.bindElement({
+				path: "/EventSet('" + eID + "')",
+				events: {
+					dataReceived: function(oData) {
+
+						var myLatlng = new google.maps.LatLng(oData.getParameters().data.Latitude, oData.getParameters().data.Longitude);
+						var mapOptions = {
+							zoom: 13,
+							center: myLatlng
+						};
+						var map = new google.maps.Map(oView.byId("map_canvas").getDomRef(), mapOptions);
+
+						var marker = new google.maps.Marker({
+							position: myLatlng,
+							title: "Hello World!"
+						});
+
+						// To add the marker to the map, call setMap();
+						marker.setMap(map);
+					}
+				}
+			});
+		},
+
+		onAcceptTap: function(oEvent) {
+			var oView = this.getView();
+			var oModel = oView.getModel();
+			var confirmation = "true";
+			var oData = {
+				Confirmation: confirmation
+			};
+			oModel.update("/UserEventSet(IdUser='" + uID + "', IdEvent='" + eID + "'", oData, {
+				success: function(oCompletedEntry) {
+
+					MessageToast.show("Event attendance confirmed for user " + uID + "!", {
+
+						animationDuration: 5000
+
+					});
+					console.log("SUCCESS?");
+				},
+				error: function(oError) {
+					MessageToast.show("Changes could not be made! Please try again.");
+					console.log("ERROR?");
+				}
+			});
 		},
 
 		onUpdatePress: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();
-			var title = this.getView().byId("Title").getValue();
-			var location = this.getView().byId("Location").getValue();
-			var latitude = this.getView().byId("Latitude").getValue();
-			var longitude = this.getView().byId("Longitude").getValue();
-			var date = this.getView().byId("Date").getValue();
-			var time = this.getView().byId("Time").getValue();
-			var dressCode = this.getView().byId("Dresscode").getValue();
-			var picture = this.getView().byId("Picture").getValue();
+			var title = oView.byId("Title").getValue();
+			var location = oView.byId("Location").getValue();
+			var latitude = oView.byId("Latitude").getValue();
+			var longitude = oView.byId("Longitude").getValue();
+			var date = oView.byId("Date").getValue();
+			var time = oView.byId("Time").getValue();
+			var dressCode = oView.byId("Dresscode").getValue();
+			var picture = oView.byId("Picture").getValue();
 			console.log(latitude);
 			console.log(longitude);
 			var oData = {

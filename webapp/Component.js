@@ -24,10 +24,15 @@ sap.ui.define([
 
 			});
 			
-			this.oUserModel2 = new sap.ui.model.json.JSONModel({
-				IdUser: "",
-				Password: ""
-
+			this.oEventModel = new sap.ui.model.json.JSONModel({
+				Title: "",
+				Location: "",
+				Latitude: "",
+				Longitude: "",
+				Data: "",
+				Time: "",
+				Dresscode: "",
+				Picture: ""
 			});
 			
 

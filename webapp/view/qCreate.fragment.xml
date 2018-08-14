@@ -1,17 +1,20 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
 	<Panel id="idPnl" width="150em">
-		<FlexBox id="idFB" alignItems="Center" justifyContent="Start" >
+		<FlexBox id="idFB" alignItems="Center" justifyContent="Start">
 			<items>
 				<l:VerticalLayout >
-				<HBox>
-				<Input />
-				<Button id="addInput" icon="sap-icon://sys-add" type="Transparent" press="addInput" />
-				</HBox>
-				
-				<Input/>
-				<Input/>
-				
+					<HBox>
+						<Input id="inputId0"/>
+						<Button id="addInput" icon="sap-icon://sys-add" type="Transparent" press="addInput"/>
+					</HBox>
+					<Input id="inputId1"/>
+					<Input id="inputId2"/>
 				</l:VerticalLayout>
+
+				<TextArea id="mailTxtArea" rows="4" cols="6" value="{Mail}"></TextArea>
+
+				<CheckBox text="MHP Romania" selected="false" select="onSelect"/>
+
 			</items>
 		</FlexBox>
 	</Panel>
