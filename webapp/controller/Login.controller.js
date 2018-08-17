@@ -31,7 +31,7 @@ sap.ui.define([
 						if (newPass === newPassConfirm) {
 							console.log("Merge2!");
 							oModel.update("/UserSet(IdUser='" + userName + "')", oData, {
-								
+
 								success: function() {
 									sap.ui.getCore().byId('Dialog1').close();
 									sap.ui.getCore().byId("userName").setValue();
@@ -152,10 +152,10 @@ sap.ui.define([
 
 		onLoginTap: function(oEvent) {
 			var oThis = this;
-			var oView = this.getView();
+			oView = this.getView();
 			var oModel = oView.getModel();
-			uid = this.getView().byId("uid").getValue();
-			pasw = this.getView().byId("pasw").getValue();
+			uid = oView.byId("uid").getValue();
+			pasw = oView.byId("pasw").getValue();
 			var route = this.getRouter();
 			//var oListItem = oEvent.getSource();
 			// var oBindingContext = oListItem.getBindingContext();
@@ -176,7 +176,8 @@ sap.ui.define([
 
 			oModel.read("/UserSet(IdUser='" + uid + "')", {
 				success: function(oCompleteEntry) {
-
+					console.log("User role is: " + oCompleteEntry.Role);
+					var userRole = oCompleteEntry.Role;
 					if (oCompleteEntry.Password === pasw) {
 						MessageToast.show("Login Successful! Welcome: " + uid + ".", {
 
@@ -188,31 +189,18 @@ sap.ui.define([
 						// oUserModel.setProperty("/IdUser", oCompleteEntry.IdUser);
 						// oUserModel.setProperty("/Password", oCompleteEntry.Password);
 
-						if (oCompleteEntry.Role === true) {
+							route.navTo("aDashboard", {
 
-							route.navTo("aDashboard" , {
-
-								userID: uid
-
-							});
-							
-							
-
-						} else if (oCompleteEntry.Role === false) {
-
-							route.navTo("uDashboard", {
-
-								userID: uid
-
+								userID: uid,
+								uRole : userRole
 							});
 
-						}
 					} else {
-						MessageToast.show("Invalid user or password! Please try again.");
+						MessageToast.show("Invalid password! Please try again or contact your local administrator.");
 					}
 				},
 				error: function(oError) {
-					MessageToast.show("Invalid credentials!");
+					MessageToast.show("Invalid credentials! Please try again or contact your local administrator.");
 
 				}
 

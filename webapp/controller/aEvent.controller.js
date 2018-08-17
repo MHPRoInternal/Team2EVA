@@ -7,57 +7,59 @@ sap.ui.define([
 
 	var eID = null;
 	var uID = "";
+	var userRole = null;
+	var acceptBtn = null;
+	var declineBtn = null;
+	var updateBtn = null;
+	var deleteBtn = null;
 
 	return BaseController.extend("eventManagementEVA.controller.aEvent", {
 
 		onInit: function(oEvent) {
+			var oView = this.getView();
 			this.getRouter().getRoute("aEvent").attachMatched(this.onRouteMatched, this);
-			var updateBtn = this.getView().byId("eventUpdate");
-			var deleteBtn = this.getView().byId("eventDelete");
-			updateBtn.setVisible(false);
-			deleteBtn.setVisible(false);
-			this.getView().byId("map_canvas").addStyleClass("myMap");
+			oView.byId("map_canvas").addStyleClass("myMap");
+			updateBtn = oView.byId("eventUpdate");
+			deleteBtn = oView.byId("eventDelete");
+			// oModel.read("/EventSet", {
+			// 	success: function(oCompletedEntry) {
+			// 		oCompletedEntry.results.forEach(function(item) {
+
+			// 		});
+
+			// 	},
+			// 	error: function(oError) {
+
+			// 	}
+			// });
 		},
 
-		onSwitchEditMode: function(oEvent) {
-			var bState = oEvent.getSource().getState();
-			var updateBtn = this.getView().byId("eventUpdate");
-			var deleteBtn = this.getView().byId("eventDelete");
-			var switchBtn = this.getView().byId("switchBtn");
+		onRouteMatched: function(oEvent) {
+			var oView = this.getView();
+			eID = oEvent.getParameter("arguments").eventID;
+			uID = oEvent.getParameter("arguments").userID;
+			userRole = oEvent.getParameter("arguments").uRole;
+			acceptBtn = oView.byId("acceptBtn");
+			declineBtn = oView.byId("declineBtn");
+			var switchBtn = oView.byId("switchBtn");
 			var state = switchBtn.getState();
 			updateBtn.setVisible(state);
 			deleteBtn.setVisible(state);
 
-			var oInput = this.getView().byId("Title");
-			oInput.setEditable(bState);
-			oInput = this.getView().byId("Location");
-			oInput.setEditable(bState);
-			oInput = this.getView().byId("Latitude");
-			oInput.setEditable(bState);
-			oInput.setVisible(bState);
-			oInput = this.getView().byId("Longitude");
-			oInput.setVisible(bState);
-			oInput.setEditable(bState);
-			oInput = this.getView().byId("Date");
-			oInput.setEditable(bState);
-			oInput = this.getView().byId("Time");
-			oInput.setEditable(bState);
-			oInput = this.getView().byId("Dresscode");
-			oInput.setEditable(bState);
-			oInput = this.getView().byId("Picture");
-			oInput.setEditable(bState);
-			oInput.setVisible(bState);
+			if (userRole === "true") {
+				acceptBtn.setVisible(false);
+				declineBtn.setVisible(false);
+				switchBtn.setState(false);
+			} else if (userRole === "false") {
+				switchBtn.setVisible(false);
+				switchBtn.setEnabled(false);
+				updateBtn.setVisible(false);
+				deleteBtn.setVisible(false);
+			}
 
-		},
-
-		onRouteMatched: function(oEvent) {
-			eID = oEvent.getParameter("arguments").eventID;
-			var uID = oEvent.getParameter("arguments").userID;
-			//id_event sau IdEvent
 			console.log("1 " + eID);
 			//	var oUserModel = this.getOwnerComponent().getModel("userModel");
 			//console.log(oUserModel.getProperty("/IdUser") + "S-a transmit si getproperty!");
-			var oView = this.getView();
 			var oModel = oView.getModel();
 			console.log("3 " + eID);
 
@@ -82,14 +84,14 @@ sap.ui.define([
 
 						var myLatlng = new google.maps.LatLng(oData.getParameters().data.Latitude, oData.getParameters().data.Longitude);
 						var mapOptions = {
-							zoom: 13,
+							zoom: 15,
 							center: myLatlng
 						};
 						var map = new google.maps.Map(oView.byId("map_canvas").getDomRef(), mapOptions);
 
 						var marker = new google.maps.Marker({
 							position: myLatlng,
-							title: "Hello World!"
+							title: "Event location"
 						});
 
 						// To add the marker to the map, call setMap();
@@ -97,6 +99,28 @@ sap.ui.define([
 					}
 				}
 			});
+		},
+
+		onSwitchEditMode: function(oEvent) {
+			var oView = this.getView();
+			var bState = oEvent.getSource().getState();
+			var switchBtn = oView.byId("switchBtn");
+			var searchBtn = oView.byId("bntSearch");
+			var state = switchBtn.getState();
+			updateBtn.setVisible(state);
+			deleteBtn.setVisible(state);
+			searchBtn.setVisible(state);
+
+			var oInput = oView.byId("Title");
+			oInput.setEditable(bState);
+			oInput = oView.byId("Location");
+			oInput.setEditable(bState);
+			oInput = oView.byId("Date");
+			oInput.setEditable(bState);
+			oInput = oView.byId("Time");
+			oInput.setEditable(bState);
+			oInput = oView.byId("Dresscode");
+			oInput.setEditable(bState);
 		},
 
 		onAcceptTap: function(oEvent) {
@@ -108,7 +132,7 @@ sap.ui.define([
 			};
 			oModel.update("/UserEventSet(IdUser='" + uID + "', IdEvent='" + eID + "'", oData, {
 				success: function(oCompletedEntry) {
-
+					oView.byId("acceptBtn").setEnabled(false);
 					MessageToast.show("Event attendance confirmed for user " + uID + "!", {
 
 						animationDuration: 5000
@@ -133,18 +157,14 @@ sap.ui.define([
 			var date = oView.byId("Date").getValue();
 			var time = oView.byId("Time").getValue();
 			var dressCode = oView.byId("Dresscode").getValue();
-			var picture = oView.byId("Picture").getValue();
-			console.log(latitude);
-			console.log(longitude);
 			var oData = {
 				Title: title,
 				Location: location,
 				Latitude: latitude,
+				Longitude: longitude,
 				Data: date,
 				Time: time,
-				Longitude: longitude,
-				Dresscode: dressCode,
-				Picture: picture
+				Dresscode: dressCode
 			};
 
 			// oModel.update("/EventSet(IdEvent='" + eID + "'", oData, {
@@ -163,21 +183,21 @@ sap.ui.define([
 			// 	}
 			// });
 			//var bState = oEvent.getSource().getState();
-			var oInput = this.getView().byId("Title");
+			var oInput = oView.byId("Title");
 			oInput.setEditable(false);
-			oInput = this.getView().byId("Location");
+			oInput = oView.byId("Location");
 			oInput.setEditable(false);
-			oInput = this.getView().byId("Latitude");
+			oInput = oView.byId("Latitude");
 			oInput.setEditable(false);
-			oInput = this.getView().byId("Longitude");
+			oInput = oView.byId("Longitude");
 			oInput.setEditable(false);
-			oInput = this.getView().byId("Date");
+			oInput = oView.byId("Date");
 			oInput.setEditable(false);
-			oInput = this.getView().byId("Time");
+			oInput = oView.byId("Time");
 			oInput.setEditable(false);
-			oInput = this.getView().byId("Dresscode");
+			oInput = oView.byId("Dresscode");
 			oInput.setEditable(false);
-			oInput = this.getView().byId("Picture");
+			oInput = oView.byId("Picture");
 			oInput.setEditable(false);
 
 			// var updateBtn = this.getView().byId("eventUpdate");

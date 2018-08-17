@@ -1,13 +1,29 @@
 /* Enter your custom styles here */
 
-.sapMInputBase.sapMTextArea {
-    padding: 0.625rem 0.75rem;
-    padding: 0px 200px 57px 0px;
-    margin: 0px 0px 0px 300px;
+#selectDisplay {
+	right: 0;
+	margin: 40px auto;
+	padding: 40px;
+}
+.textArea {
+    margin: 0 0 0 13.5rem;
+}
+.mapBox{
+	margin: 0 20px 0 80px;
+	text-align: center;
 }
 
+.sapMFlexBoxAlignItemsStretch {
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    align-items: inherit;
+}
+
+.sapMLabel{
+	padding: 2px;
+}
 .myMap {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .sapUiIcon #addInput {
@@ -16,7 +32,7 @@
 }
 
 .sapMIBar.sapMHeader-CTX {
-    background-color: #eb7a7a;
+    background-color: #C6DEFF;
 }
 
 .sapMInputBaseInner {

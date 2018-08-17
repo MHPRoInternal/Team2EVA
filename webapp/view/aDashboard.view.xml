@@ -1,21 +1,18 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns="sap.m"
 	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="eventManagementEVA.controller.aDashboard">
-	<Page title="{i18n>adminDashboardTitle}">
+	<Page title="{i18n>DashTitle}">
 		<headerContent>
-			<Button width="10rem" text="Create Event" type="Unstyled" press="onCreatePress"></Button>
+			<Button id="createEventBtn" visible="false" width="10rem" text="Create Event" type="Unstyled" press="onCreatePress"></Button>
 		</headerContent>
 		<content>
-			<Panel headerText="Relevant events:">
-				<HBox items="{toUserEvent}">
+				<FlexBox items="{toUserEvent}">
+					
 					<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{Title}" press="handlePress">
 						<TileContent >
 							<ImageContent src="{Picture}"/>
 						</TileContent>
 					</GenericTile>
-					<!--<Link text="{Title}" press="handlePress"/>-->
-					<!--<Image src="{Picture}" width="9.5em" height="7.5em"></Image>-->
-				</HBox>
-			</Panel>
+				</FlexBox>
 		</content>
 	</Page>
 </mvc:View>

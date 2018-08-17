@@ -4,8 +4,12 @@ sap.ui.define([
 	'sap/m/Label',
 	'sap/m/Select',
 	'sap/m/Button',
-	'sap/m/MessageToast'
+	'sap/m/MessageToast',
+	'sap/ui/unified/FileUploader',
+	'sap/ui/unified/FileUploaderParameter',
+	"sap/m/UploadCollection"
 ], function(BaseController, MessageToast, Button, Select, Label) {
+
 	"use strict";
 
 	var eID = null;
@@ -13,6 +17,8 @@ sap.ui.define([
 	var countAnswers = 3;
 	var markers = [];
 	var counterStruct = 0;
+	var oUploadCollection = null;
+	var mailList = "";
 
 	return BaseController.extend("eventManagementEVA.controller.createEvent", {
 
@@ -20,35 +26,60 @@ sap.ui.define([
 			this.getRouter().getRoute("createEvent").attachMatched(this.onRouteMatched, this);
 			countAnswers = 3;
 			this.getView().byId("map_canvas").addStyleClass("myMap");
-
+			oUploadCollection = this.byId("UploadCollection");
 			this._oPnl = this.byId("idPnl");
+			this.selectPanel = this.byId("qDisplayPanel");
 		},
 		onRouteMatched: function(oEvent) {
-			eID = oEvent.getParameter("arguments").eventID;
-			//id_event sau IdEvent
-			console.log("S-a transmis event ID-ul : " + eID);
+			var oView = this.getView();
+			//sap.ui.getCore().getModel().refreshSecurityToken();
+			// oFileUploader = new sap.ui.unified.FileUploader({
+			//         uploadUrl : "/EventSet('"+ eID +"')/toPicture",
+			//         name: "simpleUploader",
+			//         uploadOnChange: false,
+			//         sendXHR: true,
+			//         useMultipart: false,
+			//         headerParameters: [
+			//             new sap.ui.unified.FileUploaderParameter({name: "x-csrf-token", value: oView.getModel().getHeaders()['x-csrf-token'] })   
+			//         ],
+			//         uploadComplete: function (oEvent) {
+			//             var sResponse = oEvent.getParameter("response");
+			//             if (sResponse) {
+			//                 oUploadDialog.close();
+			//                 sap.ui.commons.MessageBox.show("Return Code: " + sResponse, "Response", "Response");
+			//             }
+			//         }                   
+			//     });
 		},
 
-		onSelect: function() {
+		onSelect: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();
-			var mailList = "";
+			// var bState = oEvent.getSource().getState();
+			// var selectBox = oView.byId("mailTxtArea");
+
+			mailList = oView.byId("mailTxtArea").getValue();
 			oModel.read("/UserSet", {
 				success: function(oCompletedEntry) {
 					oCompletedEntry.results.forEach(function(item) {
-						mailList += item.Mail + ", ";
+						mailList += item.Mail + "; ";
 					});
+
 					oView.byId("mailTxtArea").setValue(mailList);
 				},
 				error: function(oError) {
 
 				}
 			});
+			// if(bState === true){
+			// 	selectBox = 
+			// }
 		},
 
 		addInput: function() {
 			var oView = this.getView();
 			var oInput1 = new sap.m.Input(oView.createId("inputId" + countAnswers));
+			oInput1.setWidth("15.5em");
 
 			var delIcon = new sap.ui.core.Icon({
 				src: "sap-icon://delete",
@@ -141,7 +172,7 @@ sap.ui.define([
 				justifyContent: "Start",
 				items: [oLabel, oSelect, delIcon]
 			});
-			this._oPnl.addContent(_oCcLayout);
+			this.selectPanel.addContent(_oCcLayout);
 			countAnswers = 3;
 		}, //end of AddQuestion
 
@@ -155,16 +186,15 @@ sap.ui.define([
 			console.log(oEvent.getSource());
 			var questionId = oEvent.getSource().getId().substring(3);
 			var removeIndex = null;
-			QAstructList.forEach(function(index, QAstruct){
-				if(QAstruct.QAstructId === questionId)
-				{
-					removeIndex=index;
+			QAstructList.forEach(function(index, QAstruct) {
+				if (QAstruct.QAstructId === questionId) {
+					removeIndex = index;
 				}
 			});
-			QAstructList.remove(removeIndex);
+			QAstructList.splice(removeIndex, 1);
 			console.log(questionId);
 			rowItemContainer.destroy();
-			
+
 		},
 
 		onAfterRendering: function() {
@@ -196,7 +226,6 @@ sap.ui.define([
 			}, function(results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
 					map.setCenter(results[0].geometry.location);
-
 					var marker = new google.maps.Marker({
 						map: map,
 						position: results[0].geometry.location
@@ -214,18 +243,17 @@ sap.ui.define([
 		},
 
 		onCreate: function(oEvent) {
-
 			var oView = this.getView();
 			var oModel = oView.getModel();
-
-			var title = this.getView().byId("Title").getValue();
-			var location = this.getView().byId("Location").getValue();
-			var latitude = this.getView().byId("Latitude").getValue();
-			var longitude = this.getView().byId("Longitude").getValue();
-			var date = this.getView().byId("Date").getValue();
-			var time = this.getView().byId("Time").getValue();
+			var mailListString = oView.byId("mailTxtArea").getValue();
+			var title = oView.byId("Title").getValue();
+			var location = oView.byId("Location").getValue();
+			var latitude = oView.byId("Latitude").getValue();
+			var longitude = oView.byId("Longitude").getValue();
+			var date = oView.byId("Date").getValue();
+			var time = oView.byId("Time").getValue();
 			console.log(time);
-			var dressCode = this.getView().byId("Dresscode").getValue();
+			var dressCode = oView.byId("Dresscode").getValue();
 
 			var oData = {
 				Title: title,
@@ -234,12 +262,36 @@ sap.ui.define([
 				Longitude: longitude,
 				Data: date,
 				Time: time,
-				Dresscode: dressCode
+				Dresscode: dressCode,
+				Mails: mailListString
 			};
 
 			var route = this.getRouter();
 			oModel.create("/EventSet", oData, {
 				success: function(oCompletedEntry) {
+					eID = oCompletedEntry.IdEvent;
+					//oFileUploader = oView.byId("oFileUploader");
+					oUploadCollection.setUploadUrl("/EventSet('" + eID + "')/toPicture");
+					console.log("Upload URL-ul este: " + oUploadCollection.getUploadUrl());
+					oUploadCollection.upload();
+					// oFileUploader.setSendXHR(true);
+					// oFileUploader.setUploadOnChange(false);
+					// oFileUploader.setUseMultipart(false);
+					//oFileUploader.setUploadUrl("/EventSet('" + eID + "')/toPicture");
+					// console.log(oFileUploader.getValue());
+					// oModel.setTokenHandlingEnabled(true);
+					// oModel.refreshSecurityToken(function() {
+					// 	var token = oModel.getSecurityToken();
+					// 	console.log(token);
+					// 	oFileUploader.insertHeaderParameter(new sap.ui.unified.FileUploaderParameter({name: "x-csrf-token", value: token }));
+					// 	oFileUploader.insertHeaderParameter(new sap.ui.unified.FileUploaderParameter({
+					// 		name: "slug",
+					// 		value: oFileUploader.getValue()
+					// 	}));
+
+					//oFileUploader.upload();
+					// can upload the file if token reset
+					// });
 
 					console.log("Event ID-ul este: " + oCompletedEntry.IdEvent);
 					QAstructList.forEach(function(item) {
@@ -273,18 +325,77 @@ sap.ui.define([
 						});
 					});
 
-					var mailListString = oView.byId("mailTxtArea").getValue();
-					var mailList = mailListString.split(', ');
-					console.log(mailList);
+					//var mailList = mailListString.split(', ');
 					counterStruct = 0;
-
+					var inviteText = oView.getModel("i18n").getResourceBundle().getText("appLinkInvite");
+					sap.m.URLHelper.triggerEmail(mailListString, "New MHP event invitation!", inviteText);
 				},
 				error: function(oError) {
 					console.log("There has been an error creating the event! Please try again.")
 				}
 			});
-		}
+		},
+		onChange: function(oEvent) {
+			var oView = this.getView();
+			var oModel = oView.getModel();
+			oUploadCollection = oEvent.getSource();
+			var token = oModel.getSecurityToken();
+			// Header Token
+			var oCustomerHeaderToken = new sap.m.UploadCollectionParameter({
+				name: "x-csrf-token",
+				value: token
+			});
+			oUploadCollection.addHeaderParameter(oCustomerHeaderToken);
+			new	sap.m.MessageToast.show("Event change triggered");
+		},
 
+		// onFileDeleted: function(oEvent) {
+		// 	MessageToast.show("Event fileDeleted triggered");
+		// },
+
+		// onFilenameLengthExceed: function(oEvent) {
+		// 	MessageToast.show("Event filenameLengthExceed triggered");
+		// },
+
+		// onFileSizeExceed: function(oEvent) {
+		// 	MessageToast.show("Event fileSizeExceed triggered");
+		// },
+
+		// onTypeMissmatch: function(oEvent) {
+		// 	MessageToast.show("Event typeMissmatch triggered");
+		// },
+
+		onBeforeUploadStarts: function(oEvent) {
+			// Header Slug
+			var oCustomerHeaderSlug = new sap.m.UploadCollectionParameter({
+				name: "slug",
+				value: oEvent.getParameter("fileName")
+			});
+			oEvent.getParameters().addHeaderParameter(oCustomerHeaderSlug);
+			setTimeout(function() {
+			new	sap.m.MessageToast.show("Event beforeUploadStarts triggered");
+			}, 4000);
+		},
+
+		onUploadComplete: function(oEvent) {
+			var sUploadedFileName = oEvent.getParameter("files")[0].fileName;
+			setTimeout(function() {
+
+				for (var i = 0; i < oUploadCollection.getItems().length; i++) {
+					if (oUploadCollection.getItems()[i].getFileName() === sUploadedFileName) {
+						oUploadCollection.removeItem(oUploadCollection.getItems()[i]);
+						break;
+					}
+				}
+
+				// delay the success message in order to see other messages before
+				new	sap.m.MessageToast.show("Event uploadComplete triggered");
+			}.bind(this), 8000);
+		},
+
+		onSelectChange: function(oEvent) {
+			oUploadCollection.setShowSeparators(oEvent.getParameters().selectedItem.getProperty("key"));
+		}
 	});
 
-});;
+});

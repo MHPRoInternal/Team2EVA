@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Panel width="150em">
+		<FlexBox justifyContent="Center">
+			<items>
+				<List >
+					
+				</List>
+			</items>
+		</FlexBox>
+	</Panel>
+</core:FragmentDefinition>

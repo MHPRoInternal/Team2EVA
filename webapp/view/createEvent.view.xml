@@ -1,45 +1,51 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:vbm="sap.ui.vbm" xmlns="sap.m" xmlns:u="sap.ui.unified"
-	xmlns:l="sap.ui.layout" controllerName="eventManagementEVA.controller.createEvent" xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:f="sap.ui.layout.form">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:l="sap.ui.layout"
+	controllerName="eventManagementEVA.controller.createEvent" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form">
 	<Page title="{i18n>createEventTitle}">
 		<content>
-			<HBox>
-				<f:SimpleForm layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false"
-					emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+			<HBox class="sapUiLargeMargin">
+				<f:SimpleForm layout="ResponsiveGridLayout" width="25rem" labelSpanXL="1" labelSpanL="1" labelSpanM="2" labelSpanS="4"
+					adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"
+					singleContainerFullSize="false">
 					<f:content>
 						<Label text="Title"/>
-						<Input id="Title" width="35rem" required="true"/>
+						<Input id="Title" required="true"/>
 						<Label text="Location"/>
-						<Input id="Location" width="35rem" required="true"/> <Button id="bntSearch" text="Search" tap="actSearch" />    
+						<Input id="Location" required="true"/>
+						<Button id="bntSearch" text="Search" press="actSearch"/>
 						<Label text="Latitude"/>
-						<Input id="Latitude" width="35rem" required="true"/>
+						<Input id="Latitude" visible="false" required="true"/>
 						<Label text="Longitude"/>
-						<Input id="Longitude" width="35rem" required="true"/>
+						<Input id="Longitude" visible="false" required="true"/>
 						<Label text="Date"/>
 						<DatePicker id="Date" required="true" valueFormat="yyyy-MM-ddThh:mm:ss" displayFormat="dd.MM.yyyy"/>
 						<!--value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'short'}}"/>-->
 						<!--<Input id="eDataInput" width="35rem" editable="false"-->
 						<!--	value="{ path: 'Data', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"></Input>-->
 						<Label text="Time"/>
-						<Input id="Time" width="35rem" required="true" placeholder="HH:mm - HH:mm"/>
+						<Input id="Time" required="true" placeholder="HH:mm - HH:mm"/>
 						<Label text="DressCode"/>
-						<Input id="Dresscode" width="35rem" required="true"/>
+						<Input id="Dresscode" required="true"/>
 						<Label text="Picture"/>
-						<u:FileUploader id="fileUploader" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the local server"
-							uploadComplete="handleUploadComplete"/>
-						<Button text="Upload File" press="handleUploadPress"/>
+						<!--<u:FileUploader id="oFileUploader" name="myFileUpload" tooltip="Upload your file to the local server" uploadComplete="handleUploadComplete"/>-->
+						<UploadCollection id="UploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="false" sameFilenameAllowed="true"
+							instantUpload="false" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" change="onChange"/>
+						<!--<Button text="Upload File" press="handleUploadPress"/>-->
 					</f:content>
 				</f:SimpleForm>
+				<VBox class="mapBox" alignContent="Center">
 					<FlexBox id="map_canvas" width="25em" height="15em" fitContainer="true" justifyContent="Center" alignItems="Center"/>
+					<VBox>
+						<core:Fragment class="questionList" fragmentName="eventManagementEVA.view.qList" type="XML"/>
+					</VBox>
+				</VBox>
 			</HBox>
-			<core:Fragment fragmentName="eventManagementEVA.view.qList" type="XML"/>
 			<!--<Button class="AcceptBtn" width="10rem" text="Send invites" type="Unstyled" press="onCreateTap"></Button>-->
-			<HBox>
-				<Panel>
+			<HBox class="sapUiLargeMarginBegin">
+				<VBox class="sapUiLargeMarginBeginEnd">
 					<core:Fragment fragmentName="eventManagementEVA.view.qCreate" type="XML"/>
 					<Button text="Add question" press="addQuestionPress"/>
-				</Panel>
-				<Panel></Panel>
+				</VBox>
+				<core:Fragment fragmentName="eventManagementEVA.view.mailTextArea" type="XML"/>
 			</HBox>
 		</content>
 		<footer>

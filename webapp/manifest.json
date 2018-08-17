@@ -106,22 +106,12 @@
 					"target": "login"
 				},
 				{
-					"pattern": "aDashboard/{userID}",
+					"pattern": "aDashboard/{userID}/{uRole}",
 					"name": "aDashboard",
 					"target": "aDashboard"
 				},
 				{
-					"pattern": "uDashboard/{userID}",
-					"name": "uDashboard",
-					"target": "uDashboard"
-				},
-				{
-					"pattern": "uEvent/{eventID}",
-					"name": "uEvent",
-					"target": "uEvent"
-				},
-				{
-					"pattern": "aEvent/{eventID}",
+					"pattern": "aEvent/{eventID}/{uRole}",
 					"name": "aEvent",
 					"target": "aEvent"
 				},
@@ -141,16 +131,6 @@
 					"viewName": "aDashboard",
 					"viewId": "aDashboard",
 					"viewLevel": 1
-				},
-				"uDashboard": {
-					"viewName": "uDashboard",
-					"viewId": "uDashboard",
-					"viewLevel": 1
-				},
-				"uEvent": {
-					"viewName": "uEvent",
-					"viewId": "uEvent",
-					"viewLevel": 2
 				},
 				"aEvent": {
 					"viewName": "aEvent",
