@@ -19,16 +19,17 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		},
 		
 		onNavBack: function() {
-			var sPreviousHash = History.getInstance().getPreviousHash();
+			var oHistory = sap.ui.core.routing.History.getInstance();
+        	var sPreviousHash = oHistory.getPreviousHash();
 
 			if (sPreviousHash !== undefined) {
-				history.go(-1);
-
+				window.history.go(-1);
 			} else {
-				this.getRouter().navTo("dashBoard", {}, true);
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo("default", true);
 			}
+		} 
 
-		}
 		
 		
 		

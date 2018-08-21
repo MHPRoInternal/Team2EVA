@@ -1,6 +1,6 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="eventManagementEVA.controller.aEvent"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form">
-	<Page title="{i18n>EventTitle}">
+	<Page title="{i18n>EventTitle}" showNavButton="true" navButtonPress="onNavBack">
 		<HBox class="sapUiLargeMargin">
 			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" width="35rem" labelSpanXL="1" labelSpanL="1" labelSpanM="2" labelSpanS="4"
 				adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"
@@ -28,6 +28,17 @@
 			</f:SimpleForm>
 			<VBox class="mapBox">
 				<FlexBox id="map_canvas" width="25em" height="15em" fitContainer="true" justifyContent="Inherit" alignItems="Inherit"/>
+				<HBox>
+					<FlexBox id="questionBox" items="{toQuestion}" alignItems="Center" justifyContent="Start">
+						<HBox class="sapUiMediumMargin" justifyContent="Center">
+							<Label text="{QuestionText}"/>
+							<!--<Select id="answerSelect" forceSelection="true" items="{path: '{toPAnswer}'}">-->
+							<Select id="answerSelect" forceSelection="true" items="{toPAnswer}">
+								<core:Item key="{AnswerText}" text="{AnswerText}"/>
+							</Select>
+						</HBox>
+					</FlexBox>
+				</HBox>
 			</VBox>
 		</HBox>
 		<!--<core:Fragment fragmentName="eventManagementEVA.view.qList" type="XML"/>-->

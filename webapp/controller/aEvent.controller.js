@@ -1,17 +1,19 @@
 sap.ui.define([
 	"eventManagementEVA/controller/BaseController",
-	'sap/m/MessageToast',
+	'sap/ui/core/Element',
+	'sap/m/MessageToast'
 
-], function(BaseController, MessageToast) {
+], function(BaseController, Element, MessageToast) {
 	"use strict";
 
 	var eID = null;
-	var uID = "";
+	var uID = null;
 	var userRole = null;
 	var acceptBtn = null;
 	var declineBtn = null;
 	var updateBtn = null;
 	var deleteBtn = null;
+	var selectDisplay = null;
 
 	return BaseController.extend("eventManagementEVA.controller.aEvent", {
 
@@ -21,6 +23,7 @@ sap.ui.define([
 			oView.byId("map_canvas").addStyleClass("myMap");
 			updateBtn = oView.byId("eventUpdate");
 			deleteBtn = oView.byId("eventDelete");
+		    selectDisplay = oView.byId("questionDisplay");
 			// oModel.read("/EventSet", {
 			// 	success: function(oCompletedEntry) {
 			// 		oCompletedEntry.results.forEach(function(item) {
@@ -42,6 +45,9 @@ sap.ui.define([
 			acceptBtn = oView.byId("acceptBtn");
 			declineBtn = oView.byId("declineBtn");
 			var switchBtn = oView.byId("switchBtn");
+			var questionBox = oView.byId("questionBox");
+			var selectAnswer = oView.byId("answerSelect");
+			var qID = null;
 			var state = switchBtn.getState();
 			updateBtn.setVisible(state);
 			deleteBtn.setVisible(state);
@@ -56,26 +62,30 @@ sap.ui.define([
 				updateBtn.setVisible(false);
 				deleteBtn.setVisible(false);
 			}
-
+ 
 			console.log("1 " + eID);
 			//	var oUserModel = this.getOwnerComponent().getModel("userModel");
 			//console.log(oUserModel.getProperty("/IdUser") + "S-a transmit si getproperty!");
 			var oModel = oView.getModel();
 			console.log("3 " + eID);
 
-			// oModel.read("/EventSet(IdEvent='" + eID + "')", {
-			// 	success: function(oCompleteEntry) {
+			questionBox.bindElement("/EventSet('" + eID + "')", {
+				events: {
+					dataReceived: function(oCompleteEntry) {
+					qID = oCompleteEntry.IdQuestion;
+					console.log("Question ID-ul este: " + qID);
+					}
+				}
+			});
+			
+			// selectAnswer.bindElement("/QuestionSet('" + qID + "')", {
+			// 	events: {
+			// 		dataReceived: function(oCompleteEntry) {
 			// 		console.log(oCompleteEntry);
-			// 	},
-			// 	error: function(oError){
-			// 	console.log("ERROR!");
+					
+			// 		}
 			// 	}
 			// });
-			// oModel.metadataLoaded().then(function(){
-			// 		//trimit request la server
-			// 		oView.bindElement("/EventSet(" + eID + " ) ");
-			// 		console.log("3 " + eID);
-			// 	}); 
 
 			oView.bindElement({
 				path: "/EventSet('" + eID + "')",

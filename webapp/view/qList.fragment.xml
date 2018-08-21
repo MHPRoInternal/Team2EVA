@@ -2,8 +2,8 @@
 	<Panel id="qDisplayPanel" width="150em">
 		<FlexBox id="selectDisplay" justifyContent="Center">
 			<items>
-				<List items="">
-					<StandardListItem title="{LastName}" description="{FirstName}" type="Navigation" press="onListItemPress"/>
+				<List>
+					
 				</List>
 			</items>
 		</FlexBox>

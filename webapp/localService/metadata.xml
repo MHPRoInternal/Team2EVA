@@ -1,65 +1,54 @@
-This XML file does not appear to have any style information associated with it. The document tree is shown below.
-<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
-<edmx:DataServices m:DataServiceVersion="2.0">
-<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZTEAM2_SRV" xml:lang="en" sap:schema-version="1">
-<EntityType Name="User" sap:content-version="1">
-<Key>
-<PropertyRef Name="IdUser"/>
-<PropertyRef Name="Password"/>
-</Key>
-<Property Name="IdUser" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="User" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="Password" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Password" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="Mail" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Email" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="Role" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Checkbox" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-</EntityType>
-<EntityType Name="Question" sap:content-version="1">
-<Key>
-<PropertyRef Name="IdQuestion"/>
-</Key>
-<Property Name="IdQuestion" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Ques ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="Text" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Question" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-</EntityType>
-<EntityType Name="User_Event" sap:content-version="1">
-<Key>
-<PropertyRef Name="IdUserEvent"/>
-<PropertyRef Name="IdUser"/>
-</Key>
-<Property Name="IdUserEvent" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="UEID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="IdUser" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="User" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="IdEvent" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Event ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="IdQuestion" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Ques ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="IdAnswer" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Answer ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="Confirmation" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Boolean" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-</EntityType>
-<EntityType Name="Answer" sap:content-version="1">
-<Key>
-<PropertyRef Name="IdAnswer"/>
-</Key>
-<Property Name="IdAnswer" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Answer ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="IdQuestion" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Ques ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="AnswerText" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Answer" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-</EntityType>
-<EntityType Name="Event" sap:content-version="1">
-<Key>
-<PropertyRef Name="IdEvent"/>
-</Key>
-<Property Name="IdEvent" Type="Edm.String" Nullable="false" MaxLength="32" sap:unicode="false" sap:label="Event ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="Title" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Title" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="Location" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Location" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="Data" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="Time" Type="Edm.Time" Nullable="false" Precision="0" sap:unicode="false" sap:label="Time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="Dresscode" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Dresscode" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-<Property Name="Picture" Type="Edm.String" Nullable="false" MaxLength="256" sap:unicode="false" sap:label="String" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
-</EntityType>
-<EntityContainer Name="ZTEAM2_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
-<EntitySet Name="UserSet" EntityType="ZTEAM2_SRV.User" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
-<EntitySet Name="QuestionSet" EntityType="ZTEAM2_SRV.Question" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
-<EntitySet Name="User_EventSet" EntityType="ZTEAM2_SRV.User_Event" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
-<EntitySet Name="AnswerSet01" EntityType="ZTEAM2_SRV.Answer" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
-<EntitySet Name="EventSet" EntityType="ZTEAM2_SRV.Event" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
-</EntityContainer>
-<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="http://bcsw-sap078.mymhp.net:8000/sap/opu/odata/sap/ZTEAM2_SRV/$metadata"/>
-<atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="http://bcsw-sap078.mymhp.net:8000/sap/opu/odata/sap/ZTEAM2_SRV/$metadata"/>
-</Schema>
-</edmx:DataServices>
-</edmx:Edmx>
+<?xml version="1.0" encoding="UTF-8"?>
+-
+<app:service xml:lang="en" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+	xml:base="http://bcsw-sap078.mymhp.net:8000/sap/opu/odata/SAP/ZTEAM2_SRV/" xmlns:sap="http://www.sap.com/Protocols/SAPData"
+	xmlns:atom="http://www.w3.org/2005/Atom" xmlns:app="http://www.w3.org/2007/app">
+	-
+	<app:workspace>
+		<atom:title type="text">Data</atom:title>
+		-
+		<app:collection href="EventSet" sap:content-version="1" sap:addressable="false" sap:pageable="false" sap:deletable="false"
+			sap:updatable="false" sap:creatable="false">
+			<atom:title type="text">EventSet</atom:title>
+			<sap:member-title>Event</sap:member-title>
+		</app:collection>
+		-
+		<app:collection href="UserSet" sap:content-version="1" sap:addressable="false" sap:pageable="false" sap:deletable="false"
+			sap:updatable="false" sap:creatable="false">
+			<atom:title type="text">UserSet</atom:title>
+			<sap:member-title>User</sap:member-title>
+		</app:collection>
+		-
+		<app:collection href="UserEventSet" sap:content-version="1" sap:addressable="false" sap:pageable="false" sap:deletable="false"
+			sap:updatable="false" sap:creatable="false">
+			<atom:title type="text">UserEventSet</atom:title>
+			<sap:member-title>UserEvent</sap:member-title>
+		</app:collection>
+		-
+		<app:collection href="QuestionSet" sap:content-version="1" sap:addressable="false" sap:pageable="false" sap:deletable="false"
+			sap:updatable="false" sap:creatable="false">
+			<atom:title type="text">QuestionSet</atom:title>
+			<sap:member-title>Question</sap:member-title>
+		</app:collection>
+		-
+		<app:collection href="AnswerSet" sap:content-version="1" sap:addressable="false" sap:pageable="false" sap:deletable="false"
+			sap:updatable="false" sap:creatable="false">
+			<atom:title type="text">AnswerSet</atom:title>
+			<sap:member-title>Answer</sap:member-title>
+		</app:collection>
+		-
+		<app:collection href="PAnswerSet" sap:content-version="1" sap:addressable="false" sap:pageable="false" sap:deletable="false"
+			sap:updatable="false" sap:creatable="false">
+			<atom:title type="text">PAnswerSet</atom:title>
+			<sap:member-title>PAnswer</sap:member-title>
+		</app:collection>
+		-
+		<app:collection href="EPictureSet" sap:content-version="1" sap:addressable="false" sap:pageable="false" sap:deletable="false"
+			sap:updatable="false" sap:creatable="false">
+			<atom:title type="text">EPictureSet</atom:title>
+			<sap:member-title>EPicture</sap:member-title>
+		</app:collection>
+	</app:workspace>
+	<atom:link rel="self" href="http://bcsw-sap078.mymhp.net:8000/sap/opu/odata/SAP/ZTEAM2_SRV/"/>
+	<atom:link rel="latest-version" href="http://bcsw-sap078.mymhp.net:8000/sap/opu/odata/SAP/ZTEAM2_SRV/"/>
+</app:service>

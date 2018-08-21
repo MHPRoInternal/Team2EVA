@@ -1,10 +1,11 @@
 sap.ui.define([
 	"eventManagementEVA/controller/BaseController",
 	'sap/ui/core/Popup',
+	'sap/ui/core/Element',
 	'sap/m/Button',
 	'sap/m/MessageToast'
 
-], function(BaseController, Popup, Button, MessageToast) {
+], function(BaseController, Popup, Element, Button, MessageToast) {
 	"use strict";
 
 	var uid = "";
@@ -13,9 +14,10 @@ sap.ui.define([
 
 	var oButton2 = new sap.m.Button("", {
 
-		text: "Submit",
+		text: "Submit changes",
 		press: function(oEvent) {
 			console.log("Merge1!");
+			oView = this.getView();
 			var userName = sap.ui.getCore().byId("userName").getValue();
 			var oldPass = sap.ui.getCore().byId("oldPass").getValue();
 			var newPass = sap.ui.getCore().byId("newPass").getValue();
@@ -31,14 +33,12 @@ sap.ui.define([
 						if (newPass === newPassConfirm) {
 							console.log("Merge2!");
 							oModel.update("/UserSet(IdUser='" + userName + "')", oData, {
-
 								success: function() {
 									sap.ui.getCore().byId('Dialog1').close();
 									sap.ui.getCore().byId("userName").setValue();
 									sap.ui.getCore().byId("oldPass").setValue();
 									sap.ui.getCore().byId("newPass").setValue();
 									sap.ui.getCore().byId("newPassConfirm").setValue();
-
 									MessageToast.show("Password change successful for user " + userName + "!", {
 
 										animationDuration: 5000
@@ -144,12 +144,32 @@ sap.ui.define([
 				id: "newPassConfirm"
 
 			})
-
 		]
-
 	});
 	return BaseController.extend("eventManagementEVA.controller.Login", {
 
+		// onInit: function() {
+			
+		// },
+		// onAfterRendering: function(oEvent){
+		// 	// var loginButton = this.getView().byId("loginBtn");
+			
+		// 	// loginButton.getFocusDomRef();
+		// 	// loginButton.focus();
+		// 	var loginButton = this.getView().byId("loginBtn");
+		// 	loginButton.attachBrowserEvent("keydown", function(event) {
+		// 		this.onLoginTap();
+  //  });
+		// },
+
+		// onsapenter: function(oEvent) {
+		// 	var loginButton = this.getView().byId("loginBtn");
+		// 	loginButton.onkeydown(event);
+		// 	if (event.key === 13) {
+		// 		this.onLoginTap();
+		// 	}
+
+		// },
 		onLoginTap: function(oEvent) {
 			var oThis = this;
 			oView = this.getView();
@@ -178,7 +198,7 @@ sap.ui.define([
 				success: function(oCompleteEntry) {
 					console.log("User role is: " + oCompleteEntry.Role);
 					var userRole = oCompleteEntry.Role;
-					if (oCompleteEntry.Password === pasw) {
+					if (oCompleteEntry.Password === pasw || oCompleteEntry.Mail === uid) {
 						MessageToast.show("Login Successful! Welcome: " + uid + ".", {
 
 							animationDuration: 5000
@@ -189,11 +209,11 @@ sap.ui.define([
 						// oUserModel.setProperty("/IdUser", oCompleteEntry.IdUser);
 						// oUserModel.setProperty("/Password", oCompleteEntry.Password);
 
-							route.navTo("aDashboard", {
+						route.navTo("aDashboard", {
 
-								userID: uid,
-								uRole : userRole
-							});
+							userID: uid,
+							uRole: userRole
+						});
 
 					} else {
 						MessageToast.show("Invalid password! Please try again or contact your local administrator.");
@@ -217,16 +237,8 @@ sap.ui.define([
 		// 
 
 		changePass: function() {
-			oView = this.getView();
 			sap.ui.getCore().byId('Dialog1').open();
-
 		}
-
-		// Cancel: function() {
-
-		// 	sap.ui.getCore().byId('Dialog1').close();
-
-		// }
 	});
 
 });

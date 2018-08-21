@@ -1,11 +1,8 @@
 sap.ui.define([
-	"eventManagementEVA/controller/BaseController"
+	"eventManagementEVA/controller/BaseController",
+	'sap/ui/core/Element'
 ], function(BaseController) {
 	"use strict";
-
-	var uID = null;
-	var eID = "";
-	var userRole = null;
 
 	return BaseController.extend("eventManagementEVA.controller.aDashboard", {
 
@@ -14,27 +11,32 @@ sap.ui.define([
 		},
 
 		onRouteMatched: function(oEvent) {
-			uID = oEvent.getParameter("arguments").userID;
-			console.log(uID);
-			var oView = this.getView();
-			userRole = oEvent.getParameter("arguments").uRole;
-			console.log("User role in aDashboard is: " + userRole);
-			var createEventBtn = oView.byId("createEventBtn");
-			if(userRole === "true"){
-			createEventBtn.setVisible(true);
+			this.oView = this.getView();
+			this.oModel = this.oView.getModel();
+			this.uID = oEvent.getParameter("arguments").userID;
+			console.log(this.uID);
+			this.userRole = oEvent.getParameter("arguments").uRole;
+			console.log("User role in aDashboard is: " + this.userRole);
+			var createEventBtn = this.oView.byId("createEventBtn");
+			if (this.userRole === "true") {
+				createEventBtn.setVisible(true);
 			}
+			this.eventPic = this.oView.byId("eventPicture");
+			this.oView.bindElement("/UserSet('" + this.uID + "')");
 			
-			//	var oUserModel = this.getOwnerComponent().getModel("userModel");
-			//	console.log(oUserModel.getProperty("/IdUser") + "S-a transmit si getproperty!");
-			this.getView().bindElement("/UserSet('" + uID + "')");
+			this.eID = oEvent.IdEvent;
+			
+			console.log("User eID in aDashboard is: " + this.eID);
+			this.eventPic.setSrc("/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/EPictureSet('" + this.eID + "')/$value");
 		},
+		
 		handlePress: function(oEvent) {
-			eID = oEvent.getSource().getBindingContext().getObject().IdEvent;
-			console.log("Event ID-ul este : " + eID);
+			this.eID = oEvent.getSource().getBindingContext().getObject().IdEvent;
+			console.log("Event ID-ul este : " + this.eID);
 			this.getRouter().navTo("aEvent", {
-				eventID: eID,
-				userID: uID,
-				uRole : userRole
+				eventID: this.eID,
+				userID: this.uID,
+				uRole: this.userRole
 			});
 		},
 		onCreatePress: function(oEvent) {

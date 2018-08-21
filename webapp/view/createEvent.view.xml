@@ -26,9 +26,9 @@
 						<Label text="DressCode"/>
 						<Input id="Dresscode" required="true"/>
 						<Label text="Picture"/>
-						<!--<u:FileUploader id="oFileUploader" name="myFileUpload" tooltip="Upload your file to the local server" uploadComplete="handleUploadComplete"/>-->
-						<UploadCollection id="UploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="false" sameFilenameAllowed="true"
-							instantUpload="false" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" change="onChange"/>
+						<u:FileUploader id="oFileUploader" name="myFileUpload" tooltip="Upload your file to the local server" uploadComplete="handleUploadComplete"/>
+						<!--<UploadCollection id="UploadCollection" multiple="false" sameFilenameAllowed="true" instantUpload="false" uploadComplete="onUploadComplete"-->
+						<!--	beforeUploadStarts="onBeforeUploadStarts" change="onChange"/>-->
 						<!--<Button text="Upload File" press="handleUploadPress"/>-->
 					</f:content>
 				</f:SimpleForm>
