@@ -10,8 +10,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		onInit: function() {
 			var oView = this.getView();
 			var oModel = oView.getModel();
-			//this.getModel().getServiceMetadata();
-			//this.getModel().metadataLoaded();
 		},
 		
 		getRouter: function() {

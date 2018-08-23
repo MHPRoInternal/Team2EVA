@@ -8,21 +8,111 @@ sap.ui.define([
 ], function(BaseController, Popup, Element, Button, MessageToast) {
 	"use strict";
 
-	var uid = "";
-	var pasw = "";
-	var oView = "";
+	return BaseController.extend("eventManagementEVA.controller.Login", {
 
-	var oButton2 = new sap.m.Button("", {
+		onInit: function() {
+			this.oView = this.getView();
+		},
+		// onAfterRendering: function(oEvent){
+		// 	// var loginButton = this.getView().byId("loginBtn");
+			
+		// 	// loginButton.getFocusDomRef();
+		// 	// loginButton.focus();
+		// 	var loginButton = this.getView().byId("loginBtn");
+		// 	loginButton.attachBrowserEvent("keydown", function(event) {
+		// 		this.onLoginTap();
+  //  });
+		// },
+
+		// onsapenter: function(oEvent) {
+		// 	var loginButton = this.getView().byId("loginBtn");
+		// 	loginButton.onkeydown(event);
+		// 	if (event.key === 13) {
+		// 		this.onLoginTap();
+		// 	}
+
+		// },
+		onLoginTap: function(oEvent) {
+
+			this.oModel = this.oView.getModel();
+			this.uid = this.oView.byId("uid").getValue();
+			this.pasw = this.oView.byId("pasw").getValue();
+			this.route = this.getRouter();
+			//var oListItem = oEvent.getSource();
+			// var oBindingContext = oListItem.getBindingContext();
+			// var userId = oBindingContext.getObject().IdUser;
+			// var loginSuccess = "Login Successful! Welcome, " + uid + ".";
+
+			// var oPopUp = new Popup({
+			// 			modal: true,
+
+			// 			content: new Text({
+			// 				text: loginSuccess
+			// 			}),
+
+			// 			autoclose: true
+
+			// 		});
+			// oPopUp.open();
+
+			this.oModel.read("/UserSet(IdUser='" + this.uid + "')", {
+				success: function(oCompleteEntry) {
+					console.log("User role is: " + oCompleteEntry.Role);
+					var userRole = oCompleteEntry.Role;
+					var adminEmail = oCompleteEntry.Mail;
+					console.log("Admin email is: " + oCompleteEntry.Mail);
+					if (oCompleteEntry.Password === this.pasw) {
+						MessageToast.show("Login Successful! Welcome: " + this.uid + ".", {
+
+							animationDuration: 5000
+
+						});
+
+						// var oUserModel = oThis.getOwnerComponent().getModel("userModel");
+						// oUserModel.setProperty("/IdUser", oCompleteEntry.IdUser);
+						// oUserModel.setProperty("/Password", oCompleteEntry.Password);
+
+						this.route.navTo("aDashboard", {
+
+							userID: this.uid,
+							uRole: userRole,
+							adminEmailAddress: adminEmail
+						});
+
+					} else {
+						MessageToast.show("Invalid password! Please try again or contact your local administrator.");
+					}
+				}.bind(this),
+				error: function(oError) {
+					MessageToast.show("Invalid credentials! Please try again or contact your local administrator.");
+
+				}
+
+			});
+
+		},
+		// 	var oModel = new sap.ui.model.odata.v2.ODataModel({
+		// 		serviceUrl: "http://services.odata.org/Northwind/Northwind.svc",
+		// 		metadataUrlParams: {
+		// 			ID_USER: "{uid}",
+		// 			PASSWORD: "{pasw}"
+		// 		}
+		// 	});
+		// 
+
+		changePass: function() {
+			
+		var submitChangePasswordBtn = new sap.m.Button("Submit", {
 
 		text: "Submit changes",
 		press: function(oEvent) {
 			console.log("Merge1!");
-			oView = this.getView();
+			this.view = this.getView();
 			var userName = sap.ui.getCore().byId("userName").getValue();
 			var oldPass = sap.ui.getCore().byId("oldPass").getValue();
 			var newPass = sap.ui.getCore().byId("newPass").getValue();
 			var newPassConfirm = sap.ui.getCore().byId("newPassConfirm").getValue();
-			var oModel = oView.getModel();
+			var oModel = this.view.getModel();
 			var oData = {
 				IdUser: userName,
 				Password: newPass
@@ -50,24 +140,23 @@ sap.ui.define([
 									MessageToast.show("Changes could not be made! Please try again.");
 									console.log("ERROR?");
 								}
-
 							});
 						}
 					} else {
 						MessageToast.show("Invalid username or password! Please try again.");
 					}
 
-				},
+				}.bind(this),
 				error: function(oError) {
 					MessageToast.show("Invalid username or password! Please try again.");
 					console.log("ERROR?");
 				}
 			});
-		}
+		}.bind(this)
 
 	});
 
-	var oButton3 = new sap.m.Button("Cancel", {
+	var cancelChangePasswordBtn = new sap.m.Button("Cancel", {
 
 		text: 'Cancel',
 		press: function() {
@@ -88,7 +177,7 @@ sap.ui.define([
 
 		contentWidth: "5em",
 
-		buttons: [oButton2, oButton3],
+		buttons: [submitChangePasswordBtn, cancelChangePasswordBtn],
 
 		content: [
 
@@ -146,97 +235,7 @@ sap.ui.define([
 			})
 		]
 	});
-	return BaseController.extend("eventManagementEVA.controller.Login", {
-
-		// onInit: function() {
 			
-		// },
-		// onAfterRendering: function(oEvent){
-		// 	// var loginButton = this.getView().byId("loginBtn");
-			
-		// 	// loginButton.getFocusDomRef();
-		// 	// loginButton.focus();
-		// 	var loginButton = this.getView().byId("loginBtn");
-		// 	loginButton.attachBrowserEvent("keydown", function(event) {
-		// 		this.onLoginTap();
-  //  });
-		// },
-
-		// onsapenter: function(oEvent) {
-		// 	var loginButton = this.getView().byId("loginBtn");
-		// 	loginButton.onkeydown(event);
-		// 	if (event.key === 13) {
-		// 		this.onLoginTap();
-		// 	}
-
-		// },
-		onLoginTap: function(oEvent) {
-			var oThis = this;
-			oView = this.getView();
-			var oModel = oView.getModel();
-			uid = oView.byId("uid").getValue();
-			pasw = oView.byId("pasw").getValue();
-			var route = this.getRouter();
-			//var oListItem = oEvent.getSource();
-			// var oBindingContext = oListItem.getBindingContext();
-			// var userId = oBindingContext.getObject().IdUser;
-			// var loginSuccess = "Login Successful! Welcome, " + uid + ".";
-
-			// var oPopUp = new Popup({
-			// 			modal: true,
-
-			// 			content: new Text({
-			// 				text: loginSuccess
-			// 			}),
-
-			// 			autoclose: true
-
-			// 		});
-			// oPopUp.open();
-
-			oModel.read("/UserSet(IdUser='" + uid + "')", {
-				success: function(oCompleteEntry) {
-					console.log("User role is: " + oCompleteEntry.Role);
-					var userRole = oCompleteEntry.Role;
-					if (oCompleteEntry.Password === pasw || oCompleteEntry.Mail === uid) {
-						MessageToast.show("Login Successful! Welcome: " + uid + ".", {
-
-							animationDuration: 5000
-
-						});
-
-						// var oUserModel = oThis.getOwnerComponent().getModel("userModel");
-						// oUserModel.setProperty("/IdUser", oCompleteEntry.IdUser);
-						// oUserModel.setProperty("/Password", oCompleteEntry.Password);
-
-						route.navTo("aDashboard", {
-
-							userID: uid,
-							uRole: userRole
-						});
-
-					} else {
-						MessageToast.show("Invalid password! Please try again or contact your local administrator.");
-					}
-				},
-				error: function(oError) {
-					MessageToast.show("Invalid credentials! Please try again or contact your local administrator.");
-
-				}
-
-			});
-
-		},
-		// 	var oModel = new sap.ui.model.odata.v2.ODataModel({
-		// 		serviceUrl: "http://services.odata.org/Northwind/Northwind.svc",
-		// 		metadataUrlParams: {
-		// 			ID_USER: "{uid}",
-		// 			PASSWORD: "{pasw}"
-		// 		}
-		// 	});
-		// 
-
-		changePass: function() {
 			sap.ui.getCore().byId('Dialog1').open();
 		}
 	});

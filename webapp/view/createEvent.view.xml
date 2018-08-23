@@ -8,7 +8,7 @@
 					singleContainerFullSize="false">
 					<f:content>
 						<Label text="Title"/>
-						<Input id="Title" required="true"/>
+						<Input id="Title" required="true" value="{Title}"/>
 						<Label text="Location"/>
 						<Input id="Location" required="true"/>
 						<Button id="bntSearch" text="Search" press="actSearch"/>
@@ -32,13 +32,15 @@
 						<!--<Button text="Upload File" press="handleUploadPress"/>-->
 					</f:content>
 				</f:SimpleForm>
-				<VBox class="mapBox" alignContent="Center">
+				<VBox class="mapBox" alignContent="Center" wrap="Wrap">
 					<FlexBox id="map_canvas" width="25em" height="15em" fitContainer="true" justifyContent="Center" alignItems="Center"/>
-					<VBox>
+					
 						<core:Fragment class="questionList" fragmentName="eventManagementEVA.view.qList" type="XML"/>
-					</VBox>
+					
 				</VBox>
+				
 			</HBox>
+			
 			<!--<Button class="AcceptBtn" width="10rem" text="Send invites" type="Unstyled" press="onCreateTap"></Button>-->
 			<HBox class="sapUiLargeMarginBegin">
 				<VBox class="sapUiLargeMarginBeginEnd">

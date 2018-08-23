@@ -1,16 +1,20 @@
-<mvc:View class="loginView" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="eventManagementEVA.controller.Login"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View class="loginView" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="eventManagementEVA.controller.Login" xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="{i18n>loginTitle}" class="LoginBack">
-		<headerContent>
-			<Button icon="sap-icon://edit" type="Transparent" tooltip="Change Password" text="Change password" press="changePass"/>
-		</headerContent>
+		<customHeader>
+			<Toolbar>
+				<Label text="{i18n>LoginPageHeaderLabel}"/>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://edit" type="Transparent" tooltip="Change Password" text="Change password" press="changePass"/>
+			</Toolbar>
+		</customHeader>
 		<content>
 			<VBox fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
 				<items>
 					<Label text="Welcome" class="fontStyle"/>
 					<Label text="Please login: " class="fontStyle"/>
 					<Input id="uid" placeholder="User ID"></Input>
-					<Input id="pasw" placeholder="Password" type="Password"></Input>
+					<Input id="pasw" placeholder="Password" type="Password" submit="onLoginTap"></Input>
 					<Button class="loginBtn" width="10rem" text="Login" type="Unstyled" press="onLoginTap"></Button>
 				</items>
 			</VBox>

@@ -1,8 +1,11 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="eventManagementEVA.controller.aEvent"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form">
 	<Page title="{i18n>EventTitle}" showNavButton="true" navButtonPress="onNavBack">
-		<HBox class="sapUiLargeMargin">
-			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" width="35rem" labelSpanXL="1" labelSpanL="1" labelSpanM="2" labelSpanS="4"
+		<FlexBox justifyContent="Center">
+			<Image class="eventImage" src="/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/EPictureSet('{IdEvent}')/$value" densityAware="false"/>
+		</FlexBox>
+		<HBox class="sapUiMediumMargin" wrap="Wrap" justifyContent="SpaceAround">
+			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" width="30rem" labelSpanXL="1" labelSpanL="1" labelSpanM="2" labelSpanS="4"
 				adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"
 				singleContainerFullSize="false">
 				<f:content>
@@ -28,22 +31,20 @@
 			</f:SimpleForm>
 			<VBox class="mapBox">
 				<FlexBox id="map_canvas" width="25em" height="15em" fitContainer="true" justifyContent="Inherit" alignItems="Inherit"/>
-				<HBox>
-					<FlexBox id="questionBox" items="{toQuestion}" alignItems="Center" justifyContent="Start">
-						<HBox class="sapUiMediumMargin" justifyContent="Center">
-							<Label text="{QuestionText}"/>
-							<!--<Select id="answerSelect" forceSelection="true" items="{path: '{toPAnswer}'}">-->
-							<Select id="answerSelect" forceSelection="true" items="{toPAnswer}">
-								<core:Item key="{AnswerText}" text="{AnswerText}"/>
-							</Select>
-						</HBox>
-					</FlexBox>
-				</HBox>
 			</VBox>
+			<FlexBox id="questionBox" items="{toQuestion}" alignItems="Center" justifyContent="Start" wrap="Wrap">
+				<HBox class="sapUiMediumMargin" justifyContent="Center">
+					<Label text="{QuestionText}"/>
+					<Select id="answerSelect" forceSelection="true" items="{toPAnswer}">
+						<core:Item key="{AnswerText}" text="{AnswerText}"/>
+					</Select>
+				</HBox>
+			</FlexBox>
 		</HBox>
 		<!--<core:Fragment fragmentName="eventManagementEVA.view.qList" type="XML"/>-->
 		<footer>
 			<Toolbar>
+				<Label id="createdBy"/>
 				<ToolbarSpacer/>
 				<Button id="acceptBtn" class="AcceptBtn" width="10em" text="ACCEPT" type="Unstyled" press="onAcceptTap"></Button>
 				<Button id="declineBtn" class="DeclineBtn" width="10em" text="DECLINE" type="Unstyled" press="onDeclineTap"></Button>

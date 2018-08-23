@@ -106,17 +106,17 @@
 					"target": "login"
 				},
 				{
-					"pattern": "aDashboard/{userID}/{uRole}",
+					"pattern": "aDashboard/{userID}/{uRole}/{adminEmailAddress}",
 					"name": "aDashboard",
 					"target": "aDashboard"
 				},
 				{
-					"pattern": "aEvent/{eventID}/{uRole}",
+					"pattern": "aEvent/{eventID}/{userID}/{uRole}",
 					"name": "aEvent",
 					"target": "aEvent"
 				},
 				{
-					"pattern": "createEvent",
+					"pattern": "createEvent/{adminEmailAddress}",
 					"name": "createEvent",
 					"target": "createEvent"
 				}
@@ -140,7 +140,7 @@
 				"createEvent": {
 					"viewName": "createEvent",
 					"viewId": "createEvent",
-					"viewLevel": 2
+					"viewLevel": 3
 				}
 			},
 			"resources": {

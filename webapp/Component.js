@@ -35,7 +35,7 @@ sap.ui.define([
 				Picture: ""
 			});
 			
-
+			this.setModel(this.oEventModel, "eventModel");
 			this.setModel(this.oUserModel1, "qModel");
 			this.setModel(this.oUserModel2, "aModel");
 			

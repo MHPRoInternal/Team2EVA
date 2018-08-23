@@ -1,17 +1,49 @@
 /* Enter your custom styles here */
 
 #selectDisplay {
-	right: 0;
-	margin: 40px auto;
-	padding: 40px;
+    right: 0;
+    margin: 40px auto;
+    padding: 40px;
 }
+.newQuestion{
+	margin: 1em;
+}
+
+.sapMGT.OneByOne {
+    width: 16rem;
+    height: 16rem;
+}
+.eventImage{
+	width: 23rem;
+	height: 16rem;
+}
+.headerContent {
+	text-align: left;
+}
+
+.createEventBtn {
+    background-color: #C6DEFE;
+    border-radius: 10px;
+}
+
+.createEventBtn:hover {
+    background-color: #0fdaff;
+    border: 1px solid #00ffed;
+    border-radius: 10px;
+
+}
+
+.createEventBtn:active {
+    background-color: #d1fff7;
+    border: 1px solid #00ffed;
+    border-radius: 10px;
+}
+
 .textArea {
-    margin: 0 0 0 13.5rem;
+    margin: 0 0 0 11rem;
 }
-.mapBox{
-	margin: 0 20px 0 80px;
-	text-align: center;
-}
+
+
 
 .sapMFlexBoxAlignItemsStretch {
     -webkit-box-align: stretch;
@@ -19,9 +51,10 @@
     align-items: inherit;
 }
 
-.sapMLabel{
-	padding: 2px;
+.sapMLabel {
+    padding: 2px;
 }
+
 .myMap {
     margin-top: 20px;
 }
@@ -52,17 +85,17 @@
 }
 
 .loginBtn {
-    border-radius: 35%;
+    border-radius: 10%;
     background-color: #e7e7e7;
-    border: solid 2px #8c8c8c;
+    border: solid 1.5px #005684;
     width: 10rem;
     margin: 10px auto;
 }
 
 .loginBtn:hover {
-    border-radius: 35%;
-    border: solid 2px #949696;
-    background-color: RoyalBlue;
+    border-radius: 10%;
+    border: solid 1.5px #005684;
+    background-color: #daefed;
     margin: 10px auto;
 }
 

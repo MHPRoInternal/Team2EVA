@@ -7,41 +7,30 @@ sap.ui.define([
 	'sap/m/Button',
 	'sap/m/MessageToast',
 	'sap/ui/unified/FileUploader',
-	'sap/ui/unified/FileUploaderParameter',
-	"sap/m/UploadCollection"
+	'sap/ui/unified/FileUploaderParameter'
 ], function(BaseController, MessageToast, Label, Select, Button, FileUploaderParameter) {
 	"use strict";
 
-	//var eID = null;
 	var QAstructList = [];
 	var countAnswers = 3;
 	var markers = [];
 	var counterStruct = 0;
-	var oUploadCollection = null;
 	var mailList = "";
-
 
 	return BaseController.extend("eventManagementEVA.controller.createEvent", {
 
 		onInit: function() {
 
-			this.getRouter().getRoute("createEvent").attachMatched(this.onRouteMatched, this);
+			this.getRouter().getRoute("createEvent").attachMatched(this._onRouteMatched, this);
 			countAnswers = 3;
 			this.getView().byId("map_canvas").addStyleClass("myMap");
-			oUploadCollection = this.byId("UploadCollection");
 			this._oPnl = this.byId("idPnl");
-			this.selectPanel = this.byId("qDisplayPanel");
-		},
-		onRouteMatched: function(oEvent) {
-
-			
+			this.selectPanel = this.byId("selectDisplay");
 		},
 
 		onSelect: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();
-			// var bState = oEvent.getSource().getState();
-			// var selectBox = oView.byId("mailTxtArea");
 
 			mailList = oView.byId("mailTxtArea").getValue();
 			oModel.read("/UserSet", {
@@ -56,9 +45,6 @@ sap.ui.define([
 
 				}
 			});
-			// if(bState === true){
-			// 	selectBox = 
-			// }
 		},
 
 		addInput: function() {
@@ -154,10 +140,10 @@ sap.ui.define([
 
 			var QALayout = new sap.m.FlexBox({
 				alignItems: "Center",
-				justifyContent: "Start",
+				justifyContent: "Center",
 				items: [oLabel, oSelect, delIcon]
 			});
-			this.selectPanel.addContent(QALayout);
+			this.selectPanel.addItem(QALayout);
 			countAnswers = 3;
 		}, //end of AddQuestion
 
@@ -248,9 +234,9 @@ sap.ui.define([
 				Data: date,
 				Time: time,
 				Dresscode: dressCode,
-				Mails: mailListString
+				Mails: mailListString,
+				CreatedBy: this.adminEmail
 			};
-
 			var route = this.getRouter();
 
 			oModel.create("/EventSet", oData, {
@@ -263,32 +249,31 @@ sap.ui.define([
 					oFileUploader.setSendXHR(true);
 					var oHeaders = oModel.oHeaders;
 					var sToken = oHeaders['x-csrf-token'];
-					
+
 					oFileUploader.addHeaderParameter(new sap.ui.unified.FileUploaderParameter({
 						name: "x-csrf-token",
 						value: sToken
 					}));
-					
+
 					oFileUploader.insertHeaderParameter(new sap.ui.unified.FileUploaderParameter({
 						name: "slug",
 						value: oFileUploader.getValue()
 					}));
-					
+
 					oFileUploader.setUploadUrl("/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/EventSet('" + this.eID + "')/toPicture");
 					oFileUploader.upload();
 					this.questionCreate();
 
 					console.log("Event ID-ul este: " + oCompletedEntry.IdEvent);
 					counterStruct = 0;
-					var inviteText = oView.getModel("i18n").getResourceBundle().getText("appLinkInvite");
-					sap.m.URLHelper.triggerEmail(mailListString, "New MHP event invitation!", inviteText);
+					//sap.m.URLHelper.triggerEmail(mailListString, "New MHP event invitation!", inviteText);
 				}.bind(this),
 				error: function(oError) {
 					console.log("There has been an error creating the event! Please try again.");
 				}
 			});
 		},
-		
+
 		questionCreate: function() {
 			var oView = this.getView();
 			var oModel = oView.getModel();
@@ -312,18 +297,28 @@ sap.ui.define([
 								success: function(oCompletEntry) {
 									new sap.m.MessageToast.show("Event created successfully!");
 									oModel.setUseBatch("false");
+
 								},
 								error: function(oError) {
 									console.log("There has been an error creating the event! Please try again.");
 								}
 							});
 						});
+						//BaseController.prototype.onNavBack();
+						//oView.reset();
+
 					},
+
 					error: function(oError) {
 						console.log("There has been an error creating the event! Please try again.");
 					}
 				});
 			});
+		},
+
+		_onRouteMatched: function(oEvent) {
+			this.adminEmail = oEvent.getParameter("arguments").adminEmailAddress;
+			
 		}
 
 	});
