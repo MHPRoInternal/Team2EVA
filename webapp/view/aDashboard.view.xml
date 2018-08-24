@@ -11,8 +11,9 @@
 		</customHeader>
 		<content>
 			<FlexBox class="sapUiSmallMargin columns" items="{toUserEvent}" wrap="Wrap" justifyContent="Center">
-				<GenericTile id="genericTile" class="sapUiLargeMarginBegin sapUiLargeMargin tileLayout" header="{Title}" press="handlePress">
-					<TileContent id="status" footer="{Confirmation}">
+				<GenericTile id="genericTile" class="sapUiLargeMarginBegin sapUiLargeMargin tileLayout" header="{Title}"
+					headerImage="{= ${Confirmation} === 'P' ? 'sap-icon://alert' : ''}" press="handlePress">
+					<TileContent id="status" footer="{= ${Confirmation} === 'P' ? 'Pending' : ${Confirmation} === 'Y' ? 'Accepted' : 'Declined'} ">
 						<ImageContent id="eventPicture" src="/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/EPictureSet('{IdEvent}')/$value"/>
 					</TileContent>
 				</GenericTile>

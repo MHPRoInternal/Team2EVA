@@ -24,18 +24,6 @@ sap.ui.define([
 
 			});
 			
-			this.oEventModel = new sap.ui.model.json.JSONModel({
-				Title: "",
-				Location: "",
-				Latitude: "",
-				Longitude: "",
-				Data: "",
-				Time: "",
-				Dresscode: "",
-				Picture: ""
-			});
-			
-			this.setModel(this.oEventModel, "eventModel");
 			this.setModel(this.oUserModel1, "qModel");
 			this.setModel(this.oUserModel2, "aModel");
 			

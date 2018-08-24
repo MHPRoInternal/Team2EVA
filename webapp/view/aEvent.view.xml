@@ -10,23 +10,24 @@
 				singleContainerFullSize="false">
 				<f:content>
 					<Label text="Title"/>
-					<Input id="Title" editable="false" value="{Title}"></Input>
+					<Input id="Title" editable="{switchStateModel>/Editable}" value="{Title}"></Input>
 					<Label text="Location"/>
-					<Input id="Location" editable="false" value="{Location}"></Input>
-					<Button id="bntSearch" text="Search" press="actSearch" visible="false"/>
+					<Input id="Location" editable="{switchStateModel>/Editable}" value="{Location}"></Input>
+					<Button id="bntSearch" text="Search" press="actSearch" visible="{switchStateModel>/Visible}"/>
 					<Label text="Latitude"/>
-					<Input id="Latitude" editable="false" value="{Latitude}" visible="false"></Input>
+					<Input id="Latitude" editable="{switchStateModel>/Editable}" value="{Latitude}" visible="false"></Input>
 					<Label text="Longitude"/>
-					<Input id="Longitude" editable="false" value="{Longitude}" visible="false"></Input>
+					<Input id="Longitude" editable="{switchStateModel>/Editable}" value="{Longitude}" visible="false"></Input>
 					<Label text="Date"/>
-					<DatePicker id="Date" required="true" valueFormat="yyyy-MM-dd" value="{Data}" editable="false"/>
+					<DatePicker id="Date" required="true" valueFormat="YYYY-MM-dd"
+						value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd.MM.yyyy'}}" editable="{switchStateModel>/Editable}"/>
 					<!--value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'short'}}"/>-->
 					<!--<Input id="eDataInput" width="35rem" editable="false"-->
 					<!--	value="{ path: 'Data', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"></Input>-->
 					<Label text="Time"/>
-					<Input id="Time" required="true" placeholder="HH:mm - HH:mm" value="{Time}" editable="false"/>
+					<Input id="Time" required="true" placeholder="HH:mm - HH:mm" value="{Time}" editable="{switchStateModel>/Editable}"/>
 					<Label text="DressCode"/>
-					<Input id="Dresscode" editable="false" value="{Dresscode}"/>
+					<Input id="Dresscode" editable="{switchStateModel>/Editable}" value="{Dresscode}"/>
 				</f:content>
 			</f:SimpleForm>
 			<VBox class="mapBox">
@@ -35,7 +36,7 @@
 			<FlexBox id="questionBox" items="{toQuestion}" alignItems="Center" justifyContent="Start" wrap="Wrap">
 				<HBox class="sapUiMediumMargin" justifyContent="Center">
 					<Label text="{QuestionText}"/>
-					<Select id="answerSelect" forceSelection="true" items="{toPAnswer}">
+					<Select id="answerSelect" forceSelection="false" change="onSelectChange" items="{toPAnswer}">
 						<core:Item key="{AnswerText}" text="{AnswerText}"/>
 					</Select>
 				</HBox>
@@ -46,12 +47,13 @@
 			<Toolbar>
 				<Label id="createdBy"/>
 				<ToolbarSpacer/>
-				<Button id="acceptBtn" class="AcceptBtn" width="10em" text="ACCEPT" type="Unstyled" press="onAcceptTap"></Button>
-				<Button id="declineBtn" class="DeclineBtn" width="10em" text="DECLINE" type="Unstyled" press="onDeclineTap"></Button>
+				<Button id="acceptBtn" class="AcceptBtn" width="10em" text="{i18n>acceptBtnText}" type="Unstyled" press="onAcceptTap"></Button>
+				<Button id="declineBtn" class="DeclineBtn" width="10em" text="{i18n>declineBtnText}" type="Unstyled" press="onDeclineTap"></Button>
+				<Button id="confirmAnswersBtn" class="confirmBtn" width="10em" text="{i18n>confirmBtnText}" type="Transparent" press="onConfirmTap"></Button>
 				<ToolbarSpacer/>
 				<Switch id="switchBtn" customTextOn="View" customTextOff="Edit" state="false" change="onSwitchEditMode"/>
-				<Button id="eventUpdate" text="Update" press="onUpdatePress"></Button>
-				<Button id="eventDelete" text="Delete" press="onDeletepress"></Button>
+				<Button id="eventUpdate" text="Update" press="onUpdatePress" visible="{switchStateModel>/Visible}"></Button>
+				<Button id="eventDelete" text="Delete" press="onDeletepress" visible="{switchStateModel>/Visible}"></Button>
 			</Toolbar>
 		</footer>
 	</Page>

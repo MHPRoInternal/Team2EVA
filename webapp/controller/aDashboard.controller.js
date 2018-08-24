@@ -8,13 +8,18 @@ sap.ui.define([
 
 		onInit: function(oEvent) {
 			this.getRouter().getRoute("aDashboard").attachMatched(this._onRouteMatched, this);
-			//this.getRouter().getRoute("aDashboard").attachRequestCompleted(this._setStatus, this);
+			//this.getRouter().getRoute("aDashboard").attachRequestCompleted(this.setStatus, this);
 		},
 
 		onAfterRendering: function() {
-			
+
 		},
 
+		// onMetadataLoaded: function(){
+		// this.userStatus = this.oView.byId("status").getFooter();
+		// 	console.log("User status is: " + this.userStatus);
+		// },
+		
 		setStatus: function(oEvent) {
 			this.userStatus = this.oView.byId("status").getFooter();
 			console.log("User status is: " + this.userStatus);
@@ -32,6 +37,7 @@ sap.ui.define([
 			});
 		},
 		onCreatePress: function(oEvent) {
+			console.log("Email-ul adminului este : " + this.adminEmail);
 			this.getRouter().navTo("createEvent", {
 				adminEmailAddress: this.adminEmail
 			});
@@ -46,7 +52,7 @@ sap.ui.define([
 			this.adminEmail = oEvent.getParameter("arguments").adminEmailAddress;
 
 			var createEventBtn = this.oView.byId("createEventBtn");
-
+			
 			if (this.userRole === "true") {
 				createEventBtn.setVisible(true);
 			}
@@ -55,7 +61,8 @@ sap.ui.define([
 				path: "/UserSet('" + this.uID + "')",
 				events: {
 					dataReceived: function(oData) {
-					console.log("Confirmation is: " + oData.Confirmation);
+					this.userStatus = this.oView.byId("status");
+					console.log("Confirmation is: " + this.userStatus);
 					switch(oData.getParameters().data.Confirmation){
 						
 						case "P": this.userStatus.setValue("Pending");
@@ -84,7 +91,7 @@ sap.ui.define([
 				else if(this.userStatus.getValue() === "N"){
 					this.userStatus.setValue("Declined");
 				}*/
-				this.setStatus();
+				
 		}
 
 	});

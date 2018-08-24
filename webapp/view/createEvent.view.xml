@@ -8,23 +8,23 @@
 					singleContainerFullSize="false">
 					<f:content>
 						<Label text="Title"/>
-						<Input id="Title" required="true" value="{Title}"/>
+						<Input id="Title" required="true" value="{eventModel>/Title}"/>
 						<Label text="Location"/>
-						<Input id="Location" required="true"/>
+						<Input id="Location" value="{eventModel>/Location}" required="true"/>
 						<Button id="bntSearch" text="Search" press="actSearch"/>
 						<Label text="Latitude"/>
-						<Input id="Latitude" visible="false" required="true"/>
+						<Input id="Latitude" visible="false" value="{eventModel>/Latitude}" required="true"/>
 						<Label text="Longitude"/>
-						<Input id="Longitude" visible="false" required="true"/>
+						<Input id="Longitude" visible="false" value="{eventModel>/Longitude}" required="true"/>
 						<Label text="Date"/>
-						<DatePicker id="Date" required="true" valueFormat="yyyy-MM-ddThh:mm:ss" displayFormat="dd.MM.yyyy"/>
+						<DatePicker id="Date" required="true" valueFormat="yyyy-MM-ddThh:mm:ss" displayFormat="dd.MM.yyyy" value="{eventModel>/Data}"/>
 						<!--value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'short'}}"/>-->
 						<!--<Input id="eDataInput" width="35rem" editable="false"-->
 						<!--	value="{ path: 'Data', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"></Input>-->
 						<Label text="Time"/>
-						<Input id="Time" required="true" placeholder="HH:mm - HH:mm"/>
+						<Input id="Time" required="true" placeholder="HH:mm - HH:mm" value="{eventModel>/Time}"/>
 						<Label text="DressCode"/>
-						<Input id="Dresscode" required="true"/>
+						<Input id="Dresscode" required="true" value="{eventModel>/Dresscode}"/>
 						<Label text="Picture"/>
 						<u:FileUploader id="oFileUploader" name="myFileUpload" tooltip="Upload your file to the local server" uploadComplete="handleUploadComplete"/>
 						<!--<UploadCollection id="UploadCollection" multiple="false" sameFilenameAllowed="true" instantUpload="false" uploadComplete="onUploadComplete"-->
