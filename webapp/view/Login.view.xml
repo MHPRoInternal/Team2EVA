@@ -3,10 +3,20 @@
 	<Page title="{i18n>loginTitle}" class="LoginBack">
 		<customHeader>
 			<Toolbar>
-				<Image></Image>
+				<Image src="/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"></Image>
 				<Label text="{i18n>LoginPageHeaderLabel}"/>
 				<ToolbarSpacer/>
-				<Button icon="sap-icon://edit" type="Transparent" tooltip="Change Password" text="Change password" press="changePass"/>
+				<MenuButton icon="sap-icon://action-settings" type="Accept" defaultAction="onDefaultActionAccept" useDefaultActionOnly="true">
+					<menu>
+						<Menu itemSelected="onMenuAction">
+							<items>
+								<MenuItem id="changePasswordItem" text="Change Password" icon="sap-icon://private"/>
+								<MenuItem id="deleteEventItem" text="Delete Event" icon="sap-icon://private"/>
+								<MenuItem id="cancelDeleteItem" visible="false" text="Cancel Delete" icon="sap-icon://sys-cancel"/>
+							</items>
+						</Menu>
+					</menu>
+				</MenuButton>
 			</Toolbar>
 		</customHeader>
 		<content>
@@ -16,7 +26,7 @@
 					<Label text="Please login: " class="fontStyle"/>
 					<Input id="uid" placeholder="User ID"></Input>
 					<Input id="pasw" placeholder="Password" type="Password" submit="onLoginTap"></Input>
-					<Button class="loginBtn" width="10rem" text="Login" type="Unstyled" press="onLoginTap"></Button>
+					<Button class="loginBtn" icon="sap-icon://visits" width="10em" type="Unstyled" press="onLoginTap"></Button>
 				</items>
 			</VBox>
 		</content>

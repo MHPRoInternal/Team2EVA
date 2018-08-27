@@ -1,6 +1,23 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="eventManagementEVA.controller.aEvent"
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="eventManagementEVA.controller.EventDetails"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form">
-	<Page title="{i18n>EventTitle}" showNavButton="true" navButtonPress="onNavBack">
+	<Page title="{Title}">
+		<customHeader class="headerContent">
+			<Toolbar>
+				<Button type="Back" press="onNavBack"/>
+				<Image src="/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"></Image>
+				<Label text=" {Name} "></Label>
+				<ToolbarSpacer/>
+				<MenuButton icon="sap-icon://action-settings" type="Accept" defaultAction="onDefaultActionAccept" useDefaultActionOnly="true">
+					<menu>
+						<Menu itemSelected="onMenuAction">
+							<items>
+								<MenuItem text="Change Password" icon="sap-icon://private"/>
+							</items>
+						</Menu>
+					</menu>
+				</MenuButton>
+			</Toolbar>
+		</customHeader>
 		<FlexBox justifyContent="Center">
 			<Image class="eventImage" src="/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/EPictureSet('{IdEvent}')/$value" densityAware="false"/>
 		</FlexBox>
@@ -19,9 +36,8 @@
 					<Label text="Longitude"/>
 					<Input id="Longitude" editable="{switchStateModel>/Editable}" value="{Longitude}" visible="false"></Input>
 					<Label text="Date"/>
-					<DatePicker id="Date" required="true" valueFormat="YYYY-MM-dd"
-						value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd.MM.yyyy'}}" editable="{switchStateModel>/Editable}"/>
-					<!--value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'short'}}"/>-->
+					<DatePicker id="Date" required="true" valueFormat="yyyy-MM-ddThh:mm:ss" displayFormat="YYYY.MM.dd" editable="{switchStateModel>/Editable}" value="{Data}"/>
+					<!--value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: {pattern: 'YYYY-MM-ddThh:mm:ss'}}"/>-->
 					<!--<Input id="eDataInput" width="35rem" editable="false"-->
 					<!--	value="{ path: 'Data', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"></Input>-->
 					<Label text="Time"/>
@@ -32,7 +48,7 @@
 			</f:SimpleForm>
 			<VBox class="mapBox">
 				<FlexBox id="map_canvas" width="25em" height="15em" fitContainer="true" justifyContent="Inherit" alignItems="Inherit"/>
-			</VBox>
+			
 			<FlexBox id="questionBox" items="{toQuestion}" alignItems="Center" justifyContent="Start" wrap="Wrap">
 				<HBox class="sapUiMediumMargin" justifyContent="Center">
 					<Label text="{QuestionText}"/>
@@ -41,19 +57,20 @@
 					</Select>
 				</HBox>
 			</FlexBox>
+			</VBox>
 		</HBox>
 		<!--<core:Fragment fragmentName="eventManagementEVA.view.qList" type="XML"/>-->
 		<footer>
 			<Toolbar>
-				<Label id="createdBy"/>
+				<Label id="createdBy" text="Event created by {CreatedBy}."/>
 				<ToolbarSpacer/>
-				<Button id="acceptBtn" class="AcceptBtn" width="10em" text="{i18n>acceptBtnText}" type="Unstyled" press="onAcceptTap"></Button>
-				<Button id="declineBtn" class="DeclineBtn" width="10em" text="{i18n>declineBtnText}" type="Unstyled" press="onDeclineTap"></Button>
-				<Button id="confirmAnswersBtn" class="confirmBtn" width="10em" text="{i18n>confirmBtnText}" type="Transparent" press="onConfirmTap"></Button>
+				<Button id="acceptBtn" class="AcceptBtn" type="Accept" icon="sap-icon://accept" width="7rem"  press="onAcceptTap"></Button>
+				<Button id="declineBtn" class="DeclineBtn" type="Reject" icon="sap-icon://decline" width="7rem" 
+					press="onDeclineTap"></Button>
+				<!--<Button id="confirmAnswersBtn" class="confirmBtn" width="10em" text="{i18n>confirmBtnText}" type="Transparent" press="onConfirmTap"/>-->
 				<ToolbarSpacer/>
-				<Switch id="switchBtn" customTextOn="View" customTextOff="Edit" state="false" change="onSwitchEditMode"/>
 				<Button id="eventUpdate" text="Update" press="onUpdatePress" visible="{switchStateModel>/Visible}"></Button>
-				<Button id="eventDelete" text="Delete" press="onDeletepress" visible="{switchStateModel>/Visible}"></Button>
+				<Switch id="switchBtn" customTextOn="View" customTextOff="Edit" state="false" change="onSwitchEditMode"/>
 			</Toolbar>
 		</footer>
 	</Page>

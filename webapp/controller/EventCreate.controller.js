@@ -16,11 +16,11 @@ sap.ui.define([
 	var markers = [];
 	var counterStruct = 0;
 
-	return BaseController.extend("eventManagementEVA.controller.createEvent", {
+	return BaseController.extend("eventManagementEVA.controller.EventCreate", {
 
 		onInit: function() {
 			var oView = this.getView();
-			this.getRouter().getRoute("createEvent").attachMatched(this._onRouteMatched, this);
+			this.getRouter().getRoute("EventCreate").attachMatched(this._onRouteMatched, this);
 			countAnswers = 3;
 			oView.byId("map_canvas").addStyleClass("myMap");
 			this._oPnl = this.byId("idPnl");
@@ -42,23 +42,28 @@ sap.ui.define([
 		},
 
 		onSelect: function(oEvent) {
-			var oEventCreateModel = this.getView().getModel("eventModel"); 
-
 			var oView = this.getView();
 			var oModel = oView.getModel();
-		    var mailList = oEventCreateModel.getProperty("/Mails");
+			if (oView.byId("mailsCheckBox").getSelected() === true){
+				var oEventCreateModel = this.getView().getModel("eventModel");
+				oEventCreateModel.setProperty("/Mails", "");
+
+			var mailList = oEventCreateModel.getProperty("/Mails");
 			oModel.read("/UserSet", {
 				success: function(oCompletedEntry) {
 					oCompletedEntry.results.forEach(function(item) {
 						mailList += item.Mail + "; ";
 					});
 
-					oEventCreateModel.setProperty("/Mails", mailList); 
+					oEventCreateModel.setProperty("/Mails", mailList);
 				}.bind(this),
 				error: function(oError) {
 
 				}
 			});
+			}else {
+				oView.byId("mailTxtArea").setValue();
+			}
 		},
 
 		addInput: function() {
@@ -95,19 +100,29 @@ sap.ui.define([
 			var i = 0;
 			for (i = 0; i < countAnswers; i++) {
 				if (oView.byId("inputId" + i)) {
-					var k = oView.byId("inputId" + i).getValue();
-					console.log(k);
-					if (i === 0) {
-						QAstruct.QAstructId = counterStruct;
-						QAstruct.question_text = oView.byId("inputId" + i).getValue();
+					if ((oView.byId("inputId" + i).getValue()) !== null && (oView.byId("inputId" + i).getValue()) !== "") {
+						oView.byId("inputId" + i).setValueState(sap.ui.core.ValueState.Success);
+						var k = oView.byId("inputId" + i).getValue();
+						console.log(k);
+						if (i === 0) {
+							QAstruct.QAstructId = counterStruct;
+							QAstruct.question_text = oView.byId("inputId" + i).getValue();
+							oView.byId("inputId" + i).setValueState(sap.ui.core.ValueState.None);
+						} else {
+							QAstruct.answer_text.push(oView.byId("inputId" + i).getValue());
+							oView.byId("inputId" + i).setValueState(sap.ui.core.ValueState.None);
+						}
 					} else {
-						QAstruct.answer_text.push(oView.byId("inputId" + i).getValue());
+						oView.byId("inputId" + i).setValueState(sap.ui.core.ValueState.Error);
+						oView.byId("inputId" + i).setValueStateText("Input is required!");
+
+						return;
 					}
 				}
 			}
 			QAstructList.push(QAstruct);
 			counterStruct++;
-			//this deletes stuff
+			//this deletes question input values
 			for (i = 0; i < countAnswers; i++) {
 				if (oView.byId("inputId" + i)) {
 					if (i === 0) {
@@ -117,23 +132,17 @@ sap.ui.define([
 						oView.byId("inputId" + i).setValue();
 						if (i >= 3) {
 							oView.byId("flexBox" + i).destroy();
-
 						}
 					}
 				}
 			}
-
-			//bagam chestii in items-ul Select-ului prin createEntry().
-
+			//end of deleting values of inputs
 			var oLabel = new sap.m.Label({
 				text: QAstruct.question_text
 			});
-
 			var oSelect = new sap.m.Select({
 				forceSelection: true
-					// items: QAstruct.answer_text
 			});
-
 			QAstruct.answer_text.forEach(function(item) {
 				var newItem = new sap.ui.core.Item({
 					key: item,
@@ -142,20 +151,17 @@ sap.ui.define([
 				console.log(item);
 				oSelect.addItem(newItem);
 			});
-
-			//oSelect.addItem(QAstruct.answer_text);
-
 			var delIcon = new sap.ui.core.Icon({
 				id: "Del" + counterStruct,
 				src: "sap-icon://delete",
 				press: this.onDeleteQuestion
 			});
-
 			var QALayout = new sap.m.FlexBox({
 				alignItems: "Center",
 				justifyContent: "Center",
 				items: [oLabel, oSelect, delIcon]
 			});
+			QALayout.addStyleClass("sapUiSmallMargin");
 			this.selectPanel.addItem(QALayout);
 			countAnswers = 3;
 		}, //end of AddQuestion
@@ -178,7 +184,6 @@ sap.ui.define([
 			QAstructList.splice(removeIndex, 1);
 			console.log(questionId);
 			rowItemContainer.destroy();
-
 		},
 
 		onAfterRendering: function() {
@@ -313,6 +318,7 @@ sap.ui.define([
 
 		_onRouteMatched: function(oEvent) {
 			this.adminEmail = oEvent.getParameter("arguments").adminEmailAddress;
+			this.usersName = oEvent.getParameter("arguments").nameUser;
 			console.log("Email pentru admin este: " + this.adminEmail);
 
 		}

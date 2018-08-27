@@ -19,7 +19,7 @@
             "name": "controller/uEvent.controller.js"
         },
         {
-            "name": "controller/aDashboard.controller.js"
+            "name": "controller/EventDashboard.controller.js"
         },
         {
             "name": "controller/uDashboard.controller.js"
@@ -41,7 +41,7 @@
             "name": "Component.js"
         },
         {
-            "name": "view/aDashboard.view.xml"
+            "name": "view/EventDashboard.view.xml"
         },
         {
             "name": "view/uEvent.view.xml"

@@ -5,7 +5,7 @@
 				<VBox class="textArea">
 					<Label text="Invites: "/>
 						<TextArea id="mailTxtArea" rows="8" cols="48" value="{eventModel>/Mails}" required="true"></TextArea>
-						<CheckBox text="MHP Romania" selected="false" select="onSelect"/>
+						<CheckBox id="mailsCheckBox" text="MHP Romania" selected="false" select="onSelect"/>
 					</VBox>
 			</items>
 		</FlexBox>

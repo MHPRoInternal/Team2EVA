@@ -122,7 +122,7 @@ sap.ui.define([
 					});
 					if (oCompleteEntry.Role === true) {
 
-						route.navTo("aDashboard");
+						route.navTo("EventDashboard");
 
 					} else if (oCompleteEntry.Role === false) {
 

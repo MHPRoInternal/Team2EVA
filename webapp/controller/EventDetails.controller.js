@@ -6,17 +6,15 @@ sap.ui.define([
 ], function(BaseController, Element, MessageToast) {
 	"use strict";
 
-	return BaseController.extend("eventManagementEVA.controller.aEvent", {
+	return BaseController.extend("eventManagementEVA.controller.EventDetails", {
 
 		onInit: function(oEvent) {
 			var oView = this.getView();
-			this.getRouter().getRoute("aEvent").attachMatched(this._onRouteMatched, this);
+			this.getRouter().getRoute("EventDetails").attachMatched(this._onRouteMatched, this);
 			this.getView().byId("map_canvas").addStyleClass("myMap");
 			this.updateBtn = oView.byId("eventUpdate");
-			this.deleteBtn = oView.byId("eventDelete");
-			this.createdByLabel = oView.byId("createdBy");
+			this.currentUserLabel = oView.byId("userNameLabelTop");
 			this.markers = [];
-			this.selectList = [];
 
 			this.oSwitchStateModel = new sap.ui.model.json.JSONModel({
 				Editable: false,
@@ -26,11 +24,14 @@ sap.ui.define([
 
 		},
 		onAfterRendering: function(oEvent) {
+
 			this.viewSwitchStateModel = this.getView().getModel("switchStateModel");
 			this.viewSwitchStateModel.getProperty("/Editable");
 			this.viewSwitchStateModel.getProperty("/Visible");
 
 		},
+
+
 		actSearch: function() {
 
 			var oView = this.getView();
@@ -76,50 +77,78 @@ sap.ui.define([
 			this.viewSwitchStateModel.setProperty("/Visible", state);
 		},
 
-		onSelectChange: function(oEvent) {
-			var oView = this.getView();
-			var questionBox = oView.byId("questionBox");
-			var counter = questionBox.getItems().length;
-			var questionID = oEvent.getSource().getBindingContext().getObject().IdQuestion;
-			var answerSelect = oEvent.getParameters().selectedItem.getText();
-			console.log("ID-ul question-ului in aEvent este: " + questionID);
+		// onSelectChange: function(oEvent) {
+		// 	var oView = this.getView();
+		// 	var questionBox = oView.byId("questionBox");
+		// 	var counter = questionBox.getItems().length;
+		// 	var questionID = oEvent.getSource().getBindingContext().getObject().IdQuestion;
+		// 	var answerSelect = oEvent.getParameters().selectedItem.getText();
+		// 	console.log("ID-ul question-ului in EventDetails este: " + questionID);
 
-			this.questionAnswerList = {
-				IdQuestion: questionID,
-				AnswerText: answerSelect
-			};
-			console.log("answer LIST este: " + this.questionAnswerList);
-			this.selectList.forEach(function(list) {
-				if (this.questionAnswerList.IdQuestion === questionID) {
+		// 	this.questionAnswerList = {
+		// 		IdQuestion: questionID,
+		// 		AnswerText: answerSelect
+		// 	};
+		// 	console.log("answer LIST este: " + this.questionAnswerList);
+		// 	this.selectList.forEach(function(list) {
+		// 		if (this.questionAnswerList.IdQuestion === questionID) {
 
-				}
-			}.bind(this));
-			this.selectList.push(this.questionAnswerList);
-			console.log("selectList-ul este: " + this.selectList);
-		},
+		// 		}
+		// 	}.bind(this));
+		// 	this.selectList.push(this.questionAnswerList);
+		// 	console.log("selectList-ul este: " + this.selectList);
+		// },
 
 		onConfirmTap: function(oEvent) {
-
+			var selectList = [];
 			var oView = this.getView();
+			var oModel = oView.getModel();
 			var questionBox = oView.byId("questionBox");
-			var counter = questionBox.getItems().length;
+			//var counter = questionBox.getItems().length;
 			var getItems = questionBox.getItems();
 			console.log("Asta ia getItems(): " + getItems);
-			// var questionID = oEvent.getSource().getBindingContext().getObject().IdQuestion;
+			// var questionID = this.getSource().getBindingContext().getObject().IdQuestion;
+			// console.log();
 			// var answerSelect = oEvent.getParameters().selectedItem.getText();
-			// console.log("ID-ul question-ului in aEvent este: " + questionID);
-
-			// this.questionAnswerList = {
-			// 	IdQuestion: questionID,
-			// 	AnswerText: answerSelect
-			// };
+			// console.log("ID-ul question-ului in EventDetails este: " + questionID);
+			var userID = this.uID;
+			var eventID = this.eID;
 			// console.log("answer LIST este: " + this.questionAnswerList);
 			questionBox.getItems().forEach(function(item) {
-				var answerSelect1 = oView.byId("answerSelect").selectedItem;
-				console.log("Valoarea din select este: " + answerSelect1)
-					// 	if (this.questionAnswerList.IdQuestion === ) {
-					// 	}
+				if (item.getItems()[1].getSelectedItem() !== null) {
+					var answerSelect = item.getItems()[1].getSelectedItem().getText();
+					var questionID = item.getBindingContext().getObject().IdQuestion;
+
+					console.log("ID-ul question-ului este: " + questionID);
+					var questionAnswerList = {
+						IdQuestion: questionID,
+						AnswerText: answerSelect
+					};
+
+					selectList.push(questionAnswerList);
+				}
 			});
+			selectList.forEach(function(items) {
+				var questionAnswerCreateList = {
+					IdQuestion: items.IdQuestion,
+					IdUser: userID,
+					IdEvent: eventID,
+					AnswerText: items.AnswerText
+				};
+
+				oModel.create("/AnswerSet", questionAnswerCreateList, {
+					success: function(oCompleteEntry) {
+						MessageToast.show("MUIE PSD!");
+					},
+					error: function(oError) {
+
+					}
+				});
+			});
+			console.log("Valoarea din select este: " + answerSelect)
+				// 	if (this.questionAnswerList.IdQuestion === ) {
+				// 	}
+
 			// this.selectList.push(this.questionAnswerList);
 			// console.log("selectList-ul este: " + this.selectList);
 
@@ -184,41 +213,41 @@ sap.ui.define([
 
 			var oView = this.getView();
 			var oModel = oView.getModel();
-			// var title = oView.byId("Title").getValue();
-			// var location = oView.byId("Location").getValue();
-			// var latitude = oView.byId("Latitude").getValue();
-			// var longitude = oView.byId("Longitude").getValue();
-			// var date = oView.byId("Date").getValue();
-			// var time = oView.byId("Time").getValue();
-			// var dressCode = oView.byId("Dresscode").getValue();
-			// var oData = {
-			// 	Title: title,
-			// 	Location: location,
-			// 	Latitude: latitude,
-			// 	Longitude: longitude,
-			// 	Data: date,
-			// 	Time: time,
-			// 	Dresscode: dressCode
-			// };
+			var title = oView.byId("Title").getValue();
+			var location = oView.byId("Location").getValue();
+			var latitude = oView.byId("Latitude").getValue();
+			var longitude = oView.byId("Longitude").getValue();
+			var date = oView.byId("Date").getValue();
+			var time = oView.byId("Time").getValue();
+			var dressCode = oView.byId("Dresscode").getValue();
+			var oData = {
+				Title: title,
+				Location: location,
+				Latitude: latitude,
+				Longitude: longitude,
+				Data: date,
+				Time: time,
+				Dresscode: dressCode,
+				CreatedBy: this.adminEmail
+			};
+			console.log("ID eventului este: " + this.eID);
+			oModel.update("/EventSet(IdEvent='" + this.eID + "')", oData, {
+				success: function(oCompletedEntry) {
 
-			// oModel.update("/EventSet(IdEvent='" + eID + "'", oData, {
-			// 	success: function(oCompletedEntry) {
+					MessageToast.show("Update successful for the event with ID: " + this.eID + "!", {
 
-			// 		MessageToast.show("Update successful for the event with ID: " + eID + "!", {
+						animationDuration: 5000
 
-			// 			animationDuration: 5000
-
-			// 		});
-			// 		console.log("SUCCESS?");
-			// 	},
-			// 	error: function(oError) {
-			// 		MessageToast.show("Changes could not be made! Please try again.");
-			// 		console.log("ERROR?");
-			// 	}
-			// });
+					});
+					console.log("SUCCESS UPDATE?");
+				}.bind(this),
+				error: function(oError) {
+					MessageToast.show("Changes could not be made! Please try again.");
+					console.log("ERROR UPDATE?");
+				}
+			});
 
 			var switchBtn = oView.byId("switchBtn");
-			var state = switchBtn.getState();
 			switchBtn.setState(false);
 			this.viewSwitchStateModel.setProperty("/Editable", false);
 			this.viewSwitchStateModel.setProperty("/Visible", false);
@@ -241,33 +270,39 @@ sap.ui.define([
 			// 	}, this)
 			// });
 		},
+		
+		transformEmail: function() {
+			var oView = this.getView();
+			var adminCreatedByEmail = this.adminEmail;
+			
+			var indexDot = adminCreatedByEmail.indexOf(".");
+			var firstName = adminCreatedByEmail.substr(0, indexDot);
+			var createdByFirstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+			
+			var indexAtSign = adminCreatedByEmail.indexOf("@");
+			var lastName = adminCreatedByEmail.substr(indexDot + 1, indexAtSign - indexDot - 1);
+			var createdByLastName = lastName.charAt(0).toUpperCase() + lastName.slice(1);
+			
+			oView.byId("createdBy").setText("Event created by " + createdByFirstName + " " + createdByLastName);
 
+		},
+		
 		_onRouteMatched: function(oEvent) {
 			var oView = this.getView();
 			this.eID = oEvent.getParameter("arguments").eventID;
 			this.uID = oEvent.getParameter("arguments").userID;
-			var createdByText = "Event created by - " + this.uID;
+			this.usersName = oEvent.getParameter("arguments").nameUser;
 			this.userRole = oEvent.getParameter("arguments").uRole;
-			this.createdByLabel.setText(createdByText);
 			this.acceptBtn = oView.byId("acceptBtn");
 			this.declineBtn = oView.byId("declineBtn");
 			this.switchBtn = oView.byId("switchBtn");
 
 			var state = this.switchBtn.getState();
 			this.updateBtn.setVisible(state);
-			this.deleteBtn.setVisible(state);
-
 			if (this.userRole === "true") {
 				this.acceptBtn.setVisible(false);
 				this.declineBtn.setVisible(false);
 				this.switchBtn.setState(false);
-
-				/*	va model = new sap.ui.model.JSON.JsonModel();
-					var Data ={
-						visible: false
-					}
-					model.setData(Data);
-					view.setModel(model, "modelLocal")*/
 			} else if (this.userRole === "false") {
 				this.switchBtn.setVisible(false);
 				this.switchBtn.setEnabled(false);
@@ -280,13 +315,10 @@ sap.ui.define([
 			//console.log(oUserModel.getProperty("/IdUser") + "S-a transmit si getproperty!");
 			// var oModel = oView.getModel();
 			// console.log("3 " + eID);
-
 			oView.bindElement({
 				path: "/EventSet('" + this.eID + "')",
 				events: {
 					dataReceived: function(oData) {
-
-						//oData.getParameters().data.Latitude
 						var myLatlng = new google.maps.LatLng(oData.getParameters().data.Latitude, oData.getParameters().data.Longitude);
 						var mapOptions = {
 							zoom: 15,
@@ -298,15 +330,18 @@ sap.ui.define([
 							position: myLatlng,
 							title: "Event location"
 						});
-
+						
+						console.log("oData createdBy data is: " + oData.getParameters().data.CreatedBy);
 						// To add the marker to the map, call setMap();
 						marker.setMap(this.map);
 						this.markers.push(marker);
+						this.adminEmail = oData.getParameters().data.CreatedBy;
+						this.transformEmail();
 					}.bind(this)
 				}
 			});
 		}
-
+	
 	});
 
 });

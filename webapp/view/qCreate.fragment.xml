@@ -1,21 +1,21 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
-	<Panel id="idPnl" showNavButton="true" navButtonPress="onNavBack">
+	<Panel id="idPnl">
 		<FlexBox id="idFB" alignItems="Center" justifyContent="Start">
 			<items>
 				<HBox>
-					<VBox>
+					<VBox class="questionCreateBox">
 						<HBox>
 							<Label text="Question: "/>
-							<Input id="inputId0"/>
+							<Input id="inputId0" placeholder="Question text..."/>
 						</HBox>
 
 							<HBox>
 								<Label text="Question options: "/>
-								<Button id="addInput" text="Add Option" icon="sap-icon://sys-add" type="Transparent" press="addInput"/>
+								<Button id="addInput" text="Add Option" icon="sap-icon://sys-add" type="Transparent" press="addInput" />
 							</HBox>
 							<VBox>
-								<Input width="15.5em" id="inputId1"/>
-								<Input width="15.5em" id="inputId2"/>
+								<Input width="15.5em" id="inputId1" placeholder="Question option 1..."/>
+								<Input width="15.5em" id="inputId2" placeholder="Question option 2..."/>
 							</VBox>
 
 					</VBox>

@@ -103,9 +103,9 @@
                     "target": "login"
                 },
                 {
-                    "pattern": "aDashboard",
-                    "name": "aDashboard",
-                    "target": "aDashboard"
+                    "pattern": "EventDashboard",
+                    "name": "EventDashboard",
+                    "target": "EventDashboard"
                 },
                 {
                     "pattern": "uDashboard/{userID}",
@@ -124,9 +124,9 @@
                     "viewId": "login",
                     "viewLevel": 0
                 },
-                "aDashboard": {
-                    "viewName": "aDashboard",
-                    "viewId": "aDashboard",
+                "EventDashboard": {
+                    "viewName": "EventDashboard",
+                    "viewId": "EventDashboard",
                     "viewLevel": 1
                 },
                 "uDashboard": {

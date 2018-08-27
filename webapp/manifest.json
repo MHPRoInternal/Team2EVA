@@ -106,19 +106,19 @@
 					"target": "login"
 				},
 				{
-					"pattern": "aDashboard/{userID}/{uRole}/{adminEmailAddress}",
-					"name": "aDashboard",
-					"target": "aDashboard"
+					"pattern": "EventDashboard/{userID}/{uRole}/{adminEmailAddress}/{nameUser}",
+					"name": "EventDashboard",
+					"target": "EventDashboard"
 				},
 				{
-					"pattern": "aEvent/{eventID}/{userID}/{uRole}",
-					"name": "aEvent",
-					"target": "aEvent"
+					"pattern": "EventDetails/{eventID}/{userID}/{uRole}/{nameUser}",
+					"name": "EventDetails",
+					"target": "EventDetails"
 				},
 				{
-					"pattern": "createEvent/{adminEmailAddress}",
-					"name": "createEvent",
-					"target": "createEvent"
+					"pattern": "EventCreate/{adminEmailAddress}/{nameUser}",
+					"name": "EventCreate",
+					"target": "EventCreate"
 				}
 			],
 			"targets": {
@@ -127,19 +127,19 @@
 					"viewId": "login",
 					"viewLevel": 0
 				},
-				"aDashboard": {
-					"viewName": "aDashboard",
-					"viewId": "aDashboard",
+				"EventDashboard": {
+					"viewName": "EventDashboard",
+					"viewId": "EventDashboard",
 					"viewLevel": 1
 				},
-				"aEvent": {
-					"viewName": "aEvent",
-					"viewId": "aEvent",
+				"EventDetails": {
+					"viewName": "EventDetails",
+					"viewId": "EventDetails",
 					"viewLevel": 2
 				},
-				"createEvent": {
-					"viewName": "createEvent",
-					"viewId": "createEvent",
+				"EventCreate": {
+					"viewName": "EventCreate",
+					"viewId": "EventCreate",
 					"viewLevel": 3
 				}
 			},
