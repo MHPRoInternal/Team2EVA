@@ -24,12 +24,12 @@
 				<FlexBox>
 					<!--<CheckBox id="tileSelect" selected="false" select="onTileSelect"/>-->
 					<GenericTile id="genericTile" class="tileLayout customTile" header="{Title}"
-						headerImage="{= ${Confirmation} === 'P' ? 'sap-icon://alert' : ''}" press="handlePress">
+						headerImage="{= ${Confirmation} === 'P' ? 'sap-icon://alert' : ''}" press="handlePress" subheader="{path:'Data', type:'sap.ui.model.type.Date', formatOptions: {pattern: 'YYYY-MM-dd'}}">
 						<TileContent id="status" class="tileImage"
-							footer ="{= ${Confirmation} === 'P' ? 'Pending' : ${Confirmation} === 'Y' ? 'Accepted' : 'Declined'}"
+							footer="{= ${Confirmation} === 'P' ? 'Pending' : ${Confirmation} === 'Y' ? 'Accepted' : 'Declined'}"
 							footerColor="{= ${Confirmation} === 'P' ? 'Critical' : ${Confirmation} === 'Y' ? 'Good' : 'Error'}">
 							<content>
-								<ImageContent id="eventPicture"  src="/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/EPictureSet('{IdEvent}')/$value"/>
+								<ImageContent id="eventPicture" src="/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/EPictureSet('{IdEvent}')/$value"/>
 							</content>
 						</TileContent>
 					</GenericTile>
