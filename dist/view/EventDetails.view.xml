@@ -4,7 +4,7 @@
 		<customHeader class="headerContent">
 			<Toolbar>
 				<Button type="Back" press="onNavBack"/>
-				<Image src="/webapp/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"/>
+				<Image src="/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"/>
 				<Label id="nameLabel"></Label>
 				<ToolbarSpacer/>
 				<ToolbarSpacer/>

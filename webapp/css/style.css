@@ -6,17 +6,17 @@
     padding: 40px;
 }
 
-.newQuestion {
-    margin: 1em;
+.tileLayout.customTile{
+	width: 3rem;
+	height: 3rem;
+}
+.sapMPanelContent {
+    padding: 1px;                                                      
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .actionBtn.sapUiIcon {
     color: #eaffdd;
-}
-
-
-.questionCreateBox {
-    margin: 2em auto;
 }
 
 .sapMGT.OneByOne {
@@ -30,17 +30,15 @@
     border: 0.2em outset #C6DEFF;
 }
 
-.tileLayout.customTile:hover {
-    background-color: #eafffd;
+.loginBox{
+	background: url('/webapp/resources/EVATEAM2_LOGINPIC.jpg');
+	background-size: cover;
+	background-position: center;
 }
-
-.tileImage {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: stretch;
-    width: 100%;
-    height: 100%;
-}
+/*.tileLayout.customTile:hover {*/
+/*    background-color: #eafffd;*/
+/*    background: url();*/
+/*}*/
 
 .headerContent {
     text-align: left;
@@ -78,11 +76,16 @@
     padding: 2px;
 }
 
+.sapMImageContentImageIcon{
+	width: 12em;
+	height: 16em;
+}
+
 .myMap {
     margin-top: 20px;
 }
 
-.sapUiIcon #addInput {
+.sapUiIcon#addInput {
     height: 10px !important;
     width: 10px !important;
 }
@@ -96,10 +99,10 @@
 }
 
 .LoginBack {
-    background: url('');
+    /*background: url('/webapp/resources/EVATEAM2_LOGINPIC.jpg');*/
     background-repeat: no-repeat;
     background-position: center;
-    background-size: stretch;
+    background-size: contain;
 }
 
 .fontStyle {

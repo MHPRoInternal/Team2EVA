@@ -53,7 +53,7 @@ sap.ui.define([
 			oModel.read("/UserSet", {
 				success: function(oCompletedEntry) {
 					oCompletedEntry.results.forEach(function(item) {
-						mailList += item.Mail + "; " + "\n";
+						mailList += item.Mail + "; ";
 					});
 
 					oEventCreateModel.setProperty("/Mails", mailList);
@@ -89,6 +89,7 @@ sap.ui.define([
 		addQuestionPress: function() {
 
 			var oView = this.getView();
+			var oModel = oView.getModel();
 			var QAstruct = {
 				question_text: "",
 				answer_text: [],
@@ -101,16 +102,16 @@ sap.ui.define([
 			for (i = 0; i < countAnswers; i++) {
 				if (oView.byId("inputId" + i)) {
 					if ((oView.byId("inputId" + i).getValue()) !== null && (oView.byId("inputId" + i).getValue()) !== "") {
-
+						oView.byId("inputId" + i).setValueState(sap.ui.core.ValueState.Success);
 						var k = oView.byId("inputId" + i).getValue();
 						console.log(k);
 						if (i === 0) {
 							QAstruct.QAstructId = counterStruct;
 							QAstruct.question_text = oView.byId("inputId" + i).getValue();
-
+							oView.byId("inputId" + i).setValueState(sap.ui.core.ValueState.None);
 						} else {
 							QAstruct.answer_text.push(oView.byId("inputId" + i).getValue());
-
+							oView.byId("inputId" + i).setValueState(sap.ui.core.ValueState.None);
 						}
 					} else {
 						oView.byId("inputId" + i).setValueState(sap.ui.core.ValueState.Error);
@@ -161,7 +162,7 @@ sap.ui.define([
 				justifyContent: "Center",
 				items: [oLabel, oSelect, delIcon]
 			});
-			QALayout.addStyleClass("sapUiSmallMarginBeginEnd");
+			QALayout.addStyleClass("sapUiSmallMargin");
 			this.selectPanel.addItem(QALayout);
 			countAnswers = 3;
 		}, //end of AddQuestion

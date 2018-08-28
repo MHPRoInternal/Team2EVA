@@ -1,41 +1,152 @@
 /* Enter your custom styles here */
 
-.loginBtn {
-	border-radius: 20px;
-	background-color: PaleTurquoise;
-	width: 10rem;
-	margin: 10px auto;
+#selectDisplay {
+    right: 0;
+    margin: 40px auto;
+    padding: 40px;
 }
+
+.tileLayout.customTile{
+	width: 3rem;
+	height: 3rem;
+}
+
+.newQuestion {
+    margin: 1em;
+}
+
+.actionBtn.sapUiIcon {
+    color: #eaffdd;
+}
+
+
+.questionCreateBox {
+    margin: 2em auto;
+}
+
+.sapMGT.OneByOne {
+    width: 16rem;
+    height: 16rem;
+}
+
+.eventImage {
+    width: 23rem;
+    height: 16rem;
+    border: 0.2em outset #C6DEFF;
+}
+
+/*.tileLayout.customTile:hover {*/
+/*    background-color: #eafffd;*/
+/*    background: url();*/
+/*}*/
+
+.tileImage {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: fill;
+}
+
+.headerContent {
+    text-align: left;
+}
+
+.EventCreateBtn {
+    background-color: #8ef6ff;
+    border-radius: 10px;
+    border: 1px solid #4299ff;
+}
+
+.EventCreateBtn:hover {
+    background-color: #0fdaff;
+    border: 1px solid #51f1ff;
+    border-radius: 10px;
+}
+
+.EventCreateBtn:active {
+    background-color: #d1fff7;
+    border: 1px solid #00ffed;
+    border-radius: 10px;
+}
+
+.textArea {
+    margin: 0 0 0 11rem;
+}
+
+.sapMFlexBoxAlignItemsStretch {
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    align-items: inherit;
+}
+
+.sapMLabel {
+    padding: 2px;
+}
+
+.sapMImageContentImageIcon{
+	width: 12em;
+	height: 16em;
+}
+
+.myMap {
+    margin-top: 20px;
+}
+
+.sapUiIcon#addInput {
+    height: 10px !important;
+    width: 10px !important;
+}
+
+.sapMIBar.sapMHeader-CTX {
+    background-color: #C6DEFF;
+}
+
+.sapMInputBaseInner {
+    text-align: center !important;
+}
+
+.LoginBack {
+    background: url('');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: stretch;
+}
+
+.fontStyle {
+    font-style: Italic;
+    font-weight: bold;
+}
+
+.loginBtn {
+    border-radius: 10%;
+    background-color: #d6e9ff;
+    border: solid 1.5px #005684;
+    width: 10rem;
+    margin: 10px auto;
+}
+
 .loginBtn:hover {
-	border-radius: 20px;
-	background-color: lawngreen;
-	width: 10rem;
-	margin: 10px auto;
+    border-radius: 10%;
+    border: solid 1.5px #005684;
+    background-color: #6afcf5;
+    margin: 10px auto;
 }
 
 .AcceptBtn {
-	border-radius: 20px;
-	background-color:limegreen;
-	width: 10rem;
-	margin: 10px auto;
+    border-radius: 1em;
+    margin: 2em auto;
 }
-.AcceptBtn:hover {
-	border-radius: 20px;
-	background-color:lime;
-	width: 10rem;
-	margin: 10px auto;
 
+.AcceptBtn:hover {
+    border-radius: 1em;
+    background-color: lime;
 }
+
 .DeclineBtn {
-	border-radius: 20px;
-	background-color:Red;
-	width: 10rem;
-	margin: 10px auto;
+    border-radius: 1em;
+    margin: 2em auto;
 }
 
 .DeclineBtn:hover {
-	border-radius: 20px;
-	background-color:Tomato;
-	width: 10rem;
-	margin: 10px auto;
+    border-radius: 1em;
+    background-color: Tomato;
 }

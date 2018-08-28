@@ -82,7 +82,6 @@ sap.ui.define([
 				}
 			});
 			oModel.refresh(true);
-
 		},
 
 		onCreatePress: function(oEvent) {
@@ -103,7 +102,6 @@ sap.ui.define([
 				beginButton: new Button({
 					text: 'Yes',
 					press: function () {
-						this.showBusyIndicator(1100, 0);
 						this.deleteEvent();
 						dialog.close();
 					}.bind(this)
@@ -121,24 +119,6 @@ sap.ui.define([
 			dialog.open();
 		},
 
-		showBusyIndicator : function (iDuration, iDelay) {
-			sap.ui.core.BusyIndicator.show(iDelay);
-
-			if (iDuration && iDuration > 0) {
-				if (this._sTimeoutId) {
-					jQuery.sap.clearDelayedCall(this._sTimeoutId);
-					this._sTimeoutId = null;
-				}
-
-				this._sTimeoutId = jQuery.sap.delayedCall(iDuration, this, function() {
-					this.hideBusyIndicator();
-				});
-			}
-		},
-		hideBusyIndicator : function() {
-			sap.ui.core.BusyIndicator.hide();
-		},
-
 		_onRouteMatched: function(oEvent) {
 			this.oView = this.getView();
 			this.oModel = this.oView.getModel();
@@ -147,7 +127,6 @@ sap.ui.define([
 			this.userRole = oEvent.getParameter("arguments").uRole;
 			this.adminEmail = oEvent.getParameter("arguments").adminEmailAddress;
 			this.eventCreateBtn = this.oView.byId("EventCreateBtn");
-			this.page = this.oView.byId("dashboardPage");
 			
 			if (this.userRole === "true") {
 				this.eventCreateBtn.setVisible(true);

@@ -13,7 +13,6 @@
 				"type": "OData",
 				"settings": {
 					"oDataVersion": "2.0"
-					
 				}
 			}
 		},
@@ -78,11 +77,10 @@
 					"metadataUrlParams": {
 						"sap-documentation": "heading"
 					},
-					"useBatch" : false,
+					"useBatch": false,
 					"defaultCountMode": "Inline",
 					"defaultOperationMode": "Client",
-					"defaultUpdateMethod" : "PUT"
-					
+					"defaultUpdateMethod": "PUT"
 				},
 				"preload": true
 			}

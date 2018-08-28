@@ -10,19 +10,19 @@
             "name": "controller/App.controller.js"
         },
         {
+            "name": "controller/EventCreate.controller.js"
+        },
+        {
+            "name": "controller/EventDetails.controller.js"
+        },
+        {
             "name": "controller/BaseController.js"
         },
         {
             "name": "controller/Login.controller.js"
         },
         {
-            "name": "controller/uEvent.controller.js"
-        },
-        {
             "name": "controller/EventDashboard.controller.js"
-        },
-        {
-            "name": "controller/uDashboard.controller.js"
         },
         {
             "name": "css/style.css"
@@ -35,16 +35,25 @@
             "name": "model/models.js"
         },
         {
-            "name": "model/Formatter.js"
+            "name": "Component.js"
         },
         {
-            "name": "Component.js"
+            "name": "view/EventDetails.view.xml"
+        },
+        {
+            "name": "view/qCreate.fragment.xml"
+        },
+        {
+            "name": "view/eventQAlist.fragment.xml"
+        },
+        {
+            "name": "view/EventCreate.view.xml"
         },
         {
             "name": "view/EventDashboard.view.xml"
         },
         {
-            "name": "view/uEvent.view.xml"
+            "name": "view/qList.fragment.xml"
         },
         {
             "name": "view/Login.view.xml"
@@ -53,7 +62,7 @@
             "name": "view/App.view.xml"
         },
         {
-            "name": "view/uDashboard.view.xml"
+            "name": "view/mailTextArea.fragment.xml"
         },
         {
             "name": "localService/metadata.xml"

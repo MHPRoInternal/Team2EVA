@@ -8,16 +8,20 @@
 							<Label text="Question: "/>
 							<Input id="inputId0" placeholder="Question text..."/>
 						</HBox>
-						<HBox>
-							<Label text="Question options: "/>
-							<Button id="addInput" text="Add Option" icon="sap-icon://sys-add" type="Transparent" press="addInput"/>
-						</HBox>
-						<VBox>
-							<Input width="15.5em" id="inputId1" placeholder="Question option 1..."/>
-							<Input width="15.5em" id="inputId2" placeholder="Question option 2..."/>
-						</VBox>
+
+							<HBox>
+								<Label text="Question options: "/>
+								<Button id="addInput" text="Add Option" icon="sap-icon://sys-add" type="Transparent" press="addInput" />
+							</HBox>
+							<VBox>
+								<Input width="15.5em" id="inputId1" placeholder="Question option 1..."/>
+								<Input width="15.5em" id="inputId2" placeholder="Question option 2..."/>
+							</VBox>
+
 					</VBox>
+					
 				</HBox>
+
 			</items>
 		</FlexBox>
 	</Panel>

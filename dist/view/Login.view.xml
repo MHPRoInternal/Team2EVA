@@ -1,13 +1,30 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="eventManagementEVA.controller.Login"
-	xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="{i18n>loginTitle}">
+<mvc:View class="loginView" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="eventManagementEVA.controller.Login" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="{i18n>loginTitle}" class="LoginBack">
+		<customHeader>
+			<Toolbar>
+				<Image src="/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"></Image>
+				<Label text="{i18n>LoginPageHeaderLabel}"/>
+				<ToolbarSpacer/>
+				<MenuButton icon="sap-icon://action-settings" type="Accept" defaultAction="onDefaultActionAccept" useDefaultActionOnly="true">
+					<menu>
+						<Menu itemSelected="onMenuAction">
+							<items>
+								<MenuItem id="changePasswordItem" text="Change Password" icon="sap-icon://private"/>
+							</items>
+						</Menu>
+					</menu>
+				</MenuButton>
+			</Toolbar>
+		</customHeader>
 		<content>
 			<VBox fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
 				<items>
+					<Label text="Welcome" class="fontStyle"/>
+					<Label text="Please login: " class="fontStyle"/>
 					<Input id="uid" placeholder="User ID"></Input>
-					<Input id="pasw" placeholder="Password" type="Password"></Input>
-					<Button class="loginBtn" width="10rem" text="Login" type="Unstyled" press="onLoginTap"></Button>
-					<Button icon="sap-icon://user-settings" text="Settings"  press="NewEntry"></Button>
+					<Input id="pasw" placeholder="Password" type="Password" submit="onLoginTap"></Input>
+					<Button class="loginBtn" icon="sap-icon://visits" width="10em" type="Unstyled" press="onLoginTap"></Button>
 				</items>
 			</VBox>
 		</content>

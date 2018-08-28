@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:core="sap.ui.core.mvc">
+	<Panel width="150em">
+		
+	</Panel>
+</core:FragmentDefinition>

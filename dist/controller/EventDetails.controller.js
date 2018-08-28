@@ -30,6 +30,7 @@ sap.ui.define([
 
 		},
 		onAfterRendering: function(oEvent) {
+
 			this.viewSwitchStateModel = this.getView().getModel("switchStateModel");
 			this.viewSwitchStateModel.getProperty("/Editable");
 			this.viewSwitchStateModel.getProperty("/Visible");

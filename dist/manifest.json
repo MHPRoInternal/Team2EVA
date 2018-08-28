@@ -9,11 +9,10 @@
         },
         "dataSources": {
             "mainService": {
-                "uri": "http://bcsw-sap078.mymhp.net:8000/sap/opu/odata/sap/ZTEAM2_SRV/",
+                "uri": "/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/",
                 "type": "OData",
                 "settings": {
-                    "oDataVersion": "2.0",
-                    "localUri": ""
+                    "oDataVersion": "2.0"
                 }
             }
         },
@@ -78,8 +77,10 @@
                     "metadataUrlParams": {
                         "sap-documentation": "heading"
                     },
+                    "useBatch": false,
                     "defaultCountMode": "Inline",
-                    "defaultOperationMode": "Client"
+                    "defaultOperationMode": "Client",
+                    "defaultUpdateMethod": "PUT"
                 },
                 "preload": true
             }
@@ -103,19 +104,19 @@
                     "target": "login"
                 },
                 {
-                    "pattern": "EventDashboard",
+                    "pattern": "EventDashboard/{userID}/{uRole}/{adminEmailAddress}/{nameUser}",
                     "name": "EventDashboard",
                     "target": "EventDashboard"
                 },
                 {
-                    "pattern": "uDashboard/{userID}",
-                    "name": "uDashboard",
-                    "target": "uDashboard"
+                    "pattern": "EventDetails/{eventID}/{userID}/{uRole}/{nameUser}",
+                    "name": "EventDetails",
+                    "target": "EventDetails"
                 },
                 {
-                    "pattern": "uEvent",
-                    "name": "uEvent",
-                    "target": "uEvent"
+                    "pattern": "EventCreate/{adminEmailAddress}/{nameUser}",
+                    "name": "EventCreate",
+                    "target": "EventCreate"
                 }
             ],
             "targets": {
@@ -129,15 +130,15 @@
                     "viewId": "EventDashboard",
                     "viewLevel": 1
                 },
-                "uDashboard": {
-                    "viewName": "uDashboard",
-                    "viewId": "uDashboard",
-                    "viewLevel": 1
+                "EventDetails": {
+                    "viewName": "EventDetails",
+                    "viewId": "EventDetails",
+                    "viewLevel": 2
                 },
-                "uEvent": {
-                    "viewName": "uEvent",
-                    "viewId": "uEvent",
-                    "viewLevel": 1
+                "EventCreate": {
+                    "viewName": "EventCreate",
+                    "viewId": "EventCreate",
+                    "viewLevel": 3
                 }
             },
             "resources": {

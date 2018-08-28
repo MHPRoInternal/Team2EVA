@@ -16,6 +16,13 @@
 			"entryPath": "/test-resources"
 		},
 		"description": "SAPUI5 Test Resources"
+	}, {
+		"path": "/destinations/M38",
+		"target": {
+			"type": "destination",
+			"name": "M38"
+		},
+		"description": "M38 - HTTP ABAP ONLY"
 	}],
 	"sendWelcomeFileRedirect": true
 }
