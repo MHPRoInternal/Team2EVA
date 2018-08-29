@@ -4,10 +4,10 @@
 		<customHeader class="headerContent">
 			<Toolbar>
 				<Button type="Back" press="onNavBack"/>
-				<Image src="/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"/>
+				<Image src="/webapp/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"/>
+				<ToolbarSpacer/>
+				<ToolbarSpacer/>
 				<Label id="nameLabel"></Label>
-				<ToolbarSpacer/>
-				<ToolbarSpacer/>
 				<MenuButton icon="sap-icon://action-settings" type="Accept" defaultAction="onDefaultActionAccept" useDefaultActionOnly="true">
 					<menu>
 						<Menu itemSelected="onMenuAction">

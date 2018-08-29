@@ -25,7 +25,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				sItemPath = oItem.getText();
 				oItem = oItem.getParent();
 			}
-			if (sItemPath === "Change Password") {
+			if (sItemPath === "Change Password" || sItemPath === "Passwort andrn") {
 				this.changePass();
 			} else if (sItemPath === "Delete Event") {
 				var viewID = this.getView().getId();

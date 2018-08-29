@@ -3,7 +3,7 @@
 	<Page title="{i18n>loginTitle}" class="LoginBack">
 		<customHeader>
 			<Toolbar>
-				<Image src="/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"></Image>
+				<Image src="/webapp/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"></Image>
 				<Label text="{i18n>LoginPageHeaderLabel}"/>
 				<ToolbarSpacer/>
 				<MenuButton icon="sap-icon://action-settings" type="Accept" defaultAction="onDefaultActionAccept" useDefaultActionOnly="true">
@@ -18,11 +18,11 @@
 			</Toolbar>
 		</customHeader>
 		<content>
-			<VBox fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
+			<VBox class="loginBox" fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
 				<items>
-					<Label text="Welcome" class="fontStyle"/>
-					<Label text="Please login: " class="fontStyle"/>
-					<Input id="uid" placeholder="User ID"></Input>
+					<!--<Label text="Welcome" class="fontStyle sapUiSmallMarginBottom sapThemeLightText"/>-->
+					<!--<Label text="Please login: " class="fontStyle sapThemeLightText"/>-->
+					<Input id="uid" placeholder="User ID or Email"></Input>
 					<Input id="pasw" placeholder="Password" type="Password" submit="onLoginTap"></Input>
 					<Button class="loginBtn" icon="sap-icon://visits" width="10em" type="Unstyled" press="onLoginTap"></Button>
 				</items>

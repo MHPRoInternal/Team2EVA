@@ -4,6 +4,12 @@
             "name": "index.html"
         },
         {
+            "name": "resources/mhplogo.jpg"
+        },
+        {
+            "name": "resources/EVATEAM2_LOGINPIC.jpg"
+        },
+        {
             "name": "manifest.json"
         },
         {
@@ -33,6 +39,9 @@
         },
         {
             "name": "model/models.js"
+        },
+        {
+            "name": "model/formatter.js"
         },
         {
             "name": "Component.js"

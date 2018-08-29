@@ -10,12 +10,25 @@
 	width: 3rem;
 	height: 3rem;
 }
-.sapMPanelContent {
-    padding: 1px;                                                      
-    border-bottom: 1px solid #e5e5e5;
+
+.sapMVBox{
+	border-bottom: 0px;
 }
 
-.actionBtn.sapUiIcon {
+.sapMHBox{
+	border-bottom: 0px;
+}
+
+.sapMPanelContent {
+    padding: 1px;                                                      
+    border-bottom: 0px;
+}
+
+.sapMPanelContent:not(.sapMPanelBGTransparent){
+	border-bottom: 0px !important;
+}
+
+.sapUiIcon.actionBtn {
     color: #eaffdd;
 }
 
@@ -39,6 +52,12 @@
 /*    background-color: #eafffd;*/
 /*    background: url();*/
 /*}*/
+
+.tileImage {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
 
 .headerContent {
     text-align: left;
@@ -76,13 +95,55 @@
     padding: 2px;
 }
 
-.sapMImageContentImageIcon{
-	width: 12em;
-	height: 16em;
-}
 
 .myMap {
     margin-top: 20px;
+}
+
+.sapMTileCntContent {
+    height: 100%;
+    margin-bottom: 0.75rem;
+    margin-top: 0rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
+}
+.sapMTileCnt.sapMFrameTypeAuto {
+height: 60%
+}
+
+.sapMGTContent {
+    height: 12rem;
+    display: inline-block;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+}
+.sapMImageContentImageIcon {
+    width: 15.9rem;
+    margin-left: 0;
+    max-height: 9.5rem;
+}
+.sapMImageContent {
+
+    width: 16rem;
+    height: 9.5rem;
+    outline: none;
+}
+.sapMTileCntFtrTxt {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: right;
+    position: absolute;
+
+    top: 10rem;
+    box-sizing: border-box;
+    height: 1.1875rem;
+    margin-right: 6rem;
+ 
+    line-height: 1.1875rem;
+    font-family: "72",Arial,Helvetica,sans-serif;
+    font-size: 0.875rem;
 }
 
 .sapUiIcon#addInput {

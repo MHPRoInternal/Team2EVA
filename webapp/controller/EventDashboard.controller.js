@@ -4,12 +4,13 @@ sap.ui.define([
 	'sap/m/MessageToast',
 	'sap/m/Dialog',
 	'sap/m/Button',
-	'sap/m/Text'
-], function(BaseController, Element, MessageToast, Dialog, Button, Text) {
+	'sap/m/Text',
+	'eventManagementEVA/model/formatter' 
+], function(BaseController, Element, MessageToast, Dialog, Button, Text, formatter) {
 	"use strict";
 
 	return BaseController.extend("eventManagementEVA.controller.EventDashboard", {
-
+		formatter : formatter,
 		onInit: function(oEvent) {
 			this.getRouter().getRoute("EventDashboard").attachMatched(this._onRouteMatched, this);
 		},
@@ -142,10 +143,11 @@ sap.ui.define([
 		_onRouteMatched: function(oEvent) {
 			this.oView = this.getView();
 			this.oModel = this.oView.getModel();
-			this.uID = oEvent.getParameter("arguments").userID;
-			this.usersName = oEvent.getParameter("arguments").nameUser;
-			this.userRole = oEvent.getParameter("arguments").uRole;
-			this.adminEmail = oEvent.getParameter("arguments").adminEmailAddress;
+			var oParameter = oEvent.getParameter("arguments");
+			this.uID = oParameter.userID;
+			this.usersName = oParameter.nameUser;
+			this.userRole = oParameter.uRole;
+			this.adminEmail = oParameter.adminEmailAddress;
 			this.eventCreateBtn = this.oView.byId("EventCreateBtn");
 			this.page = this.oView.byId("dashboardPage");
 			
@@ -155,6 +157,7 @@ sap.ui.define([
 			} else {
 				var menuItems = this.oView.byId("menuButton");
 				menuItems.getItems()[1].setVisible(false);
+				this.eventCreateBtn.setVisible(false);
 			}
 
 			this.oView.bindElement({

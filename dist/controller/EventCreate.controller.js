@@ -26,6 +26,7 @@ sap.ui.define([
 			this._oPnl = this.byId("idPnl");
 			this.selectPanel = this.byId("selectDisplay");
 			this.byId("Date").setMinDate(new Date());
+			
 
 			var oEventCreateModel = new sap.ui.model.json.JSONModel({
 				Title: "",
@@ -53,7 +54,7 @@ sap.ui.define([
 			oModel.read("/UserSet", {
 				success: function(oCompletedEntry) {
 					oCompletedEntry.results.forEach(function(item) {
-						mailList += item.Mail + "; ";
+						mailList += item.Mail + "; " + "\n";
 					});
 
 					oEventCreateModel.setProperty("/Mails", mailList);
@@ -69,8 +70,13 @@ sap.ui.define([
 
 		addInput: function() {
 			var oView = this.getView();
-			var oInput1 = new sap.m.Input(oView.createId("inputId" + countAnswers));
+			// var oInput1 = new sap.m.Input(oView.createId("inputId" + countAnswers));
+			var oInput1 = new sap.m.Input({
+				id : "inputId" + countAnswers,
+				placeholder: "Question option " + countAnswers + "..."
+			});
 			oInput1.setWidth("15.5em");
+
 
 			var delIcon = new sap.ui.core.Icon({
 				src: "sap-icon://delete",
@@ -89,7 +95,6 @@ sap.ui.define([
 		addQuestionPress: function() {
 
 			var oView = this.getView();
-			var oModel = oView.getModel();
 			var QAstruct = {
 				question_text: "",
 				answer_text: [],
@@ -102,16 +107,16 @@ sap.ui.define([
 			for (i = 0; i < countAnswers; i++) {
 				if (oView.byId("inputId" + i)) {
 					if ((oView.byId("inputId" + i).getValue()) !== null && (oView.byId("inputId" + i).getValue()) !== "") {
-						oView.byId("inputId" + i).setValueState(sap.ui.core.ValueState.Success);
+
 						var k = oView.byId("inputId" + i).getValue();
 						console.log(k);
 						if (i === 0) {
 							QAstruct.QAstructId = counterStruct;
 							QAstruct.question_text = oView.byId("inputId" + i).getValue();
-							oView.byId("inputId" + i).setValueState(sap.ui.core.ValueState.None);
+
 						} else {
 							QAstruct.answer_text.push(oView.byId("inputId" + i).getValue());
-							oView.byId("inputId" + i).setValueState(sap.ui.core.ValueState.None);
+
 						}
 					} else {
 						oView.byId("inputId" + i).setValueState(sap.ui.core.ValueState.Error);
@@ -162,7 +167,7 @@ sap.ui.define([
 				justifyContent: "Center",
 				items: [oLabel, oSelect, delIcon]
 			});
-			QALayout.addStyleClass("sapUiSmallMargin");
+			QALayout.addStyleClass("sapUiSmallMarginBeginEnd");
 			this.selectPanel.addItem(QALayout);
 			countAnswers = 3;
 		}, //end of AddQuestion
@@ -235,11 +240,13 @@ sap.ui.define([
 		onCreate: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();
-
 			var oEventCreateModel = oView.getModel("eventModel");
 			oEventCreateModel.setProperty("/CreatedBy", this.adminEmail);
 			oModel.refreshSecurityToken();
-
+			var modifiedMailList = oEventCreateModel.getProperty("/Mails").replace(/\n/g , "");
+			oEventCreateModel.setProperty("/Mails", modifiedMailList);
+			
+			
 			oModel.create("/EventSet", oEventCreateModel.getData(), {
 				success: function(oCompletedEntry) {
 					this.eID = oCompletedEntry.IdEvent;
@@ -321,6 +328,7 @@ sap.ui.define([
 			this.adminEmail = oEvent.getParameter("arguments").adminEmailAddress;
 			this.usersName = oEvent.getParameter("arguments").nameUser;
 			console.log("Email pentru admin este: " + this.adminEmail);
+			this.getView().byId("nameLabel").setText(this.usersName);
 
 		}
 

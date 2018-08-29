@@ -1,11 +1,11 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns="sap.m"
 	xmlns:html="http://www.w3.org/1999/xhtml" controllerName="eventManagementEVA.controller.EventDashboard">
-	<Page title="{i18n>DashTitle}">
+	<Page title="{i18n>DashTitle}" id="dashboardPage" contentOnlyBusy="true">
 		<customHeader class="headerContent">
 			<Toolbar>
-				<Image src="/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"></Image>
-				<Label text=" {Name} "></Label>
+				<Image src="/webapp/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"></Image>
 				<ToolbarSpacer/>
+				<Label text=" {Name} "></Label>
 				<MenuButton icon="sap-icon://action-settings" type="Accept" defaultAction="onDefaultActionAccept" useDefaultActionOnly="true">
 					<menu>
 						<Menu id="menuButton" itemSelected="onMenuAction">
@@ -24,12 +24,14 @@
 				<FlexBox>
 					<!--<CheckBox id="tileSelect" selected="false" select="onTileSelect"/>-->
 					<GenericTile id="genericTile" class="tileLayout customTile" header="{Title}"
-						headerImage="{= ${Confirmation} === 'P' ? 'sap-icon://alert' : ''}" press="handlePress">
+						headerImage="{= ${Confirmation} === 'P' ? 'sap-icon://alert' : ''}" press="handlePress"
+						subheader="{parts:[{path:'Data', type:'sap.ui.model.type.Date', formatOptions: {pattern: 'YYYY-MM-dd'}}, {path: 'Data', formatter: '.formatter.calculateDaysRemaining'} ]}">
 						<TileContent id="status" class="tileImage"
-							footer ="{= ${Confirmation} === 'P' ? 'Pending' : ${Confirmation} === 'Y' ? 'Accepted' : 'Declined'}"
+							footer="{= ${Confirmation} === 'P' ? 'Pending' : ${Confirmation} === 'Y' ? 'Accepted' : 'Declined'}"
 							footerColor="{= ${Confirmation} === 'P' ? 'Critical' : ${Confirmation} === 'Y' ? 'Good' : 'Error'}">
 							<content>
-								<ImageContent id="eventPicture"  src="/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/EPictureSet('{IdEvent}')/$value"/>
+								<ImageContent id="eventPicture" src="/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/EPictureSet('{IdEvent}')/$value"/>
+								<!--<FeedContent contentText="Days left: " subheader="Subheader" value="9"/>-->
 							</content>
 						</TileContent>
 					</GenericTile>

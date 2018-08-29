@@ -5,8 +5,8 @@
 			<Toolbar>
 				<Button type="Back" press="onNavBack"/>
 				<Image src="/webapp/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"></Image>
-				<Label text=" {Name} "></Label>
 				<ToolbarSpacer/>
+				<Label id="nameLabel"></Label>
 				<MenuButton icon="sap-icon://action-settings" type="Accept" defaultAction="onDefaultActionAccept" useDefaultActionOnly="true">
 					<menu>
 						<Menu itemSelected="onMenuAction">
@@ -52,18 +52,18 @@
 				</HBox>
 			<!--</l:Splitter>-->
 		</Panel>
-		<Panel headerText="Event questions">
-			<core:Fragment class="questionList" fragmentName="eventManagementEVA.view.qList" type="XML"/>
-		</Panel>
+			
 		<HBox>
 			<VBox class="sapUiLargeMarginBeginEnd" justifyContent="Center" alignItems="Center">
 				<core:Fragment fragmentName="eventManagementEVA.view.qCreate" type="XML"/>
 				<Button text="Add question" icon="sap-icon://add" press="addQuestionPress"/>
 			</VBox>
-			<VBox>
+			<core:Fragment class="questionList" fragmentName="eventManagementEVA.view.qList" type="XML"/>
+			
+		</HBox>
+		<VBox>
 				<core:Fragment fragmentName="eventManagementEVA.view.mailTextArea" type="XML"/>
 			</VBox>
-		</HBox>
 	</content>
 	<footer>
 		<Toolbar>

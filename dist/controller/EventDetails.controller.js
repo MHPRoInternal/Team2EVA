@@ -6,7 +6,7 @@ sap.ui.define([
 	'sap/m/Button',
 	'sap/m/Text'
 
-], function(BaseController, Element, MessageToast, Dialog, Button) {
+], function(BaseController, Element, MessageToast, Dialog, Button, Text) {
 	"use strict";
 
 	return BaseController.extend("eventManagementEVA.controller.EventDetails", {
@@ -18,7 +18,7 @@ sap.ui.define([
 			this.updateBtn = oView.byId("eventUpdate");
 			this.currentUserLabel = oView.byId("userNameLabelTop");
 			this.switchBtn = oView.byId("switchBtn");
-			this.sendMails = false;
+			this.sendUpdates = false;
 			this.byId("Date").setMinDate(new Date());
 			this.markers = [];
 
@@ -30,7 +30,6 @@ sap.ui.define([
 
 		},
 		onAfterRendering: function(oEvent) {
-
 			this.viewSwitchStateModel = this.getView().getModel("switchStateModel");
 			this.viewSwitchStateModel.getProperty("/Editable");
 			this.viewSwitchStateModel.getProperty("/Visible");
@@ -130,6 +129,10 @@ sap.ui.define([
 						AnswerText: answerSelect
 					};
 					selectList.push(questionAnswerList);
+				}else{
+					item.getItems()[1].setValueState(sap.ui.core.ValueState.Error);
+					new MessageToast.show("Please do not leave answers empty.");
+					return;
 				}
 			});
 			selectList.forEach(function(items) {
@@ -160,6 +163,7 @@ sap.ui.define([
 		},
 
 		onAcceptTap: function(oEvent) {
+			this.updateBtn.setEnabled(true);
 			var oView = this.getView();
 			var oModel = oView.getModel();
 			var confirmation = "Y";
@@ -169,9 +173,7 @@ sap.ui.define([
 
 			oModel.update("/UserEventSet(IdUser='" + this.uID + "',IdEvent='" + this.eID + "')", oData, {
 				success: function(oCompletedEntry) {
-					this.updateBtn.setVisible(true);
 					oView.byId("acceptBtn").setEnabled(false);
-					oView.byId("acceptBtn").setVisible(false);
 					oView.byId("declineBtn").setEnabled(true);
 					oView.byId("declineBtn").setVisible(true);
 					MessageToast.show("Event attendance confirmed for user " + this.uID + "!", {
@@ -199,10 +201,9 @@ sap.ui.define([
 			oModel.update("/UserEventSet(IdUser='" + this.uID + "',IdEvent='" + this.eID + "')", oData, {
 				success: function(oCompletedEntry) {
 					oView.byId("declineBtn").setEnabled(false);
-					oView.byId("declineBtn").setVisible(false);
 					oView.byId("acceptBtn").setEnabled(true);
 					oView.byId("acceptBtn").setVisible(true);
-					this.updateBtn.setVisible(false);
+					this.updateBtn.setEnabled(true);
 
 					MessageToast.show("Event attendance confirmed for user " + this.uID + "!", {
 
@@ -230,7 +231,7 @@ sap.ui.define([
 				beginButton: new Button({
 					text: 'Yes',
 					press: function() {
-						this.sendMails = true;
+						this.sendUpdates = true;
 						this.onAdminUpdate();
 						dialog.close();
 					}.bind(this)
@@ -240,7 +241,7 @@ sap.ui.define([
 					press: function() {
 						this.onAdminUpdate();
 						dialog.close();
-					}
+					}.bind(this)
 				}),
 				afterClose: function() {
 					dialog.destroy();
@@ -289,7 +290,7 @@ sap.ui.define([
 					Time: time,
 					Dresscode: dressCode,
 					CreatedBy: this.adminEmail,
-					SendMails: this.sendUpdates
+					SendUpdates: this.sendUpdates
 				};
 				console.log("ID eventului este: " + this.eID);
 				oModel.update("/EventSet(IdEvent='" + this.eID + "')", oData, {
@@ -319,7 +320,7 @@ sap.ui.define([
 				title: 'Confirm',
 				type: 'Message',
 				content: new Text({
-					text: "Would you like to send update notifications?"
+					text: "Are you sure you want to update the event?"
 				}),
 				beginButton: new Button({
 					text: 'Yes',
@@ -374,7 +375,7 @@ sap.ui.define([
 			} else if (this.userRole === "false") {
 				this.switchBtn.setVisible(false);
 				this.switchBtn.setEnabled(false);
-				this.updateBtn.setVisible(false);
+				this.updateBtn.setEnabled(false);
 
 			}
 
@@ -405,9 +406,29 @@ sap.ui.define([
 						this.markers.push(marker);
 						this.adminEmail = oData.getParameters().data.CreatedBy;
 						this.transformEmail();
+						this._checkEventDate(oData.getParameters().data.Data);
 					}.bind(this)
 				}
 			});
+		},
+		_checkEventDate: function(eventDate) {
+			var oView = this.getView();
+			var todayDate = new Date();
+			todayDate.setHours(0, 0, 0, 0);
+			eventDate.setHours(0, 0, 0, 0);
+			var diff = eventDate.getTime() - todayDate.getTime();
+			if (diff >= 0) {
+				var daysRemaining = parseInt(diff / (1000 * 60 * 60 * 24));
+				if (daysRemaining < 7) {
+					//oView.byId("eventUpdate").setVisible(false);     
+					oView.byId("acceptBtn").setVisible(false);
+					oView.byId("declineBtn").setVisible(false);
+				}
+			} else {
+				//oView.byId("eventUpdate").setVisible(false);     
+				oView.byId("acceptBtn").setVisible(false);
+				oView.byId("declineBtn").setVisible(false);
+			}
 		}
 
 	});

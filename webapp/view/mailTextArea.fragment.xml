@@ -3,7 +3,7 @@
 		<items>
 			<VBox class="textArea">
 				<Label text="Invites: "/>
-				<TextArea id="mailTxtArea" rows="8" cols="45" value="{eventModel>/Mails}" required="true"></TextArea>
+				<TextArea id="mailTxtArea" rows="8" cols="45" value="{eventModel>/Mails}" required="true" placeholder="Format must be 'firstname.lastname@mhp.com; '"></TextArea>
 				<CheckBox id="mailsCheckBox" text="MHP Romania" selected="false" select="onSelect"/>
 			</VBox>
 		</items>

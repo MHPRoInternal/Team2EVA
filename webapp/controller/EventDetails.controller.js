@@ -6,7 +6,7 @@ sap.ui.define([
 	'sap/m/Button',
 	'sap/m/Text'
 
-], function(BaseController, Element, MessageToast, Dialog, Button) {
+], function(BaseController, Element, MessageToast, Dialog, Button, Text) {
 	"use strict";
 
 	return BaseController.extend("eventManagementEVA.controller.EventDetails", {
@@ -18,7 +18,7 @@ sap.ui.define([
 			this.updateBtn = oView.byId("eventUpdate");
 			this.currentUserLabel = oView.byId("userNameLabelTop");
 			this.switchBtn = oView.byId("switchBtn");
-			this.sendMails = false;
+			this.sendUpdates = false;
 			this.byId("Date").setMinDate(new Date());
 			this.markers = [];
 
@@ -122,6 +122,7 @@ sap.ui.define([
 				if (item.getItems()[1].getSelectedItem() !== null) {
 					var answerSelect = item.getItems()[1].getSelectedItem().getText();
 					var questionID = item.getBindingContext().getObject().IdQuestion;
+					item.getItems()[1].setValueState(sap.ui.core.ValueState.None);
 
 					console.log("ID-ul question-ului este: " + questionID);
 					var questionAnswerList = {
@@ -129,6 +130,9 @@ sap.ui.define([
 						AnswerText: answerSelect
 					};
 					selectList.push(questionAnswerList);
+				} else {
+					new MessageToast.show("Please do not leave answers empty.");
+					return;
 				}
 			});
 			selectList.forEach(function(items) {
@@ -138,27 +142,34 @@ sap.ui.define([
 					IdEvent: eventID,
 					AnswerText: items.AnswerText
 				};
-
 				oModel.create("/AnswerSet", questionAnswerCreateList, {
 					success: function(oCompleteEntry) {
 						MessageToast.show("PUIE MSD!");
 
 					},
-					error: function(oError) {
-
-					}
+					error: function(oError) {}
 				});
 			});
-			// 	if (this.questionAnswerList.IdQuestion === ) {
-			// 	}
 			oModel.refresh(true);
-			// this.selectList.push(this.questionAnswerList);
-			// console.log("selectList-ul este: " + this.selectList);
-
-			// console.log("FLEXBOX get items is: " + counter);
 		},
 
 		onAcceptTap: function(oEvent) {
+			var oView = this.getView();
+			var questionBox = oView.byId("questionBox");
+			questionBox.getItems().forEach(function(item) {
+				if (item.getItems()[1].getSelectedItem() === null || item.getItems()[1].getSelectedItem() === "") {
+					item.getItems()[1].setValueState(sap.ui.core.ValueState.Error);
+					new MessageToast.show("Please do not leave answers empty.");
+					return;
+				} else {
+					this.acceptUpdate();
+				}
+			});
+
+		},
+
+		acceptUpdate: function(oEvent) {
+			this.updateBtn.setEnabled(true);
 			var oView = this.getView();
 			var oModel = oView.getModel();
 			var confirmation = "Y";
@@ -168,9 +179,7 @@ sap.ui.define([
 
 			oModel.update("/UserEventSet(IdUser='" + this.uID + "',IdEvent='" + this.eID + "')", oData, {
 				success: function(oCompletedEntry) {
-					this.updateBtn.setVisible(true);
 					oView.byId("acceptBtn").setEnabled(false);
-					oView.byId("acceptBtn").setVisible(false);
 					oView.byId("declineBtn").setEnabled(true);
 					oView.byId("declineBtn").setVisible(true);
 					MessageToast.show("Event attendance confirmed for user " + this.uID + "!", {
@@ -198,10 +207,9 @@ sap.ui.define([
 			oModel.update("/UserEventSet(IdUser='" + this.uID + "',IdEvent='" + this.eID + "')", oData, {
 				success: function(oCompletedEntry) {
 					oView.byId("declineBtn").setEnabled(false);
-					oView.byId("declineBtn").setVisible(false);
 					oView.byId("acceptBtn").setEnabled(true);
 					oView.byId("acceptBtn").setVisible(true);
-					this.updateBtn.setVisible(false);
+					this.updateBtn.setEnabled(true);
 
 					MessageToast.show("Event attendance confirmed for user " + this.uID + "!", {
 
@@ -221,31 +229,31 @@ sap.ui.define([
 			var switchState = this.switchBtn.getState();
 			if (switchState === true) {
 				var dialog = new Dialog({
-				title: 'Confirm',
-				type: 'Message',
-				content: new Text({
-					text: "Would you like to send update notifications?"
-				}),
-				beginButton: new Button({
-					text: 'Yes',
-					press: function() {
-						this.sendMails = true;
-						this.onAdminUpdate();
-						dialog.close();
-					}.bind(this)
-				}),
-				endButton: new Button({
-					text: 'No',
-					press: function() {
-						this.onAdminUpdate();
-						dialog.close();
+					title: 'Confirm',
+					type: 'Message',
+					content: new Text({
+						text: "Would you like to send update notifications?"
+					}),
+					beginButton: new Button({
+						text: 'Yes',
+						press: function() {
+							this.sendUpdates = true;
+							this.onAdminUpdate();
+							dialog.close();
+						}.bind(this)
+					}),
+					endButton: new Button({
+						text: 'No',
+						press: function() {
+							this.onAdminUpdate();
+							dialog.close();
+						}.bind(this)
+					}),
+					afterClose: function() {
+						dialog.destroy();
 					}
-				}),
-				afterClose: function() {
-					dialog.destroy();
-				}
-			});
-			dialog.open();
+				});
+				dialog.open();
 			} else {
 				this.onUpdateQuestionsTap();
 			}
@@ -268,57 +276,57 @@ sap.ui.define([
 			// });
 
 		},
-		onAdminUpdate: function(oEvent){
-				var oView = this.getView();
-				var oModel = oView.getModel();
-				var title = oView.byId("Title").getValue();
-				var location = oView.byId("Location").getValue();
-				var latitude = oView.byId("Latitude").getValue();
-				var longitude = oView.byId("Longitude").getValue();
-				var date = oView.byId("Date").getValue() + "T00:00:00";
-				var time = oView.byId("Time").getValue();
-				var dressCode = oView.byId("Dresscode").getValue();
+		onAdminUpdate: function(oEvent) {
+			var oView = this.getView();
+			var oModel = oView.getModel();
+			var title = oView.byId("Title").getValue();
+			var location = oView.byId("Location").getValue();
+			var latitude = oView.byId("Latitude").getValue();
+			var longitude = oView.byId("Longitude").getValue();
+			var date = oView.byId("Date").getValue() + "T00:00:00";
+			var time = oView.byId("Time").getValue();
+			var dressCode = oView.byId("Dresscode").getValue();
 
-				var oData = {
-					Title: title,
-					Location: location,
-					Latitude: latitude,
-					Longitude: longitude,
-					Data: date,
-					Time: time,
-					Dresscode: dressCode,
-					CreatedBy: this.adminEmail,
-					SendMails: this.sendUpdates
-				};
-				console.log("ID eventului este: " + this.eID);
-				oModel.update("/EventSet(IdEvent='" + this.eID + "')", oData, {
-					success: function(oCompletedEntry) {
-						this.switchBtn.setState(false);
-						this.onUpdateQuestionsTap();
+			var oData = {
+				Title: title,
+				Location: location,
+				Latitude: latitude,
+				Longitude: longitude,
+				Data: date,
+				Time: time,
+				Dresscode: dressCode,
+				CreatedBy: this.adminEmail,
+				SendUpdates: this.sendUpdates
+			};
+			console.log("ID eventului este: " + this.eID);
+			oModel.update("/EventSet(IdEvent='" + this.eID + "')", oData, {
+				success: function(oCompletedEntry) {
+					this.switchBtn.setState(false);
+					this.onUpdateQuestionsTap();
 
-						MessageToast.show("Update successful for the event with ID: " + this.eID + "!", {
+					MessageToast.show("Update successful for the event with ID: " + this.eID + "!", {
 
-							animationDuration: 5000
+						animationDuration: 5000
 
-						});
-						console.log("SUCCESS UPDATE?");
-					}.bind(this),
-					error: function(oError) {
-						MessageToast.show("Changes could not be made! Please try again.");
-						console.log("ERROR UPDATE?");
-					}.bind(this)
-				});
+					});
+					console.log("SUCCESS UPDATE?");
+				}.bind(this),
+				error: function(oError) {
+					MessageToast.show("Changes could not be made! Please try again.");
+					console.log("ERROR UPDATE?");
+				}.bind(this)
+			});
 
-				this.viewSwitchStateModel.setProperty("/Editable", false);
-				this.viewSwitchStateModel.setProperty("/Visible", false);
+			this.viewSwitchStateModel.setProperty("/Editable", false);
+			this.viewSwitchStateModel.setProperty("/Visible", false);
 		},
-		
+
 		onApproveNotificationDialog: function(oEvent) {
 			var dialog = new Dialog({
 				title: 'Confirm',
 				type: 'Message',
 				content: new Text({
-					text: "Would you like to send update notifications?"
+					text: "Are you sure you want to update the event?"
 				}),
 				beginButton: new Button({
 					text: 'Yes',
@@ -373,7 +381,7 @@ sap.ui.define([
 			} else if (this.userRole === "false") {
 				this.switchBtn.setVisible(false);
 				this.switchBtn.setEnabled(false);
-				this.updateBtn.setVisible(false);
+				this.updateBtn.setEnabled(false);
 
 			}
 
@@ -404,9 +412,29 @@ sap.ui.define([
 						this.markers.push(marker);
 						this.adminEmail = oData.getParameters().data.CreatedBy;
 						this.transformEmail();
+						this._checkEventDate(oData.getParameters().data.Data);
 					}.bind(this)
 				}
 			});
+		},
+		_checkEventDate: function(eventDate) {
+			var oView = this.getView();
+			var todayDate = new Date();
+			todayDate.setHours(0, 0, 0, 0);
+			eventDate.setHours(0, 0, 0, 0);
+			var diff = eventDate.getTime() - todayDate.getTime();
+			if (diff >= 0) {
+				var daysRemaining = parseInt(diff / (1000 * 60 * 60 * 24));
+				if (daysRemaining < 7) {
+					//oView.byId("eventUpdate").setVisible(false);     
+					oView.byId("acceptBtn").setVisible(false);
+					oView.byId("declineBtn").setVisible(false);
+				}
+			} else {
+				//oView.byId("eventUpdate").setVisible(false);     
+				oView.byId("acceptBtn").setVisible(false);
+				oView.byId("declineBtn").setVisible(false);
+			}
 		}
 
 	});

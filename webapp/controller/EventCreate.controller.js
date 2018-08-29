@@ -45,31 +45,35 @@ sap.ui.define([
 		onSelect: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();
-			if (oView.byId("mailsCheckBox").getSelected() === true){
+			if (oView.byId("mailsCheckBox").getSelected() === true) {
 				var oEventCreateModel = this.getView().getModel("eventModel");
 				oEventCreateModel.setProperty("/Mails", "");
 
-			var mailList = oEventCreateModel.getProperty("/Mails");
-			oModel.read("/UserSet", {
-				success: function(oCompletedEntry) {
-					oCompletedEntry.results.forEach(function(item) {
-						mailList += item.Mail + "; " + "\n";
-					});
+				var mailList = oEventCreateModel.getProperty("/Mails");
+				oModel.read("/UserSet", {
+					success: function(oCompletedEntry) {
+						oCompletedEntry.results.forEach(function(item) {
+							mailList += item.Mail + "; " + "\n";
+						});
 
-					oEventCreateModel.setProperty("/Mails", mailList);
-				}.bind(this),
-				error: function(oError) {
+						oEventCreateModel.setProperty("/Mails", mailList);
+					}.bind(this),
+					error: function(oError) {
 
-				}
-			});
-			}else {
+					}
+				});
+			} else {
 				oView.byId("mailTxtArea").setValue();
 			}
 		},
 
 		addInput: function() {
 			var oView = this.getView();
-			var oInput1 = new sap.m.Input(oView.createId("inputId" + countAnswers));
+			// var oInput1 = new sap.m.Input(oView.createId("inputId" + countAnswers));
+			var oInput1 = new sap.m.Input({
+				id: "inputId" + countAnswers,
+				placeholder: "Question option " + countAnswers + "..."
+			});
 			oInput1.setWidth("15.5em");
 
 			var delIcon = new sap.ui.core.Icon({
@@ -234,10 +238,11 @@ sap.ui.define([
 		onCreate: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();
-
 			var oEventCreateModel = oView.getModel("eventModel");
 			oEventCreateModel.setProperty("/CreatedBy", this.adminEmail);
 			oModel.refreshSecurityToken();
+			var modifiedMailList = oEventCreateModel.getProperty("/Mails").replace(/\n/g, "");
+			oEventCreateModel.setProperty("/Mails", modifiedMailList);
 
 			oModel.create("/EventSet", oEventCreateModel.getData(), {
 				success: function(oCompletedEntry) {
@@ -320,6 +325,7 @@ sap.ui.define([
 			this.adminEmail = oEvent.getParameter("arguments").adminEmailAddress;
 			this.usersName = oEvent.getParameter("arguments").nameUser;
 			console.log("Email pentru admin este: " + this.adminEmail);
+			this.getView().byId("nameLabel").setText(this.usersName);
 
 		}
 
