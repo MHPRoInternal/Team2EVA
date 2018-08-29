@@ -5,12 +5,12 @@
 				<HBox>
 					<VBox class="questionCreateBox">
 						<HBox>
-							<Label text="Question: "/>
-							<Input id="inputId0" placeholder="Question text..."/>
+							<Label text="{i18n>QuestionLabel}"/>
+							<Input id="inputId0" placeholder="{i18n>QuestionTextHolder}"/>
 						</HBox>
 						<HBox>
-							<Label text="Question options: "/>
-							<Button id="addInput" text="Add Option" icon="sap-icon://sys-add" type="Transparent" press="addInput"/>
+							<Label text="{i18n>QuestionOptions}"/>
+							<Button id="addInput" text="{i18n>OptionAdd}" icon="sap-icon://sys-add" type="Transparent" press="addInput"/>
 						</HBox>
 						<VBox>
 							<Input width="15.5em" id="inputId1" placeholder="Question option 1..."/>

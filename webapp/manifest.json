@@ -109,7 +109,7 @@
 					"target": "EventDashboard"
 				},
 				{
-					"pattern": "EventDetails/{eventID}/{userID}/{uRole}/{nameUser}",
+					"pattern": "EventDetails/{eventID}/{userID}/{uRole}/{nameUser}/{confirmation}",
 					"name": "EventDetails",
 					"target": "EventDetails"
 				},

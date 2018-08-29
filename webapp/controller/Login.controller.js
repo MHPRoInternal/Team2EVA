@@ -17,7 +17,7 @@ sap.ui.define([
 		},
 		
 		onLoginTap: function(oEvent) {
-
+			var oView = this.getView();
 			this.oModel = this.oView.getModel();
 			this.uid = this.oView.byId("uid").getValue();
 			this.pasw = this.oView.byId("pasw").getValue();
@@ -26,16 +26,16 @@ sap.ui.define([
 			// var oBindingContext = oListItem.getBindingContext();
 			// var userId = oBindingContext.getObject().IdUser;
 			// var loginSuccess = "Login Successful! Welcome, " + uid + ".";
-
 			this.oModel.read("/UserSet(IdUser='" + this.uid + "')", {
 				success: function(oCompleteEntry) {
 					console.log("User role is: " + oCompleteEntry.Role);
 					var userRole = oCompleteEntry.Role;
 					var adminEmail = oCompleteEntry.Mail;
 					var usersName = oCompleteEntry.Name;
+					
 					console.log("Admin name is: " + oCompleteEntry.Name);
 					if (oCompleteEntry.Password === this.pasw) {
-						MessageToast.show("Login Successful! Welcome: " + this.uid + ".", {
+						MessageToast.show(oView.getModel("i18n").getResourceBundle().getText("LoginSuccessMessage") + " " + this.uid + ".", {
 							animationDuration: 5000
 						});
 
@@ -50,11 +50,11 @@ sap.ui.define([
 							
 						});
 					} else {
-						MessageToast.show("Invalid password! Please try again or contact your local administrator.");
+						MessageToast.show(oView.getModel("i18n").getResourceBundle().getText("LoginFailedPassword"));
 					}
 				}.bind(this),
 				error: function(oError) {
-					MessageToast.show("Invalid credentials! Please try again or contact your local administrator.");
+					MessageToast.show(oView.getModel("i18n").getResourceBundle().getText("LoginFailedMessage"));
 				}
 			});
 
@@ -69,21 +69,21 @@ sap.ui.define([
 		// 
 
 		changePass: function() {
-
+			var oView = this.getView();
 			var oDialog = new sap.m.Dialog("Dialog1", {
-				title: "User password change",
+				title: oView.getModel("i18n").getResourceBundle().getText("DialogTitle"),
 				type: "Message",
 				modal: true,
 				contentWidth: "5rem",
 				content: [new sap.m.Label({
-						text: "Username"
+						text: oView.getModel("i18n").getResourceBundle().getText("DialogUserName")
 					}),
 					new sap.m.Input({
-						maxLength: 20,
+						maxLength: 20, 
 						id: "userName"
 					}),
 					new sap.m.Label({
-						text: "Password"
+						text: oView.getModel("i18n").getResourceBundle().getText("DialogPassword")
 					}),
 					new sap.m.Input({
 						maxLength: 20,
@@ -91,7 +91,7 @@ sap.ui.define([
 						id: "oldPass"
 					}),
 					new sap.m.Label({
-						text: "New Password"
+						text: oView.getModel("i18n").getResourceBundle().getText("DialogNewPassword")
 					}),
 					new sap.m.Input({
 						maxLength: 20,
@@ -99,7 +99,7 @@ sap.ui.define([
 						id: "newPass"
 					}),
 					new sap.m.Label({
-						text: "Confirm new Password"
+						text: oView.getModel("i18n").getResourceBundle().getText("DialogConfirmPassword")
 					}),
 					new sap.m.Input({
 						maxLength: 20,
@@ -137,13 +137,13 @@ sap.ui.define([
 										oModel.update("/UserSet(IdUser='" + userName + "')", oData, {
 											success: function(oCompletedEntry) {
 												oDialog.close();
-												MessageToast.show("Password change successful for user " + userName + "!", {
+												MessageToast.show(oView.getModel("i18n").getResourceBundle().getText("ChangePasswordSucces") + userName + "!", {
 													animationDuration: 6000
 												});
 												console.log("SUCCESS?");
 											},
 											error: function(oError) {
-												MessageToast.show("Changes could not be made! Please try again.", {
+												MessageToast.show(oView.getModel("i18n").getResourceBundle().getText("ChangePasswordFailed"), {
 													animationDuration: 6000
 												});
 												console.log("ERROR?");
@@ -151,13 +151,13 @@ sap.ui.define([
 										});
 									}
 								} else {
-									MessageToast.show("Invalid username or password! Please try again.", {
+									MessageToast.show(oView.getModel("i18n").getResourceBundle().getText("WrongPasswordDialog"), {
 													animationDuration: 6000
 												});
 								}
 							}.bind(this),
 							error: function(oError) {
-								MessageToast.show("Invalid username or password! Please try again.", {
+								MessageToast.show(oView.getModel("i18n").getResourceBundle().getText("WrongPasswordMatchDialog"), {
 													animationDuration: 6000
 												});
 								console.log("ERROR?");

@@ -6,11 +6,12 @@
 				<Image src="/webapp/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"></Image>
 				<Label text="{i18n>LoginPageHeaderLabel}"/>
 				<ToolbarSpacer/>
+				<Switch customTextOn="en" customTextOff="de" state="false" change="onSwitchEditMode"></Switch>
 				<MenuButton icon="sap-icon://action-settings" type="Accept" defaultAction="onDefaultActionAccept" useDefaultActionOnly="true">
 					<menu>
 						<Menu itemSelected="onMenuAction">
 							<items>
-								<MenuItem id="changePasswordItem" text="Change Password" icon="sap-icon://private"/>
+								<MenuItem id="changePasswordItem" text="{i18n>ChangePassword}" icon="sap-icon://private"/>
 							</items>
 						</Menu>
 					</menu>
@@ -22,8 +23,8 @@
 				<items>
 					<!--<Label text="Welcome" class="fontStyle sapUiSmallMarginBottom sapThemeLightText"/>-->
 					<!--<Label text="Please login: " class="fontStyle sapThemeLightText"/>-->
-					<Input id="uid" placeholder="User ID or Email"></Input>
-					<Input id="pasw" placeholder="Password" type="Password" submit="onLoginTap"></Input>
+					<Input id="uid" placeholder="{i18n>IDPlaceHolder}"></Input>
+					<Input id="pasw" placeholder="{i18n>PassPlaceHolder}" type="Password" submit="onLoginTap"></Input>
 					<Button class="loginBtn" icon="sap-icon://visits" width="10em" type="Unstyled" press="onLoginTap"></Button>
 				</items>
 			</VBox>
