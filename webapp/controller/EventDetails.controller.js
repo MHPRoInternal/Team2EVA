@@ -81,27 +81,9 @@ sap.ui.define([
 			this.viewSwitchStateModel.setProperty("/Visible", state);
 		},
 
-		// onSelectChange: function(oEvent) {
-		// 	var oView = this.getView();
-		// 	var questionBox = oView.byId("questionBox");
-		// 	var counter = questionBox.getItems().length;
-		// 	var questionID = oEvent.getSource().getBindingContext().getObject().IdQuestion;
-		// 	var answerSelect = oEvent.getParameters().selectedItem.getText();
-		// 	console.log("ID-ul question-ului in EventDetails este: " + questionID);
-
-		// 	this.questionAnswerList = {
-		// 		IdQuestion: questionID,
-		// 		AnswerText: answerSelect
-		// 	};
-		// 	console.log("answer LIST este: " + this.questionAnswerList);
-		// 	this.selectList.forEach(function(list) {
-		// 		if (this.questionAnswerList.IdQuestion === questionID) {
-
-		// 		}
-		// 	}.bind(this));
-		// 	this.selectList.push(this.questionAnswerList);
-		// 	console.log("selectList-ul este: " + this.selectList);
-		// },
+		onSelectChange: function(oEvent) {
+			
+		},
 
 		onUpdateQuestionsTap: function(oEvent) {
 			var selectList = [];
@@ -162,10 +144,11 @@ sap.ui.define([
 					new MessageToast.show("Please do not leave answers empty.");
 					return;
 				} else {
-					this.acceptUpdate();
+					item.getItems()[1].setValueState(sap.ui.core.ValueState.None);
 				}
+				
 			});
-
+				this.acceptUpdate();
 		},
 
 		acceptUpdate: function(oEvent) {
@@ -417,6 +400,7 @@ sap.ui.define([
 				}
 			});
 		},
+		
 		_checkEventDate: function(eventDate) {
 			var oView = this.getView();
 			var todayDate = new Date();

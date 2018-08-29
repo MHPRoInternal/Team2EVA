@@ -70,8 +70,7 @@ sap.ui.define([
 		addInput: function() {
 			var oView = this.getView();
 			// var oInput1 = new sap.m.Input(oView.createId("inputId" + countAnswers));
-			var oInput1 = new sap.m.Input({
-				id: "inputId" + countAnswers,
+			var oInput1 = new sap.m.Input(oView.createId("inputId" + countAnswers),{
 				placeholder: "Question option " + countAnswers + "..."
 			});
 			oInput1.setWidth("15.5em");

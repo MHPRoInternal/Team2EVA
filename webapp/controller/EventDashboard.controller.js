@@ -153,13 +153,11 @@ sap.ui.define([
 			
 			if (this.userRole === "true") {
 				this.eventCreateBtn.setVisible(true);
-
 			} else {
 				var menuItems = this.oView.byId("menuButton");
 				menuItems.getItems()[1].setVisible(false);
 				this.eventCreateBtn.setVisible(false);
 			}
-
 			this.oView.bindElement({
 				path: "/UserSet('" + this.uID + "')",
 				events: {
