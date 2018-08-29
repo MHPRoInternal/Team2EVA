@@ -20,9 +20,9 @@
 		</customHeader>
 		<content>
 			<Panel headerText="{i18n>EventCreateSubTitle}">
-			<!--<l:Splitter height="500px">-->
+
 				<HBox class="sapUiLargeMargin" wrap="Wrap" justifyContent="Start">
-					<f:SimpleForm layout="GridLayout" class="sapUiLargeMarginEnd sapUiSmallMarginTop" minWidth="22em" width="34em" labelMinWidth="3.5em"
+					<f:SimpleForm layout="GridLayout" class="sapUiLargeMarginEnd sapUiSmallMarginTop" minWidth="25rem" width="40em" labelMinWidth="3.5em"
 						labelSpanXL="1" labelSpanL="1" labelSpanM="1" labelSpanS="1" adjustLabelSpan="false" emptySpanXL="2" emptySpanL="2" emptySpanM="2"
 						emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
 						<f:content>
@@ -50,7 +50,7 @@
 					</f:SimpleForm>
 					<FlexBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" id="map_canvas" width="25em" height="20em"/>
 				</HBox>
-			<!--</l:Splitter>-->
+
 		</Panel>
 			
 		<HBox>

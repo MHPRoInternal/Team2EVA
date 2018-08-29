@@ -24,33 +24,21 @@ sap.ui.define([
 		},
 
 		onBeforeRendering: function(oEvent) {
-
+		
 		},
 
 		onAfterRendering: function(oEvent) {
-			
-		},
-
-		createMap: function(oView){
-			// if(!this.getView().byId("map_canvas")){
-			// var mapCanvas = new sap.m.FlexBox({
-			// 	id: "map_canvas",
-			// 	alignItems: "Center",
-			// 	justifyContent: "Start",
-			// 	width: "25em",
-			// 	height: "20em"
-			// });
-			
 			this.geocoder = new google.maps.Geocoder();
+			var latLng = new google.maps.LatLng(46.7649352, 23.606376100000034);
 			var mapOptions = {
-				center: new google.maps.LatLng(46.7649352, 23.606376100000034),
+				center: latLng,
 				zoom: 13,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
-			this.map = new google.maps.Map(oView.byId("map_canvas").getDomRef(),
+			this.map = new google.maps.Map(this.getView().byId("map_canvas").getDomRef(),
 				mapOptions);
-		//}
 		},
+
 		onSelect: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();
@@ -316,8 +304,33 @@ sap.ui.define([
 			});
 		},
 
+		onNavBack: function() {
+			var oHistory = sap.ui.core.routing.History.getInstance();
+			var sPreviousHash = oHistory.getPreviousHash();
+			var viewID = this.getView().getId();
+			var oView = sap.ui.getCore().byId(viewID);
+			var oModel = oView.getModel();
+			oModel.refresh(true);
+			if (sPreviousHash !== undefined) {
+				window.history.back();
+				this.selectPanel.destroyItems();
+				oModel.refresh(true);
+
+			} else {
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				oRouter.navTo("default", true);
+			}
+		},
+		
+		cancelEvent: function(oEvent){
+			var oView = this.getView();
+			var oModel = oView.getModel();
+			oModel.refresh(true);
+			this.selectPanel.destroyItems();
+		},
+		
 		_onRouteMatched: function(oEvent) {
-			
+
 			var oView = this.getView();
 			this.adminEmail = oEvent.getParameter("arguments").adminEmailAddress;
 			this.usersName = oEvent.getParameter("arguments").nameUser;
@@ -343,9 +356,8 @@ sap.ui.define([
 			});
 			oView.setModel(oEventCreateModel, "eventModel");
 			//this.createMap();
-			setTimeout(this.createMap(oView), 1000);
-			
-			
+			//this.onAfterRendering();
+
 		}
 
 	});

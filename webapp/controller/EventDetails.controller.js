@@ -248,6 +248,7 @@ sap.ui.define([
 			// });
 
 		},
+		
 		onAdminUpdate: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();

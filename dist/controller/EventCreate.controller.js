@@ -19,51 +19,46 @@ sap.ui.define([
 	return BaseController.extend("eventManagementEVA.controller.EventCreate", {
 
 		onInit: function() {
-			var oView = this.getView();
 			this.getRouter().getRoute("EventCreate").attachMatched(this._onRouteMatched, this);
-			countAnswers = 3;
-			oView.byId("map_canvas").addStyleClass("myMap");
-			this._oPnl = this.byId("idPnl");
-			this.selectPanel = this.byId("selectDisplay");
-			this.byId("Date").setMinDate(new Date());
-			
+			this.oView = this.getView();
+		},
 
-			var oEventCreateModel = new sap.ui.model.json.JSONModel({
-				Title: "",
-				Location: "",
-				Latitude: "",
-				Longitude: "",
-				Data: "",
-				Time: "",
-				Dresscode: "",
-				Mails: "",
-				CreatedBy: ""
-			});
-			oView.setModel(oEventCreateModel, "eventModel");
+		onBeforeRendering: function(oEvent) {
 
+		},
+
+		onAfterRendering: function(oEvent) {
+			this.geocoder = new google.maps.Geocoder();
+			var mapOptions = {
+				center: new google.maps.LatLng(46.7649352, 23.606376100000034),
+				zoom: 13,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			this.map = new google.maps.Map(this.getView().byId("map_canvas").getDomRef(),
+				mapOptions);
 		},
 
 		onSelect: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();
-			if (oView.byId("mailsCheckBox").getSelected() === true){
+			if (oView.byId("mailsCheckBox").getSelected() === true) {
 				var oEventCreateModel = this.getView().getModel("eventModel");
 				oEventCreateModel.setProperty("/Mails", "");
 
-			var mailList = oEventCreateModel.getProperty("/Mails");
-			oModel.read("/UserSet", {
-				success: function(oCompletedEntry) {
-					oCompletedEntry.results.forEach(function(item) {
-						mailList += item.Mail + "; " + "\n";
-					});
+				var mailList = oEventCreateModel.getProperty("/Mails");
+				oModel.read("/UserSet", {
+					success: function(oCompletedEntry) {
+						oCompletedEntry.results.forEach(function(item) {
+							mailList += item.Mail + "; " + "\n";
+						});
 
-					oEventCreateModel.setProperty("/Mails", mailList);
-				}.bind(this),
-				error: function(oError) {
+						oEventCreateModel.setProperty("/Mails", mailList);
+					}.bind(this),
+					error: function(oError) {
 
-				}
-			});
-			}else {
+					}
+				});
+			} else {
 				oView.byId("mailTxtArea").setValue();
 			}
 		},
@@ -71,12 +66,10 @@ sap.ui.define([
 		addInput: function() {
 			var oView = this.getView();
 			// var oInput1 = new sap.m.Input(oView.createId("inputId" + countAnswers));
-			var oInput1 = new sap.m.Input({
-				id : "inputId" + countAnswers,
+			var oInput1 = new sap.m.Input(oView.createId("inputId" + countAnswers), {
 				placeholder: "Question option " + countAnswers + "..."
 			});
 			oInput1.setWidth("15.5em");
-
 
 			var delIcon = new sap.ui.core.Icon({
 				src: "sap-icon://delete",
@@ -192,19 +185,6 @@ sap.ui.define([
 			rowItemContainer.destroy();
 		},
 
-		onAfterRendering: function() {
-			if (!this.initialized) {
-				this.initialized = true;
-				this.geocoder = new google.maps.Geocoder();
-				var mapOptions = {
-					center: new google.maps.LatLng(46.7649352, 23.606376100000034),
-					zoom: 13,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
-				};
-				this.map = new google.maps.Map(this.getView().byId("map_canvas").getDomRef(),
-					mapOptions);
-			}
-		},
 		actSearch: function() {
 
 			var oView = this.getView();
@@ -243,10 +223,9 @@ sap.ui.define([
 			var oEventCreateModel = oView.getModel("eventModel");
 			oEventCreateModel.setProperty("/CreatedBy", this.adminEmail);
 			oModel.refreshSecurityToken();
-			var modifiedMailList = oEventCreateModel.getProperty("/Mails").replace(/\n/g , "");
+			var modifiedMailList = oEventCreateModel.getProperty("/Mails").replace(/\n/g, "");
 			oEventCreateModel.setProperty("/Mails", modifiedMailList);
-			
-			
+
 			oModel.create("/EventSet", oEventCreateModel.getData(), {
 				success: function(oCompletedEntry) {
 					this.eID = oCompletedEntry.IdEvent;
@@ -325,11 +304,34 @@ sap.ui.define([
 		},
 
 		_onRouteMatched: function(oEvent) {
+			
+			var oView = this.getView();
 			this.adminEmail = oEvent.getParameter("arguments").adminEmailAddress;
 			this.usersName = oEvent.getParameter("arguments").nameUser;
 			console.log("Email pentru admin este: " + this.adminEmail);
 			this.getView().byId("nameLabel").setText(this.usersName);
 
+			countAnswers = 3;
+
+			this._oPnl = this.byId("idPnl");
+			this.selectPanel = this.byId("selectDisplay");
+			this.byId("Date").setMinDate(new Date());
+
+			var oEventCreateModel = new sap.ui.model.json.JSONModel({
+				Title: "",
+				Location: "",
+				Latitude: "",
+				Longitude: "",
+				Data: "",
+				Time: "",
+				Dresscode: "",
+				Mails: "",
+				CreatedBy: ""
+			});
+			oView.setModel(oEventCreateModel, "eventModel");
+			//this.createMap();
+			
+			
 		}
 
 	});

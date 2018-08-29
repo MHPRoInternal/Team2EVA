@@ -27,24 +27,24 @@
 				adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"
 				singleContainerFullSize="false">
 				<f:content>
-					<Label text="Title"/>
+					<Label text="{i18n>TitleLabel}"/>
 					<Input id="Title" editable="{switchStateModel>/Editable}" value="{Title}"></Input>
-					<Label text="Location"/>
+					<Label text="{i18n>LocationLabel}"/>
 					<Input id="Location" editable="{switchStateModel>/Editable}" value="{Location}"></Input>
-					<Button id="bntSearch" text="Search" press="actSearch" visible="{switchStateModel>/Visible}"/>
+					<Button id="bntSearch" text="{i18n>Search}" press="actSearch" visible="{switchStateModel>/Visible}"/>
 					<Label text="Latitude"/>
 					<Input id="Latitude" editable="{switchStateModel>/Editable}" value="{Latitude}" visible="false"></Input>
 					<Label text="Longitude"/>
 					<Input id="Longitude" editable="{switchStateModel>/Editable}" value="{Longitude}" visible="false"></Input>
-					<Label text="Date"/>
+					<Label text="{i18n>DateLabel}"/>
 					<DatePicker id="Date" required="true" editable="{switchStateModel>/Editable}"
 						value="{path:'Data', type:'sap.ui.model.type.Date', formatOptions: {pattern: 'YYYY-MM-dd'}}"/>
 					<!--value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: {pattern: 'YYYY-MM-ddThh:mm:ss'}}"/>-->
 					<!--<Input id="eDataInput" width="35rem" editable="false"-->
 					<!--	value="{ path: 'Data', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"></Input>-->
-					<Label text="Time"/>
+					<Label text="{i18n>TimeLabel}"/>
 					<Input id="Time" required="true" placeholder="HH:mm - HH:mm" value="{Time}" editable="{switchStateModel>/Editable}"/>
-					<Label text="DressCode"/>
+					<Label text="{i18n>DresscodeLabel}"/>
 					<Input id="Dresscode" editable="{switchStateModel>/Editable}" value="{Dresscode}"/>
 				</f:content>
 			</f:SimpleForm>
@@ -65,12 +65,12 @@
 			<Toolbar>
 				<Label id="createdBy" text="Event created by {CreatedBy}."/>
 				<ToolbarSpacer/>
-				<Button id="eventUpdate" text="Update" press="onUpdatePress" visible="true"></Button>
-				<Button id="acceptBtn" class="AcceptBtn" type="Accept" text="Accept" icon="sap-icon://accept" width="7rem" press="onAcceptTap"></Button>
-				<Button id="declineBtn" class="DeclineBtn" type="Reject" text="Decline" icon="sap-icon://decline" width="7rem" press="onDeclineTap"></Button>
+				<Button id="eventUpdate" text="{i18n>UpdateButton}" press="onUpdatePress" enabled="false"></Button>
+				<Button id="acceptBtn" class="AcceptBtn" type="Accept" text="{i18n>acceptBtnText}" icon="sap-icon://accept" width="7rem" press="onAcceptTap"></Button>
+				<Button id="declineBtn" class="DeclineBtn" type="Reject" text="{i18n>declineBtnText}" icon="sap-icon://decline" width="7rem" press="onDeclineTap"></Button>
 				<!--<Button id="confirmAnswersBtn" class="confirmBtn" width="10em" text="{i18n>confirmBtnText}" type="Transparent" press="onConfirmTap"/>-->
 				<ToolbarSpacer/>
-				<Switch id="switchBtn" customTextOn="View" customTextOff="Edit" state="false" change="onSwitchEditMode"/>
+				<Switch id="switchBtn" customTextOn="{i18n>SwitchView}" customTextOff="{i18n>SwitchEdit}" state="false" change="onSwitchEditMode"/>
 			</Toolbar>
 		</footer>
 	</Page>

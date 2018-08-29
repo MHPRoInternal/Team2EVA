@@ -165,9 +165,14 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		onNavBack: function() {
 			var oHistory = sap.ui.core.routing.History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
-
+			var viewID = this.getView().getId();
+			var oView = sap.ui.getCore().byId(viewID);
+			var oModel = oView.getModel();
+			oModel.refresh(true);
 			if (sPreviousHash !== undefined) {
-				window.history.go(-1);
+				
+				window.history.back();
+				
 				
 			} else {
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);

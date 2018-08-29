@@ -19,44 +19,44 @@
 			</Toolbar>
 		</customHeader>
 		<content>
-			<Panel headerText="MHP Event">
-			<!--<l:Splitter height="500px">-->
+			<Panel headerText="{i18n>EventCreateSubTitle}">
+
 				<HBox class="sapUiLargeMargin" wrap="Wrap" justifyContent="Start">
-					<f:SimpleForm layout="GridLayout" class="sapUiLargeMarginEnd sapUiSmallMarginTop" minWidth="22em" width="34em" labelMinWidth="3.5em"
+					<f:SimpleForm layout="GridLayout" class="sapUiLargeMarginEnd sapUiSmallMarginTop" minWidth="25rem" width="40em" labelMinWidth="3.5em"
 						labelSpanXL="1" labelSpanL="1" labelSpanM="1" labelSpanS="1" adjustLabelSpan="false" emptySpanXL="2" emptySpanL="2" emptySpanM="2"
 						emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
 						<f:content>
-							<Label text="Title" required="true" labelFor="Title"/>
+							<Label text="{i18n>TitleLabel}" required="true" labelFor="Title"/>
 							<Input id="Title" value="{eventModel>/Title}"/>
-							<Label text="Location" required="true"/>
+							<Label text="{i18n>LocationLabel}" required="true"/>
 							<Input id="Location" value="{eventModel>/Location}"/>
-							<Button id="bntSearch" text="Search" press="actSearch"/>
+							<Button id="bntSearch" text="{i18n>SearchButton}" press="actSearch"/>
 							<Label text="Latitude"/>
 							<Input id="Latitude" visible="false" value="{eventModel>/Latitude}" required="true"/>
 							<Label text="Longitude"/>
 							<Input id="Longitude" visible="false" value="{eventModel>/Longitude}" required="true"/>
-							<Label text="Date"/>
+							<Label text="{i18n>DateLabel}"/>
 							<DatePicker id="Date" required="true" valueFormat="yyyy-MM-ddThh:mm:ss" displayFormat="yyyy-MM-dd" value="{eventModel>/Data}"/>
 							<!--value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'short'}}"/>-->
 							<!--<Input id="eDataInput" width="35rem" editable="false"-->
 							<!--	value="{ path: 'Data', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"></Input>-->
-							<Label text="Time"/>
+							<Label text="{i18n>TimeLabel}"/>
 							<Input id="Time" required="true" placeholder="HH:mm - HH:mm" value="{eventModel>/Time}"/>
-							<Label text="DressCode"/>
+							<Label text="{i18n>DresscodeLabel}"/>
 							<Input id="Dresscode" required="true" value="{eventModel>/Dresscode}"/>
-							<Label text="Picture"/>
+							<Label text="{i18n>PictureLabel}"/>
 							<u:FileUploader id="oFileUploader" name="myFileUpload" tooltip="Upload image for the event" uploadComplete="handleUploadComplete"/>
 						</f:content>
 					</f:SimpleForm>
 					<FlexBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" id="map_canvas" width="25em" height="20em"/>
 				</HBox>
-			<!--</l:Splitter>-->
+
 		</Panel>
 			
 		<HBox>
 			<VBox class="sapUiLargeMarginBeginEnd" justifyContent="Center" alignItems="Center">
 				<core:Fragment fragmentName="eventManagementEVA.view.qCreate" type="XML"/>
-				<Button text="Add question" icon="sap-icon://add" press="addQuestionPress"/>
+				<Button text="{i18n>AddQuestion}" icon="sap-icon://add" press="addQuestionPress"/>
 			</VBox>
 			<core:Fragment class="questionList" fragmentName="eventManagementEVA.view.qList" type="XML"/>
 			
@@ -68,7 +68,7 @@
 	<footer>
 		<Toolbar>
 			<ToolbarSpacer/>
-			<Button id="EventCreate" text="Create Event" press="onCreate"></Button>
+			<Button id="EventCreate" text="{i18n>CreateEventBtn}" press="onCreate"></Button>
 		</Toolbar>
 	</footer>
 </Page>

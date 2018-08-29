@@ -17,25 +17,34 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			return this.getOwnerComponent().getRouter();
 		},
 
+		onSwitchEditMode: function(oEvent) {
+			var bState = oEvent.getSource().getState();
+			if (bState) {
+				sap.ui.getCore().getConfiguration().setLanguage("de");
+			} else {
+				sap.ui.getCore().getConfiguration().setLanguage("en");
+			}
+		},
+
 		onMenuAction: function(oEvent) {
-			
+
 			var oItem = oEvent.getParameter("item"),
 				sItemPath = "";
 			while (oItem instanceof sap.m.MenuItem) {
 				sItemPath = oItem.getText();
 				oItem = oItem.getParent();
 			}
-			if (sItemPath === "Change Password") {
+			if (sItemPath === "Change Password" || sItemPath === "Passwort ändern") {
 				this.changePass();
 			} else if (sItemPath === "Delete Event") {
 				var viewID = this.getView().getId();
 				// console.log("The view ID in controller Delete Event is : " + viewID);
 				var view = sap.ui.getCore().byId(viewID);
-				
+
 				// var deleteEventButton = view.byId("deleteEventBtn");
 				// deleteEventButton.setVisible(true);
 				view.getController().enableDeleteBtns();
-			}else if(sItemPath === "Cancel Delete"){
+			} else if (sItemPath === "Cancel Delete") {
 				viewID = this.getView().getId();
 				view = sap.ui.getCore().byId(viewID);
 				view.getController().disableDeleteBtns();
@@ -43,21 +52,22 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		},
 
 		changePass: function() {
-
+			var viewID = this.getView().getId();
+			var oView = sap.ui.getCore().byId(viewID);
 			var oDialog = new sap.m.Dialog("Dialog1", {
-				title: "User password change",
+				title: oView.getModel("i18n").getResourceBundle().getText("DialogTitle"),
 				type: "Message",
 				modal: true,
 				contentWidth: "5rem",
 				content: [new sap.m.Label({
-						text: "Username"
+						text: oView.getModel("i18n").getResourceBundle().getText("DialogUserName")
 					}),
 					new sap.m.Input({
 						maxLength: 20,
 						id: "userName"
 					}),
 					new sap.m.Label({
-						text: "Password"
+						text: oView.getModel("i18n").getResourceBundle().getText("DialogPassword")
 					}),
 					new sap.m.Input({
 						maxLength: 20,
@@ -65,7 +75,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 						id: "oldPass"
 					}),
 					new sap.m.Label({
-						text: "New Password"
+						text: oView.getModel("i18n").getResourceBundle().getText("DialogNewPassword")
 					}),
 					new sap.m.Input({
 						maxLength: 20,
@@ -73,7 +83,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 						id: "newPass"
 					}),
 					new sap.m.Label({
-						text: "Confirm new Password"
+						text: oView.getModel("i18n").getResourceBundle().getText("DialogConfirmPassword")
 					}),
 					new sap.m.Input({
 						maxLength: 20,
@@ -155,9 +165,13 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		onNavBack: function() {
 			var oHistory = sap.ui.core.routing.History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
-
+			var viewID = this.getView().getId();
+			var oView = sap.ui.getCore().byId(viewID);
+			var oModel = oView.getModel();
+			oModel.refresh(true);
 			if (sPreviousHash !== undefined) {
 				window.history.go(-1);
+				
 			} else {
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 				oRouter.navTo("default", true);

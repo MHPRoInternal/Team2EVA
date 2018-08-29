@@ -6,7 +6,7 @@
 					<VBox class="questionCreateBox">
 						<HBox>
 							<Label text="{i18n>QuestionLabel}"/>
-							<Input id="inputId0" placeholder="{i18n>QuestionTextHolder}"/>
+							<Input id="inputId0" placeholder="{i18n>QuestionText}"/>
 						</HBox>
 						<HBox>
 							<Label text="{i18n>QuestionOptions}"/>

@@ -24,7 +24,11 @@
     border-bottom: 0px;
 }
 
-.actionBtn.sapUiIcon {
+.sapMPanelContent:not(.sapMPanelBGTransparent){
+	border-bottom: 0px !important;
+}
+
+.sapUiIcon.actionBtn {
     color: #eaffdd;
 }
 
@@ -89,11 +93,6 @@
 
 .sapMLabel {
     padding: 2px;
-}
-
-
-.myMap {
-    margin-top: 20px;
 }
 
 .sapMTileCntContent {

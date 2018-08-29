@@ -54,13 +54,15 @@ sap.ui.define([
 		//function to execute when a tile is pressed
 		handlePress: function(oEvent) {
 			this.eID = oEvent.getSource().getBindingContext().getObject().IdEvent;
+			var userConfirmation = oEvent.getSource().getBindingContext().getObject().Confirmation;
 			console.log("Event ID-ul este : " + this.eID);
 			console.log("User ID-ul este : " + this.uID);
 			this.getRouter().navTo("EventDetails", {
 				eventID: this.eID,
 				userID: this.uID,
 				uRole: this.userRole,
-				nameUser: this.usersName
+				nameUser: this.usersName,
+				confirmation: userConfirmation
 			});
 		},
 
@@ -130,12 +132,13 @@ sap.ui.define([
 					jQuery.sap.clearDelayedCall(this._sTimeoutId);
 					this._sTimeoutId = null;
 				}
-
+				
 				this._sTimeoutId = jQuery.sap.delayedCall(iDuration, this, function() {
 					this.hideBusyIndicator();
 				});
 			}
 		},
+		
 		hideBusyIndicator : function() {
 			sap.ui.core.BusyIndicator.hide();
 		},
@@ -153,13 +156,11 @@ sap.ui.define([
 			
 			if (this.userRole === "true") {
 				this.eventCreateBtn.setVisible(true);
-
 			} else {
 				var menuItems = this.oView.byId("menuButton");
 				menuItems.getItems()[1].setVisible(false);
 				this.eventCreateBtn.setVisible(false);
 			}
-
 			this.oView.bindElement({
 				path: "/UserSet('" + this.uID + "')",
 				events: {

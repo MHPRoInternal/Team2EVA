@@ -34,7 +34,11 @@
             "name": "css/style.css"
         },
         {
-            "name": "i18n/i18n.properties",
+            "name": "i18n/i18n_en.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "i18n/i18n_de.properties",
             "raw": "i18n/i18n.properties"
         },
         {
