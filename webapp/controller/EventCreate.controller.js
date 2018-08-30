@@ -123,7 +123,7 @@ sap.ui.define([
 				}
 			}
 			QAstructList.push(QAstruct);
-			
+
 			//this deletes question input values
 			for (i = 0; i < countAnswers; i++) {
 				if (oView.byId("inputId" + i)) {
@@ -178,20 +178,21 @@ sap.ui.define([
 			var rowItemContainer = oEvent.getSource().getParent();
 			var questionId = oEvent.getSource().getId().substring(3);
 			var removeIndex = null;
-			var index=0;
+			var index = 0;
 			QAstructList.forEach(function(QAstruct) {
 				if (QAstruct.QAstructId === parseInt(questionId)) {
 					removeIndex = index;
 				}
 				index++;
 			});
-			if(removeIndex !== null){
-			QAstructList.splice(removeIndex, 1);
-			rowItemContainer.destroy();
+			if (removeIndex !== null) {
+				QAstructList.splice(removeIndex, 1);
+				rowItemContainer.destroy();
 			}
 		},
 
 		changeValueState: function() {
+			var formValidate = this.getView().getControlsByFieldGroupId("formInput");
 			formValidate.forEach(function(input) {
 				if (input.getValue() === "" || input.getValue() === null || input.getValue() === undefined) {
 					input.setValueState(sap.ui.core.ValueState.Error);
@@ -299,7 +300,7 @@ sap.ui.define([
 						this.questionCreate();
 
 						console.log("Event ID-ul este: " + oCompletedEntry.IdEvent);
-						
+
 						//sap.m.URLHelper.triggerEmail(mailListString, "New MHP event invitation!", inviteText);
 					}.bind(this),
 					error: function(oError) {
@@ -315,7 +316,7 @@ sap.ui.define([
 			var oModel = oView.getModel();
 			var oQuestionData = "";
 			var idEvent = this.eID;
-			
+
 			QAstructList.forEach(function(item) {
 				oQuestionData = {
 					IdEvent: idEvent,

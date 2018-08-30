@@ -117,6 +117,11 @@
 					"pattern": "EventCreate/{userID}/{uRole}/{adminEmailAddress}/{nameUser}",
 					"name": "EventCreate",
 					"target": "EventCreate"
+				},
+				{
+					"pattern": "Statistics/{userID}/{eID}/{nameUser}",
+					"name": "Statistics",
+					"target": "Statistics"
 				}
 			],
 			"targets": {
@@ -138,6 +143,11 @@
 				"EventCreate": {
 					"viewName": "EventCreate",
 					"viewId": "EventCreate",
+					"viewLevel": 3
+				},
+				"Statistics": {
+					"viewName": "Statistics",
+					"viewId": "Statistics",
 					"viewLevel": 3
 				}
 			},

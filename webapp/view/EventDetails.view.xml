@@ -68,7 +68,7 @@
 				<Button id="eventUpdate" text="{i18n>UpdateButton}" press="onUpdatePress" enabled="false"></Button>
 				<Button id="acceptBtn" class="AcceptBtn" type="Accept" text="{i18n>acceptBtnText}" icon="sap-icon://accept" width="7rem" press="onAcceptTap"></Button>
 				<Button id="declineBtn" class="DeclineBtn" type="Reject" text="{i18n>declineBtnText}" icon="sap-icon://decline" width="7rem" press="onDeclineTap"></Button>
-				<!--<Button id="confirmAnswersBtn" class="confirmBtn" width="10em" text="{i18n>confirmBtnText}" type="Transparent" press="onConfirmTap"/>-->
+				<Button id="statisticsBtn" text="Event Statistics" width="10em" type="Transparent" press="onStatisticsPress"/>
 				<ToolbarSpacer/>
 				<Switch id="switchBtn" customTextOn="{i18n>SwitchView}" customTextOff="{i18n>SwitchEdit}" state="false" change="onSwitchEditMode"/>
 			</Toolbar>

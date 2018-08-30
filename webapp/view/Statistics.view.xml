@@ -1,0 +1,58 @@
+<mvc:View controllerName="eventManagementEVA.controller.Statistics" xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:u="sap.ui.unified" xmlns:c="sap.ui.core" xmlns:m="sap.m" height="100%">
+	<m:Page id="statisticsPage">
+		<m:customHeader class="headerContent">
+			<m:Toolbar>
+				<m:Button type="Back" press="onNavBack"/>
+				<m:Image src="/webapp/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"></m:Image>
+				<m:ToolbarSpacer/>
+				<m:Label id="nameLabelStats"></m:Label>
+				<m:MenuButton icon="sap-icon://action-settings" type="Accept" defaultAction="onDefaultActionAccept" useDefaultActionOnly="true">
+				<m:menu>
+					<m:Menu id="menuButton" itemSelected="onMenuAction">
+						<m:items>
+							<m:MenuItem id="changePasswordItem" text="Change Password" icon="sap-icon://private"/>
+						</m:items>
+					</m:Menu>
+				</m:menu>
+			</m:MenuButton>
+		</m:Toolbar>
+	</m:customHeader>
+	<m:Panel id="tableContent">
+	<!--	<Table id="statisticsTable" selectionMode="None" rows="{toStatistic}"  visibleRowCountMode="Auto" >-->
+	<!--		<columns>-->
+	<!--			<Column id="idUser"  autoResizable="true">-->
+	<!--				<m:Label text="Id User"/>-->
+	<!--				<template>-->
+	<!--					<m:Text text="{IdUser}" wrapping="false"/>-->
+	<!--				</template>-->
+	<!--			</Column>-->
+	<!--			<Column id="name"  autoResizable="true" hAlign="Start">-->
+	<!--				<m:Label text="Name"/>-->
+	<!--				<template>-->
+	<!--					<m:Text text="{Name}" wrapping="false"/>-->
+	<!--				</template>-->
+	<!--			</Column>-->
+	<!--			<Column id="mail"  autoResizable="true">-->
+	<!--				<m:Label text="Mail"/>-->
+	<!--				<template>-->
+	<!--					<m:Text text="{Mail}" wrapping="false"/>-->
+	<!--				</template>-->
+	<!--			</Column>-->
+	<!--				<Column id="confirmation"  autoResizable="true" sortProperty="Confirmation" >-->
+	<!--				<m:Label text="Confirmation"/>-->
+	<!--				<template>-->
+	<!--					<m:Text text="{Confirmation}" wrapping="false"/>-->
+	<!--				</template>-->
+	<!--			</Column>-->
+				<!--<Column id="Question"  autoResizable="true">-->
+				<!--	<m:Label text="{Name}"/>-->
+				<!--	<template>-->
+				<!--		<m:Text text="{Mail}" wrapping="false"/>-->
+				<!--	</template>-->
+				<!--</Column>-->
+	<!--		</columns>-->
+	<!--	</Table>-->
+	</m:Panel>
+</m:Page>
+</mvc:View>

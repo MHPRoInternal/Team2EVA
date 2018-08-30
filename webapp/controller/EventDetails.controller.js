@@ -321,6 +321,15 @@ sap.ui.define([
 			dialog.open();
 		},
 
+		onStatisticsPress: function() {
+			this.getRouter().navTo("Statistics", {
+				userID: this.uID,
+				eID: this.eID,
+				nameUser: this.usersName
+
+			});
+		},
+		
 		transformEmail: function() {
 			var oView = this.getView();
 			var adminCreatedByEmail = this.adminEmail;
@@ -374,6 +383,7 @@ sap.ui.define([
 			this.updateBtn = oView.byId("eventUpdate");
 			this.currentUserLabel = oView.byId("userNameLabelTop");
 			this.switchBtn = oView.byId("switchBtn");
+			var statisticsBtn = oView.byId("statisticsBtn");
 			this.sendUpdates = false;
 			this.byId("Date").setMinDate(new Date());
 			this.markers = [];
@@ -391,6 +401,8 @@ sap.ui.define([
 			} else if (this.userRole === "false") {
 				this.switchBtn.setVisible(false);
 				this.switchBtn.setEnabled(false);
+				this.statisticsBtn.setEnabled(false);
+				this.statisticsBtn.setVisible(false);
 
 				if (this.userConfirmation === "Y") {
 					//this.updateBtn.setEnabled(true);
@@ -400,6 +412,7 @@ sap.ui.define([
 					this.updateBtn.setEnabled(false);
 					this.acceptBtn.setVisible(true);
 					this.acceptBtn.setEnabled(true);
+					
 				}
 			}
 
