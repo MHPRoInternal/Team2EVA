@@ -335,6 +335,28 @@ sap.ui.define([
 
 			oView.byId("createdBy").setText("Event created by " + createdByFirstName + " " + createdByLastName);
 		},
+		
+				_checkEventDate: function(eventDate) {
+			var oView = this.getView();
+			var todayDate = new Date();
+			todayDate.setHours(0, 0, 0, 0);
+			eventDate.setHours(0, 0, 0, 0);
+			var diff = eventDate.getTime() - todayDate.getTime();
+			if (diff >= 0) {
+				var daysRemaining = parseInt(diff / (1000 * 60 * 60 * 24));
+				if (daysRemaining < 7) {
+					//oView.byId("eventUpdate").setVisible(false);     
+					this.acceptBtn.setVisible(false);
+					this.declineBtn.setVisible(false);
+					this.switchBtn.setVisible(false);
+				}
+			} else {
+				this.updateBtn.setVisible(false);
+				oView.byId("eventUpdate").setVisible(false);
+				this.acceptBtn.setVisible(false);
+				this.declineBtn.setVisible(false);
+			}
+		},
 
 		_onRouteMatched: function(oEvent) {
 			var oView = this.getView();
@@ -412,28 +434,6 @@ sap.ui.define([
 					}.bind(this)
 				}
 			});
-		},
-
-		_checkEventDate: function(eventDate) {
-			var oView = this.getView();
-			var todayDate = new Date();
-			todayDate.setHours(0, 0, 0, 0);
-			eventDate.setHours(0, 0, 0, 0);
-			var diff = eventDate.getTime() - todayDate.getTime();
-			if (diff >= 0) {
-				var daysRemaining = parseInt(diff / (1000 * 60 * 60 * 24));
-				if (daysRemaining < 7) {
-					//oView.byId("eventUpdate").setVisible(false);     
-					this.acceptBtn.setVisible(false);
-					this.declineBtn.setVisible(false);
-					this.switchBtn.setVisible(false);
-				}
-			} else {
-				this.updateBtn.setVisible(false);
-				oView.byId("eventUpdate").setVisible(false);
-				this.acceptBtn.setVisible(false);
-				this.declineBtn.setVisible(false);
-			}
 		}
 
 	});

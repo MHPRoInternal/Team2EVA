@@ -1,6 +1,5 @@
 sap.ui.define([
 	"eventManagementEVA/controller/BaseController",
-	'sap/ui/core/Element',
 	'sap/m/Input',
 	'sap/m/Label',
 	'sap/m/Select',
@@ -8,7 +7,7 @@ sap.ui.define([
 	'sap/m/MessageToast',
 	'sap/ui/unified/FileUploader',
 	'sap/ui/unified/FileUploaderParameter'
-], function(BaseController, MessageToast, Label, Select, Button, FileUploaderParameter) {
+], function(BaseController, Input, Label, Select, Button, MessageToast, FileUploaderParameter) {
 	"use strict";
 
 	var QAstructList = [];
@@ -24,18 +23,19 @@ sap.ui.define([
 		},
 
 		onBeforeRendering: function(oEvent) {
-		
+
 		},
 
 		onAfterRendering: function(oEvent) {
-			this.geocoder = new google.maps.Geocoder();
+			var oView = this.getView();
+
 			var latLng = new google.maps.LatLng(46.7649352, 23.606376100000034);
 			var mapOptions = {
 				center: latLng,
 				zoom: 13,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
-			this.map = new google.maps.Map(this.getView().byId("map_canvas").getDomRef(),
+			this.map = new google.maps.Map(oView.byId("map_canvas").getDomRef(),
 				mapOptions);
 		},
 
@@ -68,9 +68,9 @@ sap.ui.define([
 			var oView = this.getView();
 			// var oInput1 = new sap.m.Input(oView.createId("inputId" + countAnswers));
 			var oInput1 = new sap.m.Input(oView.createId("inputId" + countAnswers), {
-				placeholder: "Question option " + countAnswers + "..."
+				placeholder: "Question option..."
 			});
-			oInput1.setWidth("15.5em");
+			oInput1.setWidth("20rem");
 
 			var delIcon = new sap.ui.core.Icon({
 				src: "sap-icon://delete",
@@ -84,6 +84,8 @@ sap.ui.define([
 			});
 			this._oPnl.addContent(inputLayout);
 			countAnswers += 1;
+
+			oView.byId("eventCreateForm").getContents();
 		},
 
 		addQuestionPress: function() {
@@ -121,7 +123,7 @@ sap.ui.define([
 				}
 			}
 			QAstructList.push(QAstruct);
-			counterStruct++;
+			
 			//this deletes question input values
 			for (i = 0; i < countAnswers; i++) {
 				if (oView.byId("inputId" + i)) {
@@ -164,6 +166,7 @@ sap.ui.define([
 			QALayout.addStyleClass("sapUiSmallMarginBeginEnd");
 			this.selectPanel.addItem(QALayout);
 			countAnswers = 3;
+			counterStruct++;
 		}, //end of AddQuestion
 
 		onDeleteInput: function(oEvent) {
@@ -173,21 +176,35 @@ sap.ui.define([
 
 		onDeleteQuestion: function(oEvent) {
 			var rowItemContainer = oEvent.getSource().getParent();
-			console.log(oEvent.getSource());
 			var questionId = oEvent.getSource().getId().substring(3);
 			var removeIndex = null;
-			QAstructList.forEach(function(index, QAstruct) {
-				if (QAstruct.QAstructId === questionId) {
+			var index=0;
+			QAstructList.forEach(function(QAstruct) {
+				if (QAstruct.QAstructId === parseInt(questionId)) {
 					removeIndex = index;
 				}
+				index++;
 			});
+			if(removeIndex !== null){
 			QAstructList.splice(removeIndex, 1);
-			console.log(questionId);
 			rowItemContainer.destroy();
+			}
+		},
+
+		changeValueState: function() {
+			formValidate.forEach(function(input) {
+				if (input.getValue() === "" || input.getValue() === null || input.getValue() === undefined) {
+					input.setValueState(sap.ui.core.ValueState.Error);
+					input.setValueStateText("Input is required!");
+					return;
+				} else {
+					input.setValueState(sap.ui.core.ValueState.None);
+				}
+			});
 		},
 
 		actSearch: function() {
-
+			var geocoder = new google.maps.Geocoder();
 			var oView = this.getView();
 			var latitude;
 			var longitude;
@@ -197,7 +214,7 @@ sap.ui.define([
 				marker.setMap(null);
 			});
 			markers = [];
-			this.geocoder.geocode({
+			geocoder.geocode({
 				'address': address
 			}, function(results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
@@ -221,45 +238,76 @@ sap.ui.define([
 		onCreate: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();
+			var flag = true;
+			var formValidate = this.getView().getControlsByFieldGroupId("formInput");
 			var oEventCreateModel = oView.getModel("eventModel");
-			oEventCreateModel.setProperty("/CreatedBy", this.adminEmail);
-			oModel.refreshSecurityToken();
-			var modifiedMailList = oEventCreateModel.getProperty("/Mails").replace(/\n/g, "");
-			oEventCreateModel.setProperty("/Mails", modifiedMailList);
+			var mailList = oEventCreateModel.getProperty("/Mails");
 
-			oModel.create("/EventSet", oEventCreateModel.getData(), {
-				success: function(oCompletedEntry) {
-					this.eID = oCompletedEntry.IdEvent;
-					var oFileUploader = oView.byId("oFileUploader");
-					oFileUploader.setUploadOnChange(false);
-					oFileUploader.setUseMultipart(false);
-					oModel.refreshSecurityToken();
-					oFileUploader.setSendXHR(true);
-					var oHeaders = oModel.oHeaders;
-					var sToken = oHeaders['x-csrf-token'];
-
-					oFileUploader.addHeaderParameter(new sap.ui.unified.FileUploaderParameter({
-						name: "x-csrf-token",
-						value: sToken
-					}));
-
-					oFileUploader.insertHeaderParameter(new sap.ui.unified.FileUploaderParameter({
-						name: "slug",
-						value: oFileUploader.getValue()
-					}));
-
-					oFileUploader.setUploadUrl("/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/EventSet('" + this.eID + "')/toPicture");
-					oFileUploader.upload();
-					this.questionCreate();
-
-					console.log("Event ID-ul este: " + oCompletedEntry.IdEvent);
-					counterStruct = 0;
-					//sap.m.URLHelper.triggerEmail(mailListString, "New MHP event invitation!", inviteText);
-				}.bind(this),
-				error: function(oError) {
-					console.log("There has been an error creating the event! Please try again.");
+			formValidate.forEach(function(input) {
+				if (input.getValue() === "" || input.getValue() === null || input.getValue() === undefined) {
+					input.setValueState(sap.ui.core.ValueState.Error);
+					input.setValueStateText("Input is required!");
+					flag = false;
+					MessageToast.show("A required input was left empty!", {
+						animationDuration: 1200
+					});
+				} else {
+					input.setValueState(sap.ui.core.ValueState.None);
 				}
 			});
+
+			if (mailList === "") {
+				oView.byId("mailTxtArea").setValueState(sap.ui.core.ValueState.Error);
+				MessageToast.show("A required input was left empty!", {
+					animationDuration: 1200
+				});
+				flag = false;
+			} else {
+				oView.byId("mailTxtArea").setValueState(sap.ui.core.ValueState.None);
+			}
+
+			if (flag === true) {
+
+				oEventCreateModel.setProperty("/CreatedBy", this.adminEmail);
+				oModel.refreshSecurityToken();
+				var modifiedMailList = oEventCreateModel.getProperty("/Mails").replace(/\n/g, "");
+				oEventCreateModel.setProperty("/Mails", modifiedMailList);
+
+				oModel.create("/EventSet", oEventCreateModel.getData(), {
+					success: function(oCompletedEntry) {
+						this.eID = oCompletedEntry.IdEvent;
+						var oFileUploader = oView.byId("oFileUploader");
+						oFileUploader.setUploadOnChange(false);
+						oFileUploader.setUseMultipart(false);
+						oModel.refreshSecurityToken();
+						oFileUploader.setSendXHR(true);
+						var oHeaders = oModel.oHeaders;
+						var sToken = oHeaders['x-csrf-token'];
+
+						oFileUploader.addHeaderParameter(new sap.ui.unified.FileUploaderParameter({
+							name: "x-csrf-token",
+							value: sToken
+						}));
+
+						oFileUploader.insertHeaderParameter(new sap.ui.unified.FileUploaderParameter({
+							name: "slug",
+							value: oFileUploader.getValue()
+						}));
+
+						oFileUploader.setUploadUrl("/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/EventSet('" + this.eID + "')/toPicture");
+						oFileUploader.upload();
+						this.questionCreate();
+
+						console.log("Event ID-ul este: " + oCompletedEntry.IdEvent);
+						
+						//sap.m.URLHelper.triggerEmail(mailListString, "New MHP event invitation!", inviteText);
+					}.bind(this),
+					error: function(oError) {
+						console.log("There has been an error creating the event! Please try again.");
+					}
+				});
+			}
+			counterStruct = 0;
 		},
 
 		questionCreate: function() {
@@ -267,6 +315,7 @@ sap.ui.define([
 			var oModel = oView.getModel();
 			var oQuestionData = "";
 			var idEvent = this.eID;
+			
 			QAstructList.forEach(function(item) {
 				oQuestionData = {
 					IdEvent: idEvent,
@@ -294,6 +343,7 @@ sap.ui.define([
 						});
 						//BaseController.prototype.onNavBack();
 						//oView.reset();
+						QAstructList = [];
 
 					},
 
@@ -304,36 +354,59 @@ sap.ui.define([
 			});
 		},
 
-		onNavBack: function() {
-			var oHistory = sap.ui.core.routing.History.getInstance();
-			var sPreviousHash = oHistory.getPreviousHash();
-			var viewID = this.getView().getId();
-			var oView = sap.ui.getCore().byId(viewID);
-			var oModel = oView.getModel();
-			oModel.refresh(true);
-			if (sPreviousHash !== undefined) {
-				window.history.back();
-				this.selectPanel.destroyItems();
-				oModel.refresh(true);
+		showBusyIndicator: function(iDuration, iDelay) {
+			sap.ui.core.BusyIndicator.show(iDelay);
 
-			} else {
-				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-				oRouter.navTo("default", true);
+			if (iDuration && iDuration > 0) {
+				if (this._sTimeoutId) {
+					jQuery.sap.clearDelayedCall(this._sTimeoutId);
+					this._sTimeoutId = null;
+				}
+
+				this._sTimeoutId = jQuery.sap.delayedCall(iDuration, this, function() {
+					this.hideBusyIndicator();
+				});
 			}
 		},
-		
-		cancelEvent: function(oEvent){
+
+		hideBusyIndicator: function() {
+			sap.ui.core.BusyIndicator.hide();
+		},
+
+		onNavBackFromCreateEvent: function() {
+
+			this.viewID = this.getView().getId();
+			var oView = sap.ui.getCore().byId(this.viewID);
+			var oModel = oView.getModel();
+			var selectPanel = oView.byId("selectDisplay");
+			selectPanel.destroyItems();
+			oModel.refresh(true);
+			oView.byId("mailTxtArea").setValue();
+			this.getRouter().navTo("EventDashboard", {
+				userID: this.uID,
+				uRole: this.userRole,
+				adminEmailAddress: this.adminEmail,
+				nameUser: this.usersName
+			});
+		},
+
+		cancelEvent: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();
 			oModel.refresh(true);
+			var oEventCreateModel = oView.getModel("eventModel");
+			oEventCreateModel.refresh(true);
 			this.selectPanel.destroyItems();
+			oView.byId("mailTxtArea").setValue();
 		},
-		
+
 		_onRouteMatched: function(oEvent) {
 
 			var oView = this.getView();
 			this.adminEmail = oEvent.getParameter("arguments").adminEmailAddress;
 			this.usersName = oEvent.getParameter("arguments").nameUser;
+			this.userRole = oEvent.getParameter("arguments").uRole;
+			this.uID = oEvent.getParameter("arguments").userID;
 			console.log("Email pentru admin este: " + this.adminEmail);
 			this.getView().byId("nameLabel").setText(this.usersName);
 
@@ -354,6 +427,7 @@ sap.ui.define([
 				Mails: "",
 				CreatedBy: ""
 			});
+			oEventCreateModel.setDefaultBindingMode("TwoWay");
 			oView.setModel(oEventCreateModel, "eventModel");
 			//this.createMap();
 			//this.onAfterRendering();

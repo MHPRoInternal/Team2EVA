@@ -114,7 +114,7 @@
 					"target": "EventDetails"
 				},
 				{
-					"pattern": "EventCreate/{adminEmailAddress}/{nameUser}",
+					"pattern": "EventCreate/{userID}/{uRole}/{adminEmailAddress}/{nameUser}",
 					"name": "EventCreate",
 					"target": "EventCreate"
 				}

@@ -51,6 +51,14 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 		},
 
+		onLogOut: function() {
+			var viewID = this.getView().getId();
+			var oView = sap.ui.getCore().byId(viewID);
+			var oModel = oView.getModel();
+			oModel.refresh(true);
+			this.getOwnerComponent().getRouter().navTo("Login");
+		},
+
 		changePass: function() {
 			var viewID = this.getView().getId();
 			var oView = sap.ui.getCore().byId(viewID);
@@ -170,10 +178,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			var oModel = oView.getModel();
 			oModel.refresh(true);
 			if (sPreviousHash !== undefined) {
-				
 				window.history.back();
-				
-				
+
 			} else {
 				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 				oRouter.navTo("default", true);

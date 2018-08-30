@@ -2,8 +2,8 @@
 	<FlexBox id="idFB2" alignItems="Center" justifyContent="Start">
 		<items>
 			<VBox class="textArea">
-				<Label text="{i18n>InvitesLabel}"/>
-				<TextArea id="mailTxtArea" rows="8" cols="45" value="{eventModel>/Mails}" required="true" placeholder="{i18n>MailTextArea}" ></TextArea>
+				<Label text="{i18n>InvitesLabel}" required="true"/>
+				<TextArea id="mailTxtArea" rows="8" cols="45" value="{eventModel>/Mails}"  placeholder="{i18n>MailTextArea}" ></TextArea>
 				<CheckBox id="mailsCheckBox" text="MHP Romania" selected="false" select="onSelect"/>
 			</VBox>
 		</items>

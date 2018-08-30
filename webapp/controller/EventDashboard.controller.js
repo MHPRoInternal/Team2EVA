@@ -92,7 +92,9 @@ sap.ui.define([
 			console.log("Email-ul adminului este : " + this.adminEmail);
 			this.getRouter().navTo("EventCreate", {
 				adminEmailAddress: this.adminEmail,
-				nameUser: this.usersName
+				nameUser: this.usersName,
+				userID: this.uID,
+				uRole: this.userRole
 			});
 		},
 		

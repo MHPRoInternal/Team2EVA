@@ -11,17 +11,22 @@
 	height: 3rem;
 }
 
-.sapMVBox{
-	border-bottom: 0px;
+.createFormPanel{
+	border-bottom: 1px solid;
+}
+.questionSelectHBox{
+	padding: 1rem 0 2rem 5rem;
+	border-bottom: 1px solid;
+}
+.questionSelectVBox{
+	
+}
+.questionCreateBox{
+	margin: 5rem 0 0 7rem;
 }
 
-.sapMHBox{
-	border-bottom: 0px;
-}
-
-.sapMPanelContent {
-    padding: 1px;                                                      
-    border-bottom: 0px;
+.addQuestionBtn{
+	margin: 0 0 1rem 10em;
 }
 
 .sapMPanelContent:not(.sapMPanelBGTransparent){

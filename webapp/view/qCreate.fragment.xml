@@ -4,17 +4,17 @@
 			<items>
 				<HBox>
 					<VBox class="questionCreateBox">
-						<HBox>
+						<VBox justifyContent="Center">
 							<Label text="{i18n>QuestionLabel}"/>
-							<Input id="inputId0" placeholder="{i18n>QuestionText}"/>
-						</HBox>
+							<Input width="20rem" id="inputId0" placeholder="{i18n>QuestionText}"/>
+						</VBox>
 						<HBox>
 							<Label text="{i18n>QuestionOptions}"/>
 							<Button id="addInput" text="{i18n>OptionAdd}" icon="sap-icon://sys-add" type="Transparent" press="addInput"/>
 						</HBox>
-						<VBox>
-							<Input width="15.5em" id="inputId1" placeholder="Question option 1..."/>
-							<Input width="15.5em" id="inputId2" placeholder="Question option 2..."/>
+						<VBox justifyContent="Center">
+							<Input width="20rem" id="inputId1" placeholder="Question option ..."/>
+							<Input width="20rem" id="inputId2" placeholder="Question option ..."/>
 						</VBox>
 					</VBox>
 				</HBox>
