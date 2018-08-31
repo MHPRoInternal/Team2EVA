@@ -1,18 +1,18 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:l="sap.ui.layout"
 	controllerName="eventManagementEVA.controller.EventCreate" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form">
-	<Page >
+	<Page floatingFooter="true">
 		<customHeader class="headerContent">
 			<Toolbar>
 				<Button type="Back" press="onNavBackFromCreateEvent"/>
 				<Image src="/webapp/resources/mhplogo.jpg" height="4.5em" width="9em" densityAware="true"></Image>
 				<ToolbarSpacer/>
 				<Label id="nameLabel"></Label>
-				<!--<Button type="Reject" press="cancelEvent" tooltip="Cancel event" icon="sap-icon://sys-cancel-2"/>-->
 				<MenuButton icon="sap-icon://action-settings" type="Accept" defaultAction="onDefaultActionAccept" useDefaultActionOnly="true">
 					<menu>
 						<Menu itemSelected="onMenuAction">
 							<items>
 								<MenuItem text="Change Password" icon="sap-icon://private"/>
+								<MenuItem id="logOutBtn" text="Logout" icon="sap-icon://log"/>
 							</items>
 						</Menu>
 					</menu>
@@ -22,9 +22,9 @@
 		<content>
 			<Panel class="createFormPanel" headerText="{i18n>EventCreateSubTitle}">
 				<HBox class="sapUiLargeMargin" wrap="Wrap" justifyContent="Start">
-					<f:SimpleForm id="eventCreateForm" layout="GridLayout" class="sapUiLargeMarginEnd sapUiSmallMarginTop" minWidth="25rem" width="40em" labelMinWidth="3.5em"
-						labelSpanXL="1" labelSpanL="1" labelSpanM="1" labelSpanS="1" adjustLabelSpan="false" emptySpanXL="2" emptySpanL="2" emptySpanM="2"
-						emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
+					<f:SimpleForm id="eventCreateForm" layout="GridLayout" class="sapUiLargeMarginEnd sapUiSmallMarginTop" minWidth="25rem" width="40em"
+						labelMinWidth="3.5em" labelSpanXL="1" labelSpanL="1" labelSpanM="1" labelSpanS="1" adjustLabelSpan="false" emptySpanXL="2" emptySpanL="2"
+						emptySpanM="2" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
 						<f:content>
 							<Label text="{i18n>TitleLabel}" required="true" labelFor="Title"/>
 							<Input id="Title" fieldGroupIds="formInput" value="{eventModel>/Title}"/>
@@ -36,7 +36,8 @@
 							<Label text="Longitude"/>
 							<Input id="Longitude" fieldGroupIds="formInput" visible="false" value="{eventModel>/Longitude}" required="true"/>
 							<Label text="{i18n>DateLabel}"/>
-							<DatePicker id="Date" fieldGroupIds="formInput" required="true" valueFormat="yyyy-MM-ddThh:mm:ss" displayFormat="yyyy-MM-dd" value="{eventModel>/Data}"/>
+							<DatePicker id="Date" fieldGroupIds="formInput" required="true" valueFormat="yyyy-MM-ddThh:mm:ss" displayFormat="yyyy-MM-dd"
+								value="{eventModel>/Data}"/>
 							<!--value="{path:'Data', type:'sap.ui.model.type.DateTime', formatOptions: { style: 'short'}}"/>-->
 							<!--<Input id="eDataInput" width="35rem" editable="false"-->
 							<!--	value="{ path: 'Data', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }"></Input>-->
@@ -45,23 +46,25 @@
 							<Label text="{i18n>DresscodeLabel}"/>
 							<Input id="Dresscode" fieldGroupIds="formInput" required="true" value="{eventModel>/Dresscode}"/>
 							<Label text="{i18n>PictureLabel}"/>
-							<u:FileUploader id="oFileUploader" fieldGroupIds="formInput" name="myFileUpload" tooltip="Upload image for the event" uploadComplete="handleUploadComplete"/>
+							<u:FileUploader id="oFileUploader" width="31rem" fieldGroupIds="formInput" name="myFileUpload" maximumFileSize="7" tooltip="Upload image for the event"
+								uploadComplete="handleUploadComplete"/>
 						</f:content>
 					</f:SimpleForm>
-					<FlexBox>
-						<FlexBox class="sapUiLargeMarginBegin sapUiSmallMarginTop" id="map_canvas" width="25em" height="20em"/>
+					<FlexBox class="mapBox" id="mapBox" justifyContent="Center" alignItems="Center">
+						<items>
+							<FlexBox class="mapBox sapUiLargeMarginBegin sapUiSmallMarginTop" id="map_canvas" width="25em" height="20em"/>
+						</items>
 					</FlexBox>
 				</HBox>
 			</Panel>
-			<HBox width="100%" class="questionSelectHBox" justifyContent="Start" alignItems="Center">
-				<VBox class="questionSelectVBox" justifyContent="Center" alignItems="Center">
+			<HBox width="100%" class="questionSelectHBox" justifyContent="Start" wrap="Wrap">
+				<VBox class="questionSelectVBox" justifyContent="Center" >
 					<core:Fragment fragmentName="eventManagementEVA.view.qCreate" type="XML"/>
 					<Button class="addQuestionBtn" text="{i18n>AddQuestion}" icon="sap-icon://add" press="addQuestionPress"/>
 				</VBox>
-				<HBox justifyContent="Start" alignItems="Center">
+				<HBox justifyContent="Start">
 					<core:Fragment class="questionList" fragmentName="eventManagementEVA.view.qList" type="XML"/>
 				</HBox>
-				
 			</HBox>
 			<FlexBox>
 				<core:Fragment fragmentName="eventManagementEVA.view.mailTextArea" type="XML"/>
@@ -70,7 +73,7 @@
 		<footer>
 			<Toolbar>
 				<ToolbarSpacer/>
-				<Button id="EventCreate" text="{i18n>CreateEventBtn}" press="onCreate"></Button>
+				<Button id="EventCreate" text="{i18n>CreateEventBtn}" width="30em" press="onCreate"></Button>
 			</Toolbar>
 		</footer>
 	</Page>

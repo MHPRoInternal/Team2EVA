@@ -9,78 +9,103 @@ sap.ui.define([
 
 		onInit: function() {
 			this.getRouter().getRoute("Statistics").attachMatched(this._onRouteMatched, this);
-			this.viewID = this.getView().getId();
-			this.oView = this.getView();
 		},
 
 		_onRouteMatched: function(oEvent) {
+
 			var oView = this.getView();
 			var oModel = oView.getModel();
 			var usersName = oEvent.getParameter("arguments").nameUser;
-			var uID = oEvent.getParameter("arguments").userID;
 			var eventID = oEvent.getParameter("arguments").eID;
 
-			var oModel = oView.getModel();
 			oView.byId("nameLabelStats").setText(usersName);
 
-			//                           oView.bindElement("/EventSet('" + eventID + "')");
-
-			// statsTable.bindColumns("toStatistic", function(index, context) {
-			//            var confirm = context.getProperty().Confirmation;
-			//            var mails = context.getProperty().Mail;
-			//            console.log("Context: " + context.getProperty().Confirmation); 
-			//            return new sap.ui.table.Column({
-			//                           label: confirm,
-			//                           template: new TextField({value: mails})
-			//            });
-			// });
-			var columnDataList = [];
+			var columnDataList = [{
+				columnName: "Id User"
+			}, {
+				columnName: "Name"
+			}, {
+				columnName: "Mail"
+			}, {
+				columnName: "Confirmation"
+			}];
 			var rowDataList = [];
+			var oCompleteEntryStatisticsList = [];
+			var oCompleteEntryAnswersList = [];
 			oModel.read("/EventSet('" + eventID + "')/toQuestion", {
 				success: function(oCompleteEntry) {
-					console.log(oCompleteEntry);
 					oCompleteEntry.results.forEach(function(item) {
 						var columnData = {
-							columnName: item.QuestionText
+							columnName: item.QuestionText,
+							questionId: item.IdQuestion
 						};
 						columnDataList.push(columnData);
 					});
-					oModel.read("/QuestionSet(IdQuestion'" + oCompleteEntry.results.IdQuestion + "', IdUser'" + uID + "', IdEvent'" + eventID +
-						"')/toAnswer", {
-							success: function(oCompleteEntryAnswers) {
-								columnDataList.forEach(function(item) {
-									console.log(oCompleteEntryAnswers);
-									var rowData = [{
-										rows: oCompleteEntryAnswers.results.QuestionText
-									}];
-									rowDataList.push(rowData);
-								});
-								var oTable = new sap.ui.table.Table({
-									selectionMode: "None"
-								});
 
-								var oModel1 = new sap.ui.model.json.JSONModel();
-								oModel1.setData({
-									rows: rowDataList,
-									columns: columnDataList
-								});
-								oTable.setModel(oModel1);
+					oModel.read("/EventSet('" + eventID + "')/toStatistic", {
+						success: function(oCompleteEntryStatistics) {
+							oCompleteEntryStatisticsList = oCompleteEntryStatistics.results;
 
-								oTable.bindColumns("/columns", function(sId, oContext) {
-									var columnName = oContext.getObject().columnName;
-									return new sap.ui.table.Column({
-										autoResizable: true,
-										label: columnName,
-										template: columnName
+							oModel.read("/EventSet('" + eventID + "')/toAnswer", {
+								success: function(oCompleteEntryAnswers) {
+									oCompleteEntryAnswersList = oCompleteEntryAnswers.results;
+
+									oCompleteEntryStatisticsList.forEach(function(item) {
+										var rowData = {};
+										rowData[columnDataList[0].columnName] = item.IdUser;
+										rowData[columnDataList[1].columnName] = item.Name;
+										rowData[columnDataList[2].columnName] = item.Mail;
+										rowData[columnDataList[3].columnName] = item.Confirmation;
+										for (var i = 4; i < columnDataList.length; i++) {
+
+											oCompleteEntryAnswersList.forEach(function(answer) {
+												if (columnDataList[i].questionId === answer.IdQuestion && item.IdUser === answer.IdUser) {
+
+													rowData[columnDataList[i].columnName] = answer.AnswerText;
+												}
+											});
+										}
+
+										rowDataList.push(rowData);
 									});
-								});
-
-								oTable.bindRows("/rows");
-								oView.byId("tableContent").addContent(oTable);
-							}
-						});
+								}
+							});
+						}
+					});
 				}
 			});
+
+			var oTable = oView.byId("statisticTable");
+			if (!oTable) {
+				oTable = new sap.ui.table.Table(oView.createId("statisticTable"), {
+					selectionMode: "None"
+				});
+			}
+
+			oModel.attachRequestCompleted(function() {
+
+				var oModel1 = new sap.ui.model.json.JSONModel();
+				oModel1.setData({
+					rows: rowDataList,
+					columns: columnDataList
+				});
+				oTable.setModel(oModel1);
+
+				oTable.bindColumns("/columns", function(sId, oContext) {
+					var columnName = oContext.getObject().columnName;
+					return new sap.ui.table.Column({
+						autoResizable: true,
+						label: columnName,
+						template: columnName,
+						sortProperty: columnName
+
+					});
+				});
+
+				oTable.bindRows("/rows");
+				oView.byId("tableContent").addContent(oTable);
+			});
+
 		}
 	});
 });

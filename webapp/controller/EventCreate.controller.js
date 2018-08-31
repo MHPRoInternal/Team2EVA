@@ -22,23 +22,7 @@ sap.ui.define([
 			this.oView = this.getView();
 		},
 
-		onBeforeRendering: function(oEvent) {
-
-		},
-
-		onAfterRendering: function(oEvent) {
-			var oView = this.getView();
-
-			var latLng = new google.maps.LatLng(46.7649352, 23.606376100000034);
-			var mapOptions = {
-				center: latLng,
-				zoom: 13,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			};
-			this.map = new google.maps.Map(oView.byId("map_canvas").getDomRef(),
-				mapOptions);
-		},
-
+//function for when the "Invites" textarea checkbox is checked 
 		onSelect: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();
@@ -63,7 +47,7 @@ sap.ui.define([
 				oView.byId("mailTxtArea").setValue();
 			}
 		},
-
+//this function adds a new input for additional question options
 		addInput: function() {
 			var oView = this.getView();
 			// var oInput1 = new sap.m.Input(oView.createId("inputId" + countAnswers));
@@ -82,14 +66,14 @@ sap.ui.define([
 				justifyContent: "Start",
 				items: [oInput1, delIcon]
 			});
+			inputLayout.addStyleClass("newInput");
 			this._oPnl.addContent(inputLayout);
 			countAnswers += 1;
 
 			oView.byId("eventCreateForm").getContents();
 		},
-
+//this function adds a new question to the list of structures for questions and answers
 		addQuestionPress: function() {
-
 			var oView = this.getView();
 			var QAstruct = {
 				question_text: "",
@@ -97,8 +81,7 @@ sap.ui.define([
 				QAstructId: 0
 			};
 
-			//for each la fiecare getitems() folosim stuff din sapui5
-			console.log(countAnswers);
+			//for each la fiecare getitems()
 			var i = 0;
 			for (i = 0; i < countAnswers; i++) {
 				if (oView.byId("inputId" + i)) {
@@ -124,7 +107,7 @@ sap.ui.define([
 			}
 			QAstructList.push(QAstruct);
 
-			//this deletes question input values
+			//this deletes question input values so a new question can be made
 			for (i = 0; i < countAnswers; i++) {
 				if (oView.byId("inputId" + i)) {
 					if (i === 0) {
@@ -145,6 +128,7 @@ sap.ui.define([
 			var oSelect = new sap.m.Select({
 				forceSelection: true
 			});
+			
 			QAstruct.answer_text.forEach(function(item) {
 				var newItem = new sap.ui.core.Item({
 					key: item,
@@ -163,7 +147,8 @@ sap.ui.define([
 				justifyContent: "Center",
 				items: [oLabel, oSelect, delIcon]
 			});
-			QALayout.addStyleClass("sapUiSmallMarginBeginEnd");
+			
+			QALayout.addStyleClass("sapUiSmallMargin");
 			this.selectPanel.addItem(QALayout);
 			countAnswers = 3;
 			counterStruct++;
@@ -190,7 +175,7 @@ sap.ui.define([
 				rowItemContainer.destroy();
 			}
 		},
-
+//validation for form inputs
 		changeValueState: function() {
 			var formValidate = this.getView().getControlsByFieldGroupId("formInput");
 			formValidate.forEach(function(input) {
@@ -204,6 +189,7 @@ sap.ui.define([
 			});
 		},
 
+//function to search based on input location for the google map
 		actSearch: function() {
 			var geocoder = new google.maps.Geocoder();
 			var oView = this.getView();
@@ -236,6 +222,7 @@ sap.ui.define([
 			});
 		},
 
+//event create function
 		onCreate: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();
@@ -363,7 +350,7 @@ sap.ui.define([
 					jQuery.sap.clearDelayedCall(this._sTimeoutId);
 					this._sTimeoutId = null;
 				}
-
+				
 				this._sTimeoutId = jQuery.sap.delayedCall(iDuration, this, function() {
 					this.hideBusyIndicator();
 				});
@@ -375,7 +362,6 @@ sap.ui.define([
 		},
 
 		onNavBackFromCreateEvent: function() {
-
 			this.viewID = this.getView().getId();
 			var oView = sap.ui.getCore().byId(this.viewID);
 			var oModel = oView.getModel();
@@ -383,6 +369,8 @@ sap.ui.define([
 			selectPanel.destroyItems();
 			oModel.refresh(true);
 			oView.byId("mailTxtArea").setValue();
+			oView.unbindElement();
+			oView.rerender();
 			this.getRouter().navTo("EventDashboard", {
 				userID: this.uID,
 				uRole: this.userRole,
@@ -401,6 +389,21 @@ sap.ui.define([
 			oView.byId("mailTxtArea").setValue();
 		},
 
+		_onCreateMap: function(oEvent) {
+
+			console.log("onCreateMap");
+
+			var oView = this.getView();
+			var latLng = new google.maps.LatLng(46.7649352, 23.606376100000034);
+			var mapOptions = {
+				center: latLng,
+				zoom: 13,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			this.map = new google.maps.Map(oView.byId("map_canvas").getDomRef(),
+				mapOptions); 
+
+		},
 		_onRouteMatched: function(oEvent) {
 
 			var oView = this.getView();
@@ -412,6 +415,8 @@ sap.ui.define([
 			this.getView().byId("nameLabel").setText(this.usersName);
 
 			countAnswers = 3;
+
+			setTimeout(this._onCreateMap.bind(this), 300);
 
 			this._oPnl = this.byId("idPnl");
 			this.selectPanel = this.byId("selectDisplay");
@@ -430,7 +435,6 @@ sap.ui.define([
 			});
 			oEventCreateModel.setDefaultBindingMode("TwoWay");
 			oView.setModel(oEventCreateModel, "eventModel");
-			//this.createMap();
 			//this.onAfterRendering();
 
 		}

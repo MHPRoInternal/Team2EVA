@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Panel id="qDisplayPanel">
-		<HBox id="selectDisplay" wrap="Wrap" class="sapUiMediumMarginBeginEnd" justifyContent="Center">
+	<Panel id="qDisplayPanel" class="questionDisplayPanel">
+		<HBox id="selectDisplay" wrap="Wrap" class="selectDisplay" justifyContent="End">
 
 		</HBox>
 	</Panel>

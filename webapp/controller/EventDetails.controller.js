@@ -12,17 +12,16 @@ sap.ui.define([
 	return BaseController.extend("eventManagementEVA.controller.EventDetails", {
 
 		onInit: function(oEvent) {
-			
 			this.getRouter().getRoute("EventDetails").attachMatched(this._onRouteMatched, this);
-
 		},
 
 		onAfterRendering: function(oEvent) {
 			this.viewSwitchStateModel = this.getView().getModel("switchStateModel");
 			this.viewSwitchStateModel.getProperty("/Editable");
 			this.viewSwitchStateModel.getProperty("/Visible");
-		},
 
+		},
+		//search function for the EventDetails map
 		actSearch: function() {
 			var oView = this.getView();
 			var latitude;
@@ -57,22 +56,44 @@ sap.ui.define([
 		},
 
 		onSwitchEditMode: function(oEvent) {
-
 			var oView = this.getView();
+			var viewSwitchStateModel = this.getView().getModel("switchStateModel");
 			this.latitude = oView.byId("Latitude").getValue();
 			this.longitude = oView.byId("Longitude").getValue();
-
 			var state = this.switchBtn.getState();
-			this.viewSwitchStateModel.setProperty("/Editable", state);
-			this.viewSwitchStateModel.setProperty("/Visible", state);
+			this.updateBtn.setEnabled(state);
+			viewSwitchStateModel.setProperty("/Editable", state);
+			viewSwitchStateModel.setProperty("/Visible", state);
 		},
 
 		onSelectChange: function(oEvent) {
-			var flag = this.acceptBtn.getVisible();
-			if(flag === false){
-				this.updateBtn.setEnabled(true);
+			if (this.globalDiff >= 0 && this.globalDaysremaining >= 7) {
+				console.log("A trecut de primul if");
+				var flag = this.acceptBtn.getEnabled();
+				if (flag === false) {
+					console.log("Intra in if-ul de la 73");
+					this.updateBtn.setEnabled(true);
+				}
 			}
 		},
+
+		// getSelectedAnswer: function(oEvent) {
+		// 	var oView = this.getView();
+		// 	var oModel = oView.getModel();
+		// 	var questionBox = oView.byId("questionBox");
+		// 	questionBox.getItems().forEach(function(item) {
+		// 		questionID = item.getBindingContext().getObject().IdQuestion;
+		// 		oModel.read("/UserSet(IdQuestion='" + questionID + "',IdUser='" + this.uID + "', IdEvent='" + this.eID + "')", {
+		// 			success: function(oCompletedEntry) {
+		// 				item.setSelectedKey(oCompletedEntry.AnswerText);
+		// 				console.log("Selected key text is: " + oCompletedEntry.AnswerText);
+		// 			}.bind(this),
+		// 			error: function(oError) {
+		// 				new MessageToast.show("DIS NAT VORKING!")
+		// 			}.bind(this)
+		// 		});
+		// 	});
+		// },
 
 		onUpdateQuestionsTap: function(oEvent) {
 			var selectList = [];
@@ -95,12 +116,12 @@ sap.ui.define([
 					var questionID = item.getBindingContext().getObject().IdQuestion;
 					item.getItems()[1].setValueState(sap.ui.core.ValueState.None);
 
-					console.log("ID-ul question-ului este: " + questionID);
 					var questionAnswerList = {
 						IdQuestion: questionID,
 						AnswerText: answerSelect
 					};
 					selectList.push(questionAnswerList);
+
 				} else {
 					new MessageToast.show("Please do not leave answers empty.");
 					return;
@@ -115,10 +136,20 @@ sap.ui.define([
 				};
 				oModel.create("/AnswerSet", questionAnswerCreateList, {
 					success: function(oCompleteEntry) {
-						
+						setTimeout(MessageToast.show("Question options updated successfully", {
 
-					},
-					error: function(oError) {}
+							animationDuration: 1000
+
+						}), 2000);
+						oView.byId("updateBtn").setEnabled(false);
+					}.bind(this),
+					error: function(oError) {
+						setTimeout(MessageToast.show("Question options could not be updated.", {
+
+							animationDuration: 1000
+
+						}), 2000);
+					}
 				});
 			});
 			oModel.refresh(true);
@@ -135,13 +166,11 @@ sap.ui.define([
 				} else {
 					item.getItems()[1].setValueState(sap.ui.core.ValueState.None);
 				}
-
 			});
 			this.acceptUpdate();
 		},
 
 		acceptUpdate: function(oEvent) {
-			//this.updateBtn.setEnabled(true);
 			var oView = this.getView();
 			var oModel = oView.getModel();
 			var confirmation = "Y";
@@ -151,15 +180,16 @@ sap.ui.define([
 
 			oModel.update("/UserEventSet(IdUser='" + this.uID + "',IdEvent='" + this.eID + "')", oData, {
 				success: function(oCompletedEntry) {
+					oView.byId("updateBtn").setEnabled(false);
 					oView.byId("acceptBtn").setEnabled(false);
 					oView.byId("declineBtn").setEnabled(true);
 					oView.byId("declineBtn").setVisible(true);
 					MessageToast.show("Event attendance confirmed for user " + this.uID + "!", {
 
-						animationDuration: 5000
+						animationDuration: 1000
 
 					});
-					console.log("SUCCESS?");
+
 				}.bind(this),
 				error: function(oError) {
 					MessageToast.show("Changes could not be made! Please try again.");
@@ -181,7 +211,7 @@ sap.ui.define([
 					oView.byId("declineBtn").setEnabled(false);
 					oView.byId("acceptBtn").setEnabled(true);
 					oView.byId("acceptBtn").setVisible(true);
-					//this.updateBtn.setEnabled(true);
+					oView.byId("updateBtn").setEnabled(false);
 
 					MessageToast.show("Event attendance confirmed for user " + this.uID + "!", {
 
@@ -248,7 +278,7 @@ sap.ui.define([
 			// });
 
 		},
-		
+
 		onAdminUpdate: function(oEvent) {
 			var oView = this.getView();
 			var oModel = oView.getModel();
@@ -326,10 +356,9 @@ sap.ui.define([
 				userID: this.uID,
 				eID: this.eID,
 				nameUser: this.usersName
-
 			});
 		},
-		
+
 		transformEmail: function() {
 			var oView = this.getView();
 			var adminCreatedByEmail = this.adminEmail;
@@ -344,8 +373,8 @@ sap.ui.define([
 
 			oView.byId("createdBy").setText("Event created by " + createdByFirstName + " " + createdByLastName);
 		},
-		
-				_checkEventDate: function(eventDate) {
+
+		_checkEventDate: function(eventDate) {
 			var oView = this.getView();
 			var todayDate = new Date();
 			todayDate.setHours(0, 0, 0, 0);
@@ -355,38 +384,46 @@ sap.ui.define([
 				var daysRemaining = parseInt(diff / (1000 * 60 * 60 * 24));
 				if (daysRemaining < 7) {
 					//oView.byId("eventUpdate").setVisible(false);     
-					this.acceptBtn.setVisible(false);
-					this.declineBtn.setVisible(false);
-					this.switchBtn.setVisible(false);
+					this.acceptBtn.setEnabled(false);
+					this.declineBtn.setEnabled(false);
+					this.switchBtn.setEnabled(false);
+					this.updateBtn.setEnabled(false);
+				}else {
+					this.switchBtn.setEnabled(true);
 				}
-			} else {
-				this.updateBtn.setVisible(false);
-				oView.byId("eventUpdate").setVisible(false);
-				this.acceptBtn.setVisible(false);
-				this.declineBtn.setVisible(false);
+			} else if (diff < 0) {
+				this.declineBtn.setEnabled(false);
+				this.acceptBtn.setEnabled(false);
+				this.updateBtn.setEnabled(false);
+				this.switchBtn.setEnabled(false);
 			}
+			this.globalDiff = diff;
+			this.globalDaysremaining = daysRemaining;
 		},
 
 		_onRouteMatched: function(oEvent) {
 			var oView = this.getView();
+			var oModel = oView.getModel();
 			this.eID = oEvent.getParameter("arguments").eventID;
 			this.uID = oEvent.getParameter("arguments").userID;
 			this.usersName = oEvent.getParameter("arguments").nameUser;
 			this.getView().byId("nameLabel").setText(this.usersName);
 			this.userRole = oEvent.getParameter("arguments").uRole;
-			this.userConfirmation = oEvent.getParameter("arguments").confirmation;
+			var userConfirmation = oEvent.getParameter("arguments").confirmation;
 			this.acceptBtn = oView.byId("acceptBtn");
 			this.declineBtn = oView.byId("declineBtn");
 			this.switchBtn = oView.byId("switchBtn");
-			
+
 			this.getView().byId("map_canvas").addStyleClass("myMap");
 			this.updateBtn = oView.byId("eventUpdate");
 			this.currentUserLabel = oView.byId("userNameLabelTop");
 			this.switchBtn = oView.byId("switchBtn");
-			var statisticsBtn = oView.byId("statisticsBtn");
+			this.statisticsBtn = oView.byId("statisticsBtn");
 			this.sendUpdates = false;
 			this.byId("Date").setMinDate(new Date());
 			this.markers = [];
+
+			//setTimeout(this.getSelectedAnswer(), 300);
 
 			this.oSwitchStateModel = new sap.ui.model.json.JSONModel({
 				Editable: false,
@@ -396,6 +433,7 @@ sap.ui.define([
 
 			if (this.userRole === "true") {
 				this.acceptBtn.setVisible(false);
+				this.acceptBtn.setEnabled(false);
 				this.declineBtn.setVisible(false);
 				this.switchBtn.setState(false);
 			} else if (this.userRole === "false") {
@@ -404,19 +442,26 @@ sap.ui.define([
 				this.statisticsBtn.setEnabled(false);
 				this.statisticsBtn.setVisible(false);
 
-				if (this.userConfirmation === "Y") {
+				if (userConfirmation === "Y" || userConfirmation === "Accepted") {
 					//this.updateBtn.setEnabled(true);
-					this.acceptBtn.setVisible(false);
+					this.acceptBtn.setEnabled(false);
 					this.declineBtn.setVisible(true);
-				} else if(this.userConfirmation === "N") {
+				} else if (userConfirmation === "N" || userConfirmation === "Declined") {
 					this.updateBtn.setEnabled(false);
 					this.acceptBtn.setVisible(true);
 					this.acceptBtn.setEnabled(true);
-					
+
 				}
 			}
 
-			console.log("1 " + this.eID);
+			oView.bindElement({
+				path: "/EventSet('" + this.eID + "')",
+				events: {
+					dataReceived: function(oData) {
+
+					}.bind(this)
+				}
+			});
 			//	var oUserModel = this.getOwnerComponent().getModel("userModel");
 			//console.log(oUserModel.getProperty("/IdUser") + "S-a transmit si getproperty!");
 			// var oModel = oView.getModel();
@@ -444,6 +489,7 @@ sap.ui.define([
 						this.adminEmail = oData.getParameters().data.CreatedBy;
 						this.transformEmail();
 						this._checkEventDate(oData.getParameters().data.Data);
+
 					}.bind(this)
 				}
 			});

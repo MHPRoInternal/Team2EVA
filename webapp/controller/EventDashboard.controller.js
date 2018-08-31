@@ -46,7 +46,7 @@ sap.ui.define([
 			var deleteEventButton = oView.byId("deleteEventBtn");
 			var tileBox = oView.byId("tileContainer").getItems();
 			this.eventCreateBtn.setVisible(true);
-			deleteEventButton.setVisible(true);
+			deleteEventButton.setVisible(false);
 			tileBox.forEach(function(item) {
 				item.getItems()[1].setVisible(false);
 			});
@@ -155,7 +155,7 @@ sap.ui.define([
 			this.adminEmail = oParameter.adminEmailAddress;
 			this.eventCreateBtn = this.oView.byId("EventCreateBtn");
 			this.page = this.oView.byId("dashboardPage");
-			
+			this.oModel.refresh(true);
 			if (this.userRole === "true") {
 				this.eventCreateBtn.setVisible(true);
 			} else {

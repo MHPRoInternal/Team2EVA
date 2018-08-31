@@ -48,6 +48,12 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				viewID = this.getView().getId();
 				view = sap.ui.getCore().byId(viewID);
 				view.getController().disableDeleteBtns();
+			} else if (sItemPath === "Logout") {
+				var thisViewID = this.getView().getId();
+				var oView = sap.ui.getCore().byId(thisViewID);
+				var oModel = oView.getModel();
+				oModel.refresh(true);
+				this.getOwnerComponent().getRouter().navTo("Login");
 			}
 		},
 
@@ -173,10 +179,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		onNavBack: function() {
 			var oHistory = sap.ui.core.routing.History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
-			var viewID = this.getView().getId();
-			var oView = sap.ui.getCore().byId(viewID);
-			var oModel = oView.getModel();
-			oModel.refresh(true);
+
 			if (sPreviousHash !== undefined) {
 				window.history.back();
 

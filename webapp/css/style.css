@@ -1,36 +1,38 @@
 /* Enter your custom styles here */
 
-#selectDisplay {
-    right: 0;
-    margin: 40px auto;
-    padding: 40px;
+.tileLayout.customTile {
+    width: 3rem;
+    height: 3rem;
+    box-shadow: 1em #6da5ff;
 }
 
-.tileLayout.customTile{
-	width: 3rem;
-	height: 3rem;
+.createFormPanel {
+    border-bottom: 1px solid;
 }
 
-.createFormPanel{
-	border-bottom: 1px solid;
-}
-.questionSelectHBox{
-	padding: 1rem 0 2rem 5rem;
-	border-bottom: 1px solid;
-}
-.questionSelectVBox{
-	
-}
-.questionCreateBox{
-	margin: 5rem 0 0 7rem;
+.questionSelectHBox {
+    border-bottom: 1px solid;
 }
 
-.addQuestionBtn{
-	margin: 0 0 1rem 10em;
+.questionCreateBox {
+    margin: 3rem 0 0 7rem;
 }
 
-.sapMPanelContent:not(.sapMPanelBGTransparent){
-	border-bottom: 0px !important;
+.questionDisplayPanel {
+    width: 45em !important;
+    padding: 4rem 0 0 0;
+}
+
+.newInput {
+    margin: 0 0 0 7rem;
+}
+
+.addQuestionBtn {
+    margin: 0 0 1rem 10em;
+}
+
+.sapMPanelContent:not(.sapMPanelBGTransparent) {
+    border-bottom: 0px !important;
 }
 
 .sapUiIcon.actionBtn {
@@ -38,24 +40,52 @@
 }
 
 .sapMGT.OneByOne {
+    box-shadow: 0px 6px 6px 0px #e0e0e0;
     width: 16rem;
     height: 16rem;
+}
+
+.selectDisplay {
+    margin: 0rem 3rem 3rem 0rem;
+}
+
+.sapMGT.OneByOne:hover {
+    box-shadow: 1px 14px 14px 0px #c9c9c9;
+    width: 16rem;
+    height: 16rem;
+}
+
+.mapBox.sapUiLargeMarginBegin.sapUiSmallMarginTop:hover {
+    box-shadow: 5px 6px 1px 4px #f9f9f9;
+}
+
+.mapBoxEventDetails {
+    margin: 1em 3em 0 2rem;
+    box-shadow: 0px 6px 6px 0px #e0e0e0;
 }
 
 .eventImage {
     width: 23rem;
     height: 16rem;
-    border: 0.2em outset #C6DEFF;
+    box-shadow: 1px 10px 12px 0px #e0e0e0;
 }
 
-.loginBox{
-	background: url('/webapp/resources/EVATEAM2_LOGINPIC.jpg');
-	background-size: cover;
-	background-position: center;
+.loginBox {
+    background: url('/webapp/resources/EVATEAM2_LOGINPIC.jpg');
+    background-size: cover;
+    background-position: center;
 }
+
+
 /*.tileLayout.customTile:hover {*/
+
+
 /*    background-color: #eafffd;*/
+
+
 /*    background: url();*/
+
+
 /*}*/
 
 .tileImage {
@@ -69,13 +99,13 @@
 }
 
 .EventCreateBtn {
-    background-color: #8ef6ff;
+    background-color: #C6DEFF;
     border-radius: 10px;
     border: 1px solid #4299ff;
 }
 
 .EventCreateBtn:hover {
-    background-color: #0fdaff;
+    background-color: #46c1f2;
     border: 1px solid #51f1ff;
     border-radius: 10px;
 }
@@ -87,7 +117,7 @@
 }
 
 .textArea {
-    margin: 0 0 0 11rem;
+    margin: 1.5rem 0 0 25rem;
 }
 
 .sapMFlexBoxAlignItemsStretch {
@@ -107,8 +137,9 @@
     padding-left: 0rem;
     padding-right: 0rem;
 }
+
 .sapMTileCnt.sapMFrameTypeAuto {
-height: 60%
+    height: 60%
 }
 
 .sapMGTContent {
@@ -118,31 +149,31 @@ height: 60%
     width: 100%;
     overflow: hidden;
 }
+
 .sapMImageContentImageIcon {
     width: 15.9rem;
     margin-left: 0;
     max-height: 9.5rem;
 }
-.sapMImageContent {
 
+.sapMImageContent {
     width: 16rem;
     height: 9.5rem;
     outline: none;
 }
+
 .sapMTileCntFtrTxt {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     text-align: right;
     position: absolute;
-
     top: 10rem;
     box-sizing: border-box;
     height: 1.1875rem;
     margin-right: 6rem;
- 
     line-height: 1.1875rem;
-    font-family: "72",Arial,Helvetica,sans-serif;
+    font-family: "72", Arial, Helvetica, sans-serif;
     font-size: 0.875rem;
 }
 
@@ -160,7 +191,6 @@ height: 60%
 }
 
 .LoginBack {
-    /*background: url('/webapp/resources/EVATEAM2_LOGINPIC.jpg');*/
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -173,17 +203,23 @@ height: 60%
 
 .loginBtn {
     border-radius: 10%;
-    background-color: #d6e9ff;
-    border: solid 1.5px #005684;
+    background-color: #efffff;
+    border: solid 1.5px #91daf2;
     width: 10rem;
     margin: 10px auto;
 }
 
 .loginBtn:hover {
     border-radius: 10%;
-    border: solid 1.5px #005684;
-    background-color: #6afcf5;
+    border: solid 1.5px #c6ebff;
+    background-color: #91daf2;
     margin: 10px auto;
+    box-shadow: 1px 2px 2px 0px #bbc0c1;
+}
+
+.transparentBtn:hover {
+    border-radius: 1em;
+    box-shadow: 0px 0px 7px 3px #d1d1d1;
 }
 
 .AcceptBtn {
@@ -193,7 +229,7 @@ height: 60%
 
 .AcceptBtn:hover {
     border-radius: 1em;
-    background-color: lime;
+    box-shadow: 0px 0px 10px 4px lime;
 }
 
 .DeclineBtn {
@@ -203,5 +239,5 @@ height: 60%
 
 .DeclineBtn:hover {
     border-radius: 1em;
-    background-color: Tomato;
+    box-shadow: 0px 0px 10px 4px Tomato;
 }

@@ -1,6 +1,6 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="eventManagementEVA.controller.EventDetails"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:f="sap.ui.layout.form">
-	<Page>
+	<Page floatingFooter="true">
 		<customHeader class="headerContent">
 			<Toolbar>
 				<Button type="Back" press="onNavBack"/>
@@ -13,6 +13,7 @@
 						<Menu itemSelected="onMenuAction">
 							<items>
 								<MenuItem text="Change Password" icon="sap-icon://private"/>
+								<MenuItem id="logOutBtn" text="Logout" icon="sap-icon://log"/>
 							</items>
 						</Menu>
 					</menu>
@@ -22,15 +23,15 @@
 		<FlexBox justifyContent="Center">
 			<Image class="eventImage" src="/destinations/M38/sap/opu/odata/sap/ZTEAM2_SRV/EPictureSet('{IdEvent}')/$value" densityAware="false"/>
 		</FlexBox>
-		<HBox class="sapUiMediumMargin" wrap="Wrap" justifyContent="SpaceAround">
-			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" width="26rem" labelSpanXL="1" labelSpanL="1" labelSpanM="2" labelSpanS="4"
+		<HBox class="sapUiLargeMargin" wrap="Wrap" justifyContent="SpaceAround">
+			<f:SimpleForm editable="true" layout="ResponsiveGridLayout" width="32rem" labelSpanXL="1" labelSpanL="1" labelSpanM="2" labelSpanS="4"
 				adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1"
 				singleContainerFullSize="false">
 				<f:content>
 					<Label text="{i18n>TitleLabel}"/>
-					<Input id="Title" editable="{switchStateModel>/Editable}" value="{Title}"></Input>
+					<Input id="Title" required="true" editable="{switchStateModel>/Editable}" value="{Title}"></Input>
 					<Label text="{i18n>LocationLabel}"/>
-					<Input id="Location" editable="{switchStateModel>/Editable}" value="{Location}"></Input>
+					<Input id="Location" required="true" editable="{switchStateModel>/Editable}" value="{Location}"></Input>
 					<Button id="bntSearch" text="{i18n>Search}" press="actSearch" visible="{switchStateModel>/Visible}"/>
 					<Label text="Latitude"/>
 					<Input id="Latitude" editable="{switchStateModel>/Editable}" value="{Latitude}" visible="false"></Input>
@@ -45,12 +46,13 @@
 					<Label text="{i18n>TimeLabel}"/>
 					<Input id="Time" required="true" placeholder="HH:mm - HH:mm" value="{Time}" editable="{switchStateModel>/Editable}"/>
 					<Label text="{i18n>DresscodeLabel}"/>
-					<Input id="Dresscode" editable="{switchStateModel>/Editable}" value="{Dresscode}"/>
+					<Input id="Dresscode" required="true" editable="{switchStateModel>/Editable}" value="{Dresscode}"/>
 				</f:content>
 			</f:SimpleForm>
-			<VBox class="mapBox">
-				<FlexBox id="map_canvas" width="25em" height="15em"/>
-				<FlexBox id="questionBox" items="{toQuestion}" alignItems="Center" justifyContent="Start" wrap="Wrap">
+			<VBox class="mapBoxEventDetails">
+				<FlexBox id="map_canvas" width="25rem" height="15rem"/>
+			</VBox>
+			<FlexBox id="questionBox" items="{toQuestion}" alignItems="Center" justifyContent="Start" wrap="Wrap">
 					<HBox class="sapUiMediumMargin" justifyContent="Center">
 						<Label text="{QuestionText}"/>
 						<Select id="answerSelect" forceSelection="false" change="onSelectChange" items="{toPAnswer}">
@@ -58,17 +60,16 @@
 						</Select>
 					</HBox>
 				</FlexBox>
-			</VBox>
 		</HBox>
 		<!--<core:Fragment fragmentName="eventManagementEVA.view.qList" type="XML"/>-->
 		<footer>
 			<Toolbar>
 				<Label id="createdBy" text="Event created by {CreatedBy}."/>
 				<ToolbarSpacer/>
-				<Button id="eventUpdate" text="{i18n>UpdateButton}" press="onUpdatePress" enabled="false"></Button>
+				<Button id="eventUpdate" class="transparentBtn" text="{i18n>UpdateButton}" type="Accept" icon="sap-icon://feed" press="onUpdatePress" enabled="false"></Button>
 				<Button id="acceptBtn" class="AcceptBtn" type="Accept" text="{i18n>acceptBtnText}" icon="sap-icon://accept" width="7rem" press="onAcceptTap"></Button>
 				<Button id="declineBtn" class="DeclineBtn" type="Reject" text="{i18n>declineBtnText}" icon="sap-icon://decline" width="7rem" press="onDeclineTap"></Button>
-				<Button id="statisticsBtn" text="Event Statistics" width="10em" type="Transparent" press="onStatisticsPress"/>
+				<Button id="statisticsBtn" class="transparentBtn" text="Event Statistics" width="10em" type="Transparent" press="onStatisticsPress"/>
 				<ToolbarSpacer/>
 				<Switch id="switchBtn" customTextOn="{i18n>SwitchView}" customTextOff="{i18n>SwitchEdit}" state="false" change="onSwitchEditMode"/>
 			</Toolbar>
